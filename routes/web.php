@@ -11,3 +11,4 @@ Route::get('/', Home::class);
 Route::get('shop', Shop::class)->name('shop');
 Route::get('products', Products::class)->name('products');
 Route::get('incomes', Incomes::class)->name('incomes');
+Route::get('egress', Egress::class)->name('egress');

@@ -54,7 +54,7 @@ class Shop extends Component
         $this->description = $product->description . " - " . $product->size;
         $this->amount = 1;
         $this->price = $product->price;
-        $this->emit('openModal');
+        $this->emit('openModalShop');
     }
 
     public function store()

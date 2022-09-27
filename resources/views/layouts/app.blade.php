@@ -60,6 +60,7 @@
                             </a>
                             <ul class="dropdown-menu">
                                 <li><a class="dropdown-item" href="{{ route('incomes') }}">Ingresos</a></li>
+                                <li><a class="dropdown-item" href="{{ route('egress') }}">Egresos</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -117,11 +118,23 @@
 
     @livewireScripts
     <script>
+        function setNewTotal() {
+            var amount = document.getElementById("amount");
+            var price = document.getElementById("price");
+            var total_price = document.getElementById("total_price");
+
+            total_price.value = amount.value * price.value;
+        }
+
         Livewire.on('closeModal', function() {
             document.getElementById("closeModal").click();
         });
 
         Livewire.on('openModal', function() {
+            document.getElementById("openModal").click();
+        });
+
+        Livewire.on('openModalShop', function() {
             document.getElementById("openModal").click();
         });
     </script>

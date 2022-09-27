@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Egress;
 use App\Models\Product;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -10,7 +11,7 @@ class Products extends Component
 {
     use WithPagination;
     protected $paginationTheme = 'bootstrap';
-    
+
     public $search, $search_category = "";
     public $sub_id, $description, $size, $amount, $cost, $price, $category, $owner;
 
@@ -46,9 +47,22 @@ class Products extends Component
     public function store()
     {
         $data = $this->validate();
-        Product::updateOrCreate(['id' => $this->sub_id], $data);
-        $this->reset();
+        $product = Product::updateOrCreate(['id' => $this->sub_id], $data);
+        
+        if (!$this->sub_id) {
+            Egress::create([
+                'description' => $product->description . " - " . $product->size,
+                'amount' => $product->amount,
+                'cost' => $product->cost,
+                'total_cost' => $product->cost *  $product->amount,
+                'category' => $product->category,
+                'owner'  => $product->owner,
+                'created_at'  => now()->format('Y-m-d')
+            ]);
+        }
+
         session()->flash('message', $this->sub_id ?  'Actualizado' : 'Guardado');
+        $this->reset();
         $this->emit('closeModal');
     }
 

@@ -2,19 +2,6 @@
     <x-header label="Ingresos"></x-header>
 
     <div class="card-body">
-        <div class="d-flex">
-            <form class="m-2 col-2" role="search">
-                <input class="form-control" type="search" placeholder="Buscar" wire:model="search">
-            </form>
-
-            <div class="m-2 col-2">
-                <select class="form-control" role="search" wire:model="search_category">
-                    <option value="">TODOS</option>
-                    <option value="ROPA">ROPA</option>
-                    <option value="ACCESORIOS">ACCESORIOS</option>
-                </select>
-            </div>
-        </div>
         <x-table>
             @slot('header')
                 <th>Fecha</th>
@@ -39,5 +26,6 @@
                 </tr>
             @endforelse
         </x-table>
+        {{ $incomes->links() }}
     </div>
 </div>

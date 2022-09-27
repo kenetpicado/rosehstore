@@ -43,7 +43,11 @@
                 <tr>
                     <td>{{ $product->description }}</td>
                     <td>{{ $product->size }}</td>
-                    <td>{{ $product->price }}</td>
+                    <td>
+                        <div class="bg-secondary bg-opacity-25 rounded-3 text-center">
+                            {{ $product->price }}
+                        </div>
+                    </td>
                     <td>
                         <button class="btn btn-sm btn-secondary" wire:click="sell({{ $product->id }})">Vender</button>
                     </td>

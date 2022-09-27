@@ -2,7 +2,7 @@
 
 <div class="mb-3">
     <label class="form-label">{{ ucfirst($label) }}</label>
-    <input type={{ $type }} value='{{ old($name, $val) }}'
+    <input id="{{ $name }}" type={{ $type }} value='{{ old($name, $val) }}'
         class="form-control @error($name) is-invalid @enderror" name="{{ $name }}" autofocus
         wire:model="{{ $name }}">
 

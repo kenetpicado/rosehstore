@@ -1,4 +1,4 @@
-<table class="table table-borderless">
+<table class="table table-borderless align-middle">
     <thead>
         <tr>
             {{ $header }}
