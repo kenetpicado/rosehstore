@@ -9,16 +9,17 @@
                 <button wire:click="resetInputFields()" type="button" class="btn-close" data-bs-dismiss="modal"
                     aria-label="Close"></button>
             </div>
-            <div class="modal-body">
-                {{ $slot }}
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="d-none" id="closeModal" data-bs-dismiss="modal"></button>
-                <button type="button" wire:click.prevent="store()" wire:loading.attr="disabled"
-                    class="btn btn-secondary">
-                    Guardar
-                </button>
-            </div>
+            <form wire:submit.prevent="store()">
+                <div class="modal-body">
+                    {{ $slot }}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="d-none" id="closeModal" data-bs-dismiss="modal"></button>
+                    <button type="submit" wire:loading.attr="disabled" class="btn btn-secondary">
+                        Guardar
+                    </button>
+                </div>
+            </form>
         </div>
     </div>
 </div>

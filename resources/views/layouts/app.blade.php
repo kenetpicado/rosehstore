@@ -118,11 +118,11 @@
 
     @livewireScripts
     <script>
-        function setNewTotal() {
-            var amount = document.getElementById("amount");
-            var price = document.getElementById("price");
-            var total_price = document.getElementById("total_price");
+        var amount = document.getElementById("amount");
+        var price = document.getElementById("price");
+        var total_price = document.getElementById("total_price");
 
+        function setNewTotal() {
             total_price.value = amount.value * price.value;
         }
 
@@ -136,6 +136,19 @@
 
         Livewire.on('openModalShop', function() {
             document.getElementById("openModal").click();
+            setNewTotal();
+        });
+
+        amount.addEventListener("keyup", function() {
+            setNewTotal();
+        });
+
+        amount.addEventListener("change", function() {
+            setNewTotal();
+        });
+
+        price.addEventListener("keyup", function() {
+            setNewTotal();
         });
     </script>
 </body>

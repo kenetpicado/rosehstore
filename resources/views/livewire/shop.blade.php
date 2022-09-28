@@ -14,7 +14,14 @@
                 <x-input name="price" label="Precio (Unidad)"></x-input>
             </div>
         </div>
-        <x-input name="client" label="Cliente"></x-input>
+        <div class="row">
+            <div class="col">
+                <x-input name="client" label="Cliente"></x-input>
+            </div>
+            <div class="col">
+                <x-input name="total_price" label="Total"></x-input>
+            </div>
+        </div>
     </x-create-modal>
 
     <div class="card-body">

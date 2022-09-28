@@ -4,7 +4,7 @@
     <label class="form-label">{{ ucfirst($label) }}</label>
     <input id="{{ $name }}" type={{ $type }} value='{{ old($name, $val) }}'
         class="form-control @error($name) is-invalid @enderror" name="{{ $name }}" autofocus
-        wire:model="{{ $name }}">
+        wire:model.defer="{{ $name }}">
 
     @error($name)
         <span class="invalid-feedback" role="alert">

@@ -23,4 +23,20 @@ class Product extends Model
     {
         $this->attributes['owner'] = trim(strtoupper($value));
     }
+    
+    public static function shop($search_category, $search)
+    {
+        return Product::where('amount', '>', 0)
+        ->when($search_category, function ($q) use ($search_category, $search) {
+            $q->where('category', $search_category);
+        }, function ($q) use ($search) {
+            $q->where(function ($q) use ($search) {
+                $q->where('id', 'like', '%' . $search . '%')
+                    ->orWhere('description', 'like', '%' . $search . '%')
+                    ->orWhere('owner', 'like', '%' . $search . '%');
+            });
+        })
+        ->select(['id', 'description', 'size', 'price'])
+        ->paginate(20);
+    }
 }
