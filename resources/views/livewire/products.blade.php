@@ -22,10 +22,42 @@
 
         <div class="row">
             <div class="col">
-                <x-categories name="category" label="Categoría"></x-categories>
+                <div class="mb-3">
+                    <label class="form-label">Categoria</label>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" id="flexRadioDefault1"
+                            name="category" value="ROPA" checked wire:model.defer="category">
+                        <label class="form-check-label" for="flexRadioDefault1">
+                            ROPA
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" id="flexRadioDefault2"
+                            name="category" value="ACCESORIOS" wire:model.defer="category">
+                        <label class="form-check-label" for="flexRadioDefault2">
+                            ACCESORIOS
+                        </label>
+                    </div>
+                </div>
             </div>
             <div class="col">
-                <x-input name="owner" label="Propietario"></x-input>
+                <div class="mb-3">
+                    <label class="form-label">Propietario</label>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" id="flexRadioDefault1"
+                            name="owner" value="JOSIEL" wire:model.defer="owner">
+                        <label class="form-check-label" for="flexRadioDefault1">
+                            JOSIEL
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" id="flexRadioDefault2"
+                            name="owner" value="ROSA" wire:model.defer="owner">
+                        <label class="form-check-label" for="flexRadioDefault2">
+                            ROSA
+                        </label>
+                    </div>
+                </div>
             </div>
         </div>
     </x-create-modal>

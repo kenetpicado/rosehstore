@@ -5,6 +5,7 @@ namespace App\Http\Livewire;
 use App\Models\Income;
 use App\Models\Product;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\Rule;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -14,7 +15,7 @@ class Shop extends Component
     protected $paginationTheme = 'bootstrap';
 
     public $search, $search_category = "";
-    public $description, $amount, $price, $client, $product_id;
+    public $description, $amount, $price, $client, $product_id, $max_amount;
 
     public function resetInputFields()
     {
@@ -23,7 +24,7 @@ class Shop extends Component
 
     protected $rules = [
         'description' => 'required|max:100',
-        'amount' => 'required|numeric',
+        'amount' => 'required|numeric|min:1',
         'price' => 'required|numeric',
         'client' => 'required|max:50',
     ];
@@ -41,6 +42,7 @@ class Shop extends Component
                 });
             })
             ->select(['id', 'description', 'size', 'price'])
+            ->latest('id')
             ->paginate(20);
 
         return view('livewire.shop', compact('products'));
@@ -53,6 +55,7 @@ class Shop extends Component
         $this->product_id = $product->id;
         $this->description = $product->description . " - " . $product->size;
         $this->amount = 1;
+        $this->max_amount = $product->amount;
         $this->price = $product->price;
         $this->emit('openModalShop');
     }
@@ -60,7 +63,7 @@ class Shop extends Component
     public function store()
     {
         $this->validate();
-
+        
         /* Save the income */
         Income::create([
             'description' => $this->description,

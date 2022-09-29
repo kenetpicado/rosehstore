@@ -13,8 +13,9 @@ class Products extends Component
     protected $paginationTheme = 'bootstrap';
 
     public $search, $search_category = "";
-    public $sub_id, $description, $size, $amount, $cost, $price, $category, $owner;
-
+    public $sub_id, $description, $size, $amount, $cost, $price;
+    public $category = "ROPA";
+    public $owner = "ROSA";
 
     public function render()
     {
@@ -24,7 +25,9 @@ class Products extends Component
             $q->where('id', 'like', '%' . $this->search . '%')
                 ->orWhere('description', 'like', '%' . $this->search . '%')
                 ->orWhere('owner', 'like', '%' . $this->search . '%');
-        })->paginate(10);
+        })
+            ->latest('id')
+            ->paginate(10);
 
         return view('livewire.products', compact('products'));
     }
@@ -48,7 +51,7 @@ class Products extends Component
     {
         $data = $this->validate();
         $product = Product::updateOrCreate(['id' => $this->sub_id], $data);
-        
+
         if (!$this->sub_id) {
             Egress::create([
                 'description' => $product->description . " - " . $product->size,
