@@ -9,6 +9,13 @@ class Egress extends Model
 {
     use HasFactory;
     public $timestamps = false;
-    protected $fillable = ['description', 'amount', 'cost', 'total_cost', 'category', 'owner', 'created_at'];
-
+    protected $fillable = [
+        'description',
+        'amount', 
+        'value',
+        'total_value',
+        'category',
+        'owner',
+        'created_at',
+    ];
 }
