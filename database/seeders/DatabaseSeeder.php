@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\Egress;
+use App\Models\Income;
 use App\Models\Product;
 use Illuminate\Database\Seeder;
 
@@ -16,5 +18,7 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
         Product::factory(30)->create();
+        Income::factory(50)->create();
+        Egress::factory(50)->create();
     }
 }

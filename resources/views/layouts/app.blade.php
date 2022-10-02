@@ -53,15 +53,8 @@
                             </ul>
                         </li>
 
-                        <li class="nav-item dropdown mx-2">
-                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                                aria-expanded="false">
-                                Contabilidad
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="{{ route('incomes') }}">Ingresos</a></li>
-                                <li><a class="dropdown-item" href="{{ route('egress') }}">Egresos</a></li>
-                            </ul>
+                        <li class="nav-item mx-2">
+                            <a class="nav-link" href="{{ route('books') }}">{{ __('Contabilidad') }}</a>
                         </li>
                     </ul>
 
@@ -120,10 +113,11 @@
     <script>
         var amount = document.getElementById("amount");
         var price = document.getElementById("price");
+        var discount = document.getElementById("discount");
         var total_price = document.getElementById("total_price");
 
         function setNewTotal() {
-            total_price.value = amount.value * price.value;
+            total_price.value = (amount.value * price.value) - discount.value;
         }
 
         Livewire.on('closeModal', function() {
@@ -148,6 +142,10 @@
         });
 
         price.addEventListener("keyup", function() {
+            setNewTotal();
+        });
+
+        discount.addEventListener("keyup", function() {
             setNewTotal();
         });
     </script>

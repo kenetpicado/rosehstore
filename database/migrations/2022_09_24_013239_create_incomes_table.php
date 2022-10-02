@@ -17,10 +17,14 @@ class CreateIncomesTable extends Migration
             $table->id();
             $table->string('description', 100);
             $table->integer('amount');
-            $table->float('price');
-            $table->float('total_price');
-            $table->string('client', 50);
+            $table->float('value');
+            $table->float('total_value');
+            $table->string('category', 20);
+            $table->string('owner', 20);
             $table->date('created_at');
+
+            $table->float('discount');
+            $table->string('client', 50);
         });
     }
 

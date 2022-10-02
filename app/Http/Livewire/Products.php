@@ -27,7 +27,7 @@ class Products extends Component
                 ->orWhere('owner', 'like', '%' . $this->search . '%');
         })
             ->latest('id')
-            ->paginate(10);
+            ->paginate(20);
 
         return view('livewire.products', compact('products'));
     }
@@ -56,8 +56,8 @@ class Products extends Component
             Egress::create([
                 'description' => $product->description . " - " . $product->size,
                 'amount' => $product->amount,
-                'cost' => $product->cost,
-                'total_cost' => $product->cost *  $product->amount,
+                'value' => $product->cost,
+                'total_value' => $product->cost *  $product->amount,
                 'category' => $product->category,
                 'owner'  => $product->owner,
                 'created_at'  => now()->format('Y-m-d')

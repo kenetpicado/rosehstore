@@ -9,7 +9,17 @@ class Income extends Model
 {
     use HasFactory;
     public $timestamps = false;
-    protected $fillable = ['description', 'amount', 'price', 'total_price', 'client', 'created_at'];
+    protected $fillable = [
+        'description', 
+        'amount', 
+        'value', 
+        'total_value', 
+        'client', 
+        'created_at',
+        'discount',
+        'owner',
+        'category'
+    ];
 
     public function setClientAttribute($value)
     {

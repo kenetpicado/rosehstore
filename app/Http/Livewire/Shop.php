@@ -5,7 +5,6 @@ namespace App\Http\Livewire;
 use App\Models\Income;
 use App\Models\Product;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Validation\Rule;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -15,7 +14,8 @@ class Shop extends Component
     protected $paginationTheme = 'bootstrap';
 
     public $search, $search_category = "";
-    public $description, $amount, $price, $client, $product_id, $max_amount;
+    public $description, $amount, $price, $client, $product_id, $owner, $category;
+    public $discount = 0;
 
     public function resetInputFields()
     {
@@ -51,12 +51,12 @@ class Shop extends Component
     public function sell($product_id)
     {
         $product = DB::table('products')->find($product_id);
-
         $this->product_id = $product->id;
         $this->description = $product->description . " - " . $product->size;
         $this->amount = 1;
-        $this->max_amount = $product->amount;
         $this->price = $product->price;
+        $this->owner = $product->owner;
+        $this->category = $product->category;
         $this->emit('openModalShop');
     }
 
@@ -68,10 +68,13 @@ class Shop extends Component
         Income::create([
             'description' => $this->description,
             'amount' =>  $this->amount,
-            'price' =>  $this->price,
+            'value' =>  $this->price,
             'client' =>  $this->client,
-            'total_price' => ($this->price * $this->amount),
+            'discount' => $this->discount,
+            'total_value' => ($this->amount * $this->price) - $this->discount,
+            'owner' => $this->owner,
             'created_at' => now()->format('Y-m-d'),
+            'category' => $this->category,
         ]);
 
         /* Rest product */

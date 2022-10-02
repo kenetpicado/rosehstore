@@ -17,8 +17,8 @@ class CreateEgressesTable extends Migration
             $table->id();
             $table->string('description', 100);
             $table->integer('amount');
-            $table->float('cost');
-            $table->float('total_cost');
+            $table->float('value');
+            $table->float('total_value');
             $table->string('category', 20);
             $table->string('owner', 20);
             $table->date('created_at');

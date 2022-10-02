@@ -65,21 +65,11 @@
     <div class="card-body">
         <x-message></x-message>
         <div class="d-flex">
-            <form class="m-2 col-2" role="search">
-                <input class="form-control" type="search" placeholder="Buscar" wire:model="search">
-            </form>
-
-            <div class="m-2 col-2">
-                <select class="form-control" role="search" wire:model="search_category">
-                    <option value="">TODOS</option>
-                    <option value="ROPA">ROPA</option>
-                    <option value="ACCESORIOS">ACCESORIOS</option>
-                </select>
-            </div>
+            <x-search.text></x-search.text>
+            <x-search.category></x-search.category>
         </div>
         <x-table>
             @slot('header')
-                <th>ID</th>
                 <th>Descripcion</th>
                 <th>Talla</th>
                 <th>Cantidad</th>
@@ -90,7 +80,6 @@
             @endslot
             @forelse ($products as $product)
                 <tr>
-                    <td>{{ $product->id }}</td>
                     <td>
                         @if ($product->amount > 0)
                             <i class="fa-solid fa-circle-check text-success fa-sm"></i>
@@ -102,8 +91,8 @@
                     </td>
                     <td>{{ $product->size }}</td>
                     <td>{{ $product->amount }}</td>
-                    <td>{{ $product->cost }}</td>
-                    <td>{{ $product->price }}</td>
+                    <td>C$ {{ $product->cost }}</td>
+                    <td>C$ {{ $product->price }}</td>
                     <td>{{ $product->owner }}</td>
                     <td>
                         <div class="dropdown">

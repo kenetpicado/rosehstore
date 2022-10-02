@@ -4,7 +4,7 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class ProductFactory extends Factory
+class EgressFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -15,12 +15,12 @@ class ProductFactory extends Factory
     {
         return [
             'description' => $this->faker->sentence(4), 
-            'size' => $this->faker->randomElement(['M', 'S', 'L', 'XS', 'XL']),
             'amount' =>  $this->faker->numberBetween(10, 50), 
-            'cost' =>  $this->faker->randomFloat(1, 50, 600),
-            'price' => $this->faker->randomFloat(1, 50, 600), 
+            'value' =>  $this->faker->randomFloat(1, 50, 600),
+            'total_value' => $this->faker->randomFloat(1, 50, 600),
             'category' => $this->faker->randomElement(['ROPA', 'ACCESORIOS']),
             'owner' => $this->faker->randomElement(['JOSIEL', 'ROSA']),
+            'created_at' => $this->faker->dateTimeThisYear('+ 20 days')->format('Y-m-d')
         ];
     }
 }
