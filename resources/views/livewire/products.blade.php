@@ -65,7 +65,7 @@
 
     <div class="card-body">
         <x-message></x-message>
-        <div class="d-flex">
+        <div class="d-lg-flex d-block">
             <x-search.text></x-search.text>
             <x-search.category></x-search.category>
         </div>
@@ -81,19 +81,19 @@
             @endslot
             @forelse ($products as $product)
                 <tr>
-                    <td>
+                    <td data-title="SKU">
                         @if ($product->amount > 0)
                             <i class="fa-solid fa-circle-check text-success fa-sm"></i>
                         @else
                             <i class="fa-solid fa-exclamation-circle text-danger"></i>
                         @endif{{ $product->SKU }}
                     </td>
-                    <td>{{ $product->description }} ({{ $product->size }})</td>
-                    <td>{{ $product->amount }}</td>
-                    <td>C$ {{ $product->cost }}</td>
-                    <td>C$ {{ $product->price }}</td>
-                    <td>{{ $product->owner }}</td>
-                    <td>
+                    <td data-title="SKU">{{ $product->description }} ({{ $product->size }})</td>
+                    <td data-title="Descripcion">{{ $product->amount }}</td>
+                    <td data-title="Costo">C$ {{ $product->cost }}</td>
+                    <td data-title="Precio">C$ {{ $product->price }}</td>
+                    <td data-title="Propietario">{{ $product->owner }}</td>
+                    <td data-title="Opciones">
                         <div class="dropdown">
                             <a class="btn btn-secondary btn-sm dropdown-toggle" href="#" role="button"
                                 data-bs-toggle="dropdown" aria-expanded="false">

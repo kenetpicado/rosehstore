@@ -46,15 +46,14 @@
 
         <x-table>
             @slot('header')
-                <th>Fecha</th>
                 <th>Descripcion</th>
                 <th>Total</th>
+                <th>Fecha</th>
             @endslot
             @forelse ($entries as $entry)
-                <tr>
-                    <td>{{ $entry->created_at }}</td>
-                    <td>{{ $entry->description }}</td>
-                    <td>C$ {{ $entry->total_value }}</td>
+                    <td data-title="Descripción">{{ $entry->description }}</td>
+                    <td data-title="Monto">C$ {{ $entry->total_value }}</td>
+                    <td data-title="Fecha">{{ $entry->created_at }}</td>
                 </tr>
             @empty
                 <tr>

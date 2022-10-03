@@ -40,14 +40,10 @@
             @endslot
             @forelse ($products as $product)
                 <tr>
-                    <td>
-                        <div class="bg-secondary bg-opacity-10 rounded-3 text-center">
-                            C$ {{ $product->price }}
-                        </div>
-                    </td>
-                    <td>{{ $product->SKU }}</td>
-                    <td>{{ $product->description }}</td>
-                    <td>{{ $product->size }}</td>
+                    <td data-title="Precio" class="fw-bolder text-primary">C$ {{ $product->price }}</td>
+                    <td data-title="SKU">{{ $product->SKU }}</td>
+                    <td data-title="Descripción">{{ $product->description }}</td>
+                    <td data-title="Talla">{{ $product->size }}</td>
                     <td>
                         <button class="btn btn-sm btn-secondary" wire:click="sell({{ $product->id }})">Vender</button>
                     </td>

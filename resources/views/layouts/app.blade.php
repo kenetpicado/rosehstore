@@ -17,6 +17,33 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     @livewireStyles
+
+    <style>
+        @media screen and (max-width: 800px) {
+
+            thead {
+                display: none;
+            }
+
+            tbody {
+                float: left;
+            }
+
+            td {
+                display: block
+            }
+
+            td:before {
+                content: attr(data-title);
+                margin-right: 0.5em;
+                font-weight: bold;
+            }
+
+            tr {
+                border-top: 1px solid #aaaa;
+            }
+        }
+    </style>
 </head>
 
 <body>

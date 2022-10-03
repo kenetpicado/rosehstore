@@ -18,10 +18,10 @@
             @endslot
             @forelse ($hires as $hire)
                 <tr>
-                    <td>{{ $hire->description }}</td>
-                    <td>{{ $hire->client }}</td>
-                    <td>C$ {{ $hire->total_value }}</td>
-                    <td>{{ $hire->created_at }}</td>
+                    <td data-title="Descripción">{{ $hire->description }}</td>
+                    <td data-title="Cliente">{{ $hire->client }}</td>
+                    <td data-title="Monto">C$ {{ $hire->total_value }}</td>
+                    <td data-title="Fecha">{{ $hire->created_at }}</td>
                 </tr>
             @empty
                 <tr>
