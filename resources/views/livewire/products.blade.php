@@ -88,8 +88,8 @@
                             <i class="fa-solid fa-exclamation-circle text-danger"></i>
                         @endif{{ $product->SKU }}
                     </td>
-                    <td data-title="SKU">{{ $product->description }} ({{ $product->size }})</td>
-                    <td data-title="Descripcion">{{ $product->amount }}</td>
+                    <td data-title="Descripcion">{{ $product->description }} ({{ $product->size }})</td>
+                    <td data-title="Cantidad">{{ $product->amount }}</td>
                     <td data-title="Costo">C$ {{ $product->cost }}</td>
                     <td data-title="Precio">C$ {{ $product->price }}</td>
                     <td data-title="Propietario">{{ $product->owner }}</td>

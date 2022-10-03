@@ -64,8 +64,8 @@
     </div>
 
     <div class="row">
-        <div class="col-lg-6 mb-4">
-            <div class="card mb-4">
+        <div class="col-lg-6 mb-2">
+            <div class="card mb-2">
                 <div class="card-header py-3">
                     <h6 class="m-0 fw-bolder">Productos</h6>
                 </div>
@@ -107,13 +107,13 @@
             </div>
         </div>
 
-        <div class="col-lg-6 mb-4">
-            <div class="card mb-4">
+        <div class="col-lg-6 mb-2">
+            <div class="card mb-2">
                 <div class="card-header py-3">
                     <h6 class="m-0 fw-bolder">Propietarios</h6>
                 </div>
                 <div class="row">
-                    <div class="col">
+                    <div class="col-lg-6">
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item fw-bolder">Josiel</li>
                             <li class="list-group-item">
@@ -131,7 +131,7 @@
                             </li>
                         </ul>
                     </div>
-                    <div class="col">
+                    <div class="col-lg-6">
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item fw-bolder">Rosa</li>
                             <li class="list-group-item">

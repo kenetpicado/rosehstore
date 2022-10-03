@@ -21,16 +21,16 @@
     <style>
         @media screen and (max-width: 800px) {
 
+            tbody, tr, td {
+                display: block;
+            }
+
             thead {
                 display: none;
             }
 
             tbody {
                 float: left;
-            }
-
-            td {
-                display: block
             }
 
             td:before {
