@@ -14,6 +14,7 @@ class ProductFactory extends Factory
     public function definition()
     {
         return [
+            'SKU' => $this->faker->bothify('???????##########'), 
             'description' => $this->faker->sentence(4), 
             'size' => $this->faker->randomElement(['M', 'S', 'L', 'XS', 'XL']),
             'amount' =>  $this->faker->numberBetween(10, 50), 

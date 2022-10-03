@@ -2,6 +2,7 @@
     <x-header-modal label="Productos"></x-header-modal>
 
     <x-create-modal label="Producto">
+        <x-input name="SKU"></x-input>
         <x-input name="description" label="Descripcion"></x-input>
         <div class="row">
             <div class="col">
@@ -25,15 +26,15 @@
                 <div class="mb-3">
                     <label class="form-label">Categoria</label>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" id="flexRadioDefault1"
-                            name="category" value="ROPA" checked wire:model.defer="category">
+                        <input class="form-check-input" type="radio" id="flexRadioDefault1" name="category"
+                            value="ROPA" checked wire:model.defer="category">
                         <label class="form-check-label" for="flexRadioDefault1">
                             ROPA
                         </label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" id="flexRadioDefault2"
-                            name="category" value="ACCESORIOS" wire:model.defer="category">
+                        <input class="form-check-input" type="radio" id="flexRadioDefault2" name="category"
+                            value="ACCESORIOS" wire:model.defer="category">
                         <label class="form-check-label" for="flexRadioDefault2">
                             ACCESORIOS
                         </label>
@@ -44,15 +45,15 @@
                 <div class="mb-3">
                     <label class="form-label">Propietario</label>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" id="flexRadioDefault1"
-                            name="owner" value="JOSIEL" wire:model.defer="owner">
+                        <input class="form-check-input" type="radio" id="flexRadioDefault1" name="owner"
+                            value="JOSIEL" wire:model.defer="owner">
                         <label class="form-check-label" for="flexRadioDefault1">
                             JOSIEL
                         </label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" id="flexRadioDefault2"
-                            name="owner" value="ROSA" wire:model.defer="owner">
+                        <input class="form-check-input" type="radio" id="flexRadioDefault2" name="owner"
+                            value="ROSA" wire:model.defer="owner">
                         <label class="form-check-label" for="flexRadioDefault2">
                             ROSA
                         </label>
@@ -70,8 +71,8 @@
         </div>
         <x-table>
             @slot('header')
+                <th>SKU</th>
                 <th>Descripcion</th>
-                <th>Talla</th>
                 <th>Cantidad</th>
                 <th>Costo</th>
                 <th>Precio</th>
@@ -85,11 +86,9 @@
                             <i class="fa-solid fa-circle-check text-success fa-sm"></i>
                         @else
                             <i class="fa-solid fa-exclamation-circle text-danger"></i>
-                        @endif
-
-                        {{ $product->description }}
+                        @endif{{ $product->SKU }}
                     </td>
-                    <td>{{ $product->size }}</td>
+                    <td>{{ $product->description }} ({{ $product->size }})</td>
                     <td>{{ $product->amount }}</td>
                     <td>C$ {{ $product->cost }}</td>
                     <td>C$ {{ $product->price }}</td>

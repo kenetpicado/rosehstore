@@ -26,6 +26,7 @@ class Books extends Component
             ->when($this->owner, function($q) {
                 $q->where('owner', $this->owner);
             })
+            ->latest('id')
             ->get(['created_at', 'description', 'total_value']);
 
         return view('livewire.books', compact('entries'));

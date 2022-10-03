@@ -33,6 +33,7 @@
         <x-table>
             @slot('header')
                 <th>Precio</th>
+                <th>SKU</th>
                 <th>Descripcion</th>
                 <th>Talla</th>
                 <th>Opciones</th>
@@ -44,6 +45,7 @@
                             C$ {{ $product->price }}
                         </div>
                     </td>
+                    <td>{{ $product->SKU }}</td>
                     <td>{{ $product->description }}</td>
                     <td>{{ $product->size }}</td>
                     <td>

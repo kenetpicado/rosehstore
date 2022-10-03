@@ -37,11 +37,12 @@ class Shop extends Component
             }, function ($q) {
                 $q->where(function ($q) {
                     $q->where('id', 'like', '%' . $this->search . '%')
+                        ->orWhere('SKU', 'like', '%' . $this->search . '%')
                         ->orWhere('description', 'like', '%' . $this->search . '%')
                         ->orWhere('owner', 'like', '%' . $this->search . '%');
                 });
             })
-            ->select(['id', 'description', 'size', 'price'])
+            ->select(['id', 'SKU', 'description', 'size', 'price'])
             ->latest('id')
             ->paginate(20);
 
@@ -52,7 +53,7 @@ class Shop extends Component
     {
         $product = DB::table('products')->find($product_id);
         $this->product_id = $product->id;
-        $this->description = $product->description . " - " . $product->size;
+        $this->description = $product->SKU . ": " . $product->description . " (" . $product->size . ")";
         $this->amount = 1;
         $this->price = $product->price;
         $this->owner = $product->owner;
@@ -63,7 +64,7 @@ class Shop extends Component
     public function store()
     {
         $this->validate();
-        
+
         /* Save the income */
         Income::create([
             'description' => $this->description,
