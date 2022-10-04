@@ -14,7 +14,7 @@ class Products extends Component
     protected $paginationTheme = 'bootstrap';
 
     public $search, $search_category = "";
-    public $sub_id, $description, $size, $amount, $cost, $price, $SKU;
+    public $sub_id, $description, $size, $amount, $cost, $price, $SKU, $note;
     public $category = "ROPA";
     public $owner = "ROSA";
 
@@ -45,6 +45,7 @@ class Products extends Component
             'price' => 'required|numeric',
             'category' => 'required',
             'owner' => 'required|max:20',
+            'note' => 'nullable|max:50'
         ];
     }
 
@@ -84,6 +85,7 @@ class Products extends Component
         $product = Product::find($id);
         $this->sub_id = $product->id;
         $this->SKU = $product->SKU;
+        $this->note = $product->note;
         $this->description = $product->description;
         $this->size = $product->size;
         $this->amount = $product->amount;

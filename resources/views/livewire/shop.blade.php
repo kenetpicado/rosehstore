@@ -22,6 +22,7 @@
             </div>
         </div>
         <x-input name="client" label="Cliente"></x-input>
+        <x-input name="note" label="Nota"></x-input>
     </x-create-modal>
 
     <div class="card-body">
@@ -35,15 +36,15 @@
                 <th>Precio</th>
                 <th>SKU</th>
                 <th>Descripcion</th>
-                <th>Talla</th>
+                <th>Nota</th>
                 <th>Opciones</th>
             @endslot
             @forelse ($products as $product)
                 <tr>
                     <td data-title="Precio" class="fw-bolder text-primary">C$ {{ $product->price }}</td>
                     <td data-title="SKU">{{ $product->SKU }}</td>
-                    <td data-title="Descripción">{{ $product->description }}</td>
-                    <td data-title="Talla">{{ $product->size }}</td>
+                    <td data-title="Descripción">{{ $product->description }} ({{ $product->size }})</td>
+                    <td data-title="Nota">{{ $product->note }}</td>
                     <td>
                         <button class="btn btn-sm btn-secondary" wire:click="sell({{ $product->id }})">Vender</button>
                     </td>

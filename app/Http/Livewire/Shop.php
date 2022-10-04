@@ -14,7 +14,7 @@ class Shop extends Component
     protected $paginationTheme = 'bootstrap';
 
     public $search, $search_category = "";
-    public $description, $amount, $price, $client, $product_id, $owner, $category;
+    public $description, $amount, $price, $client, $product_id, $owner, $category, $note;
     public $discount = 0;
 
     public function resetInputFields()
@@ -42,7 +42,7 @@ class Shop extends Component
                         ->orWhere('owner', 'like', '%' . $this->search . '%');
                 });
             })
-            ->select(['id', 'SKU', 'description', 'size', 'price'])
+            ->select(['id', 'SKU', 'description', 'size', 'price', 'note'])
             ->latest('id')
             ->paginate(20);
 
@@ -58,6 +58,7 @@ class Shop extends Component
         $this->price = $product->price;
         $this->owner = $product->owner;
         $this->category = $product->category;
+        $this->note = $product->note;
         $this->emit('openModalShop');
     }
 
@@ -81,6 +82,10 @@ class Shop extends Component
         /* Rest product */
         $product = Product::find($this->product_id, ['id', 'amount']);
         $product->decrement('amount', $this->amount);
+        
+        $product->update([
+            'note' => $this->note
+        ]);
 
         $this->reset();
         session()->flash('message', 'Guardado');

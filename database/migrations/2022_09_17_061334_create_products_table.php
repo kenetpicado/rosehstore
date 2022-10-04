@@ -23,6 +23,7 @@ class CreateProductsTable extends Migration
             $table->float('price');
             $table->string('category', 20);
             $table->string('owner', 20);
+            $table->string('note', 50)->nullable();
             $table->timestamps();
         });
     }

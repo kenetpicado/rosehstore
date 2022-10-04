@@ -2,7 +2,15 @@
     <x-header-modal label="Productos"></x-header-modal>
 
     <x-create-modal label="Producto">
-        <x-input name="SKU"></x-input>
+        <div class="row">
+            <div class="col">
+                <x-input name="SKU"></x-input>
+           </div>
+            <div class="col">
+                <x-input name="note" label="Nota"></x-input>
+            </div>
+        </div>
+       
         <x-input name="description" label="Descripcion"></x-input>
         <div class="row">
             <div class="col">
@@ -61,6 +69,7 @@
                 </div>
             </div>
         </div>
+
     </x-create-modal>
 
     <div class="card-body">

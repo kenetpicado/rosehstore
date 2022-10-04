@@ -16,7 +16,8 @@ class Product extends Model
         'cost', 
         'price', 
         'category', 
-        'owner'
+        'owner',
+        'note'
     ];
     public function setDescriptionAttribute($value)
     {
@@ -28,24 +29,13 @@ class Product extends Model
         $this->attributes['size'] = trim(strtoupper($value));
     }
 
+    public function setNoteAttribute($value)
+    {
+        $this->attributes['note'] = trim(strtoupper($value));
+    }
+
     public function setOwnerAttribute($value)
     {
         $this->attributes['owner'] = trim(strtoupper($value));
-    }
-
-    public static function shop($search_category, $search)
-    {
-        return Product::where('amount', '>', 0)
-            ->when($search_category, function ($q) use ($search_category, $search) {
-                $q->where('category', $search_category);
-            }, function ($q) use ($search) {
-                $q->where(function ($q) use ($search) {
-                    $q->where('id', 'like', '%' . $search . '%')
-                        ->orWhere('description', 'like', '%' . $search . '%')
-                        ->orWhere('owner', 'like', '%' . $search . '%');
-                });
-            })
-            ->select(['id', 'description', 'size', 'price'])
-            ->paginate(20);
     }
 }
