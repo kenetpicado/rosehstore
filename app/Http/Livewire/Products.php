@@ -2,97 +2,82 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Category;
 use App\Models\Egress;
 use App\Models\Product;
+use App\Traits\AlertsTrait;
 use Illuminate\Validation\Rule;
 use Livewire\Component;
 use Livewire\WithPagination;
 
 class Products extends Component
 {
+    use AlertsTrait;
     use WithPagination;
     protected $paginationTheme = 'bootstrap';
 
-    public $search, $search_category = "";
-    public $sub_id, $description, $size, $amount, $cost, $price, $SKU, $note;
-    public $category = "ROPA";
-    public $owner = "ROSA";
+    public $search = null;
+
+    public $show_form = true;
+    public $product = null;
+
+    public $image = null;
 
     public function render()
     {
-        $products = Product::when($this->search_category, function ($q) {
-            $q->where('category', $this->search_category);
-        }, function ($q) {
-            $q->where('id', 'like', '%' . $this->search . '%')
-                ->orWhere('SKU', 'like', '%' . $this->search . '%')
-                ->orWhere('description', 'like', '%' . $this->search . '%')
-                ->orWhere('owner', 'like', '%' . $this->search . '%');
-        })
+        $products = Product::query()
+            ->orWhere('SKU', 'like', '%' . $this->search . '%')
+            ->orWhere('description', 'like', '%' . $this->search . '%')
             ->latest('id')
             ->paginate(20);
 
-        return view('livewire.products', compact('products'));
+        return view('livewire.products', [
+            'products' => $products,
+            'categories' => Category::all(['id', 'name'])
+        ]);
     }
 
-    protected function rules()
+    protected $rules = [
+        'product.SKU' => 'required|alpha_dash|max:50',
+        'product.description' => 'required|max:100',
+        'product.size' => 'required|max:10',
+        'product.quantity' => 'required|numeric',
+        'product.cost' => 'required|numeric',
+        'product.price' => 'required|numeric',
+        'product.owner' => 'required|max:20',
+        'product.note' => 'nullable|max:50',
+        'product.image' => 'required|max:255|url',
+    ];
+
+    public function mount()
     {
-        return [
-            'SKU' => ['required', 'alpha_dash', 'max:50', Rule::unique('products')->ignore($this->sub_id)],
-            'description' => 'required|max:100',
-            'size' => 'required|max:10',
-            'amount' => 'required|numeric',
-            'cost' => 'required|numeric',
-            'price' => 'required|numeric',
-            'category' => 'required',
-            'owner' => 'required|max:20',
-            'note' => 'nullable|max:50'
-        ];
+        $this->product = new Product();
     }
 
     public function resetInputFields()
     {
         $this->reset();
+        $this->product = new Product();
     }
 
     public function store()
     {
-        $data = $this->validate();
-        $product = Product::find($this->sub_id);
+        $this->validate();
+        $this->product->save();
 
-        if ($product) {
-            if ($this->amount > $product->amount) {
-                $difference = $this->amount - $product->amount;
-                Egress::store($product, $difference, $this->cost);
-            }
-            $product->update($data);
-        } else {
-            Egress::store(Product::create($data));
-        }
-
-        session()->flash('message', $this->sub_id ?  'Actualizado' : 'Guardado');
-        $this->reset();
-        $this->emit('closeModal');
+        $this->resetInputFields();
+        $this->created();
     }
 
-    public function delete($id)
+    public function destroy(Product $product)
     {
-        Product::where('id', $id)->delete();
-        session()->flash('message', 'Eliminado');
+        $product->delete();
+        $this->deleted();
     }
 
-    public function edit($id)
+    public function edit(Product $product)
     {
-        $product = Product::find($id);
-        $this->sub_id = $product->id;
-        $this->SKU = $product->SKU;
-        $this->note = $product->note;
-        $this->description = $product->description;
-        $this->size = $product->size;
-        $this->amount = $product->amount;
-        $this->cost = $product->cost;
-        $this->price = $product->price;
-        $this->category = $product->category;
-        $this->owner = $product->owner;
-        $this->emit('openModal');
+        $this->product = $product;
+        $this->show_form = true;
     }
 }

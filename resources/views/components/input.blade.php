@@ -1,10 +1,13 @@
-@props(['label' => $name, 'name', 'type' => 'text', 'val' => '', 'attr' => ''])
+@props(['name', 'label' => '', 'type' => 'text', 'value' => '', 'realtime' => false])
 
-<div class="mb-3">
-    <label class="form-label">{{ ucfirst($label) }}</label>
-    <input id="{{ $name }}" type={{ $type }} value='{{ old($name, $val) }}'
-        class="form-control @error($name) is-invalid @enderror" name="{{ $name }}" autofocus
-        wire:model.defer="{{ $name }}" {{$attributes}}>
+<div class="form-group">
+    <label class="form-label">{{ $label }}</label>
+
+   @if ($realtime)
+        <input name="{{ $name }}" type="{{ $type }}" class="form-control @error($name) is-invalid @enderror" autofocus wire:model.defer="{{ $name }}">
+    @else
+        <input name="{{ $name }}" type="{{ $type }}" class="form-control @error($name) is-invalid @enderror" autofocus wire:model="{{ $name }}">
+    @endif
 
     @error($name)
         <span class="invalid-feedback" role="alert">

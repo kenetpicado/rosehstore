@@ -8,17 +8,24 @@ use Illuminate\Database\Eloquent\Model;
 class Product extends Model
 {
     use HasFactory;
+
     protected $fillable = [
         'SKU',
         'description',
         'size',
-        'amount',
-        'cost', 
-        'price', 
-        'category', 
+        'quantity',
+        'cost',
+        'price',
         'owner',
-        'note'
+        'note',
+        'image'
     ];
+
+    public function categories()
+    {
+        return $this->belongsToMany(Category::class);
+    }
+
     public function setDescriptionAttribute($value)
     {
         $this->attributes['description'] = trim(strtoupper($value));

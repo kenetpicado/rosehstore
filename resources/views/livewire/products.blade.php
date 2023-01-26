@@ -1,119 +1,41 @@
-<div class="card">
-    <x-header-modal label="Productos"></x-header-modal>
+<div>
+    <!-- Page Heading -->
+    <x-heading label="Productos">
+        <button wire:click="$toggle('show_form')" type="button" class="btn btn-sm btn-primary shadow-sm">
+            Agregar
+        </button>
+    </x-heading>
 
-    <x-create-modal label="Producto">
-        <div class="row">
-            <div class="col">
-                <x-input name="SKU"></x-input>
-           </div>
-            <div class="col">
-                <x-input name="note" label="Nota"></x-input>
-            </div>
-        </div>
-       
-        <x-input name="description" label="Descripcion"></x-input>
-        <div class="row">
-            <div class="col">
-                <x-input name="size" label="Talla"></x-input>
-            </div>
-            <div class="col">
-                <x-input name="amount" label="Cantidad" type="number"></x-input>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col">
-                <x-input name="cost" label="Costo (Unidad)"></x-input>
-            </div>
-            <div class="col">
-                <x-input name="price" label="Precio (Unidad)"></x-input>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col">
-                <div class="mb-3">
-                    <label class="form-label">Categoria</label>
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" id="flexRadioDefault1" name="category"
-                            value="ROPA" checked wire:model.defer="category">
-                        <label class="form-check-label" for="flexRadioDefault1">
-                            ROPA
-                        </label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" id="flexRadioDefault2" name="category"
-                            value="ACCESORIOS" wire:model.defer="category">
-                        <label class="form-check-label" for="flexRadioDefault2">
-                            ACCESORIOS
-                        </label>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="mb-3">
-                    <label class="form-label">Propietario</label>
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" id="flexRadioDefault1" name="owner"
-                            value="JOSIEL" wire:model.defer="owner">
-                        <label class="form-check-label" for="flexRadioDefault1">
-                            JOSIEL
-                        </label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" id="flexRadioDefault2" name="owner"
-                            value="ROSA" wire:model.defer="owner">
-                        <label class="form-check-label" for="flexRadioDefault2">
-                            ROSA
-                        </label>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    </x-create-modal>
-
-    <div class="card-body">
-        <x-message></x-message>
-        <div class="d-lg-flex d-block">
-            <x-search.text></x-search.text>
-            <x-search.category></x-search.category>
-        </div>
-        <x-table>
+    @if (!$show_form)
+        <x-table title="Todos los productos">
             @slot('header')
-                <th>SKU</th>
-                <th>Descripcion</th>
+                <th>Descripción</th>
                 <th>Cantidad</th>
-                <th>Costo</th>
-                <th>Precio</th>
-                <th>Propietario</th>
                 <th>Opciones</th>
             @endslot
             @forelse ($products as $product)
                 <tr>
-                    <td data-title="SKU">
-                        @if ($product->amount > 0)
-                            <i class="fa-solid fa-circle-check text-success fa-sm"></i>
-                        @else
-                            <i class="fa-solid fa-exclamation-circle text-danger"></i>
-                        @endif{{ $product->SKU }}
+                    <td data-title="Descripción">
+                        <div>
+                            <div class="mb-1 text-dark">{{ $product->description }}</div>
+                            <span class="text-muted small">
+                                {{ $product->SKU }}
+                            </span>
+                        </div>
                     </td>
-                    <td data-title="Descripcion">{{ $product->description }} ({{ $product->size }})</td>
-                    <td data-title="Cantidad">{{ $product->amount }}</td>
-                    <td data-title="Costo">C$ {{ $product->cost }}</td>
-                    <td data-title="Precio">C$ {{ $product->price }}</td>
-                    <td data-title="Propietario">{{ $product->owner }}</td>
+                    <td>
+                        <div class="text-dark">{{ $product->quantity }}</div>
+                    </td>
                     <td data-title="Opciones">
-                        <div class="dropdown">
-                            <a class="btn btn-secondary btn-sm dropdown-toggle" href="#" role="button"
-                                data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="fa-solid fa-gear"></i>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><button class="dropdown-item" wire:click="edit({{ $product->id }})">Editar</button>
-                                </li>
-                                <li><button class="dropdown-item"
-                                        wire:click="delete({{ $product->id }})">Eliminar</button></li>
-                            </ul>
+                        <button class="btn btn-primary btn-sm dropdown-toggle" type="button" id="dropdownMenuButton"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Opciones
+                        </button>
+                        <div class="dropdown-menu animated--fade-in" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="#">Editar</a>
+                            <button type="button" class="dropdown-item" onclick="confirm_delete()" wire:click="destroy({{ $product->id }})">
+                                Eliminar
+                            </button>
                         </div>
                     </td>
                 </tr>
@@ -122,7 +44,28 @@
                     <td>No hay registros</td>
                 </tr>
             @endforelse
+            @slot('links')
+                {!! $products->links() !!}
+            @endslot
         </x-table>
-        {{ $products->links() }}
-    </div>
+    @endif
+
+    @if ($show_form)
+        <x-form title="Agregar producto">
+            <x-input name="product.SKU" label="SKU"></x-input>
+            <x-input name="product.description" label="Descripcion"></x-input>
+            <x-input name="product.size" label="Tallas"></x-input>
+            <x-input name="product.quantity" label="Cantidad"></x-input>
+            <x-input name="product.cost" label="Costo"></x-input>
+            <x-input name="product.price" label="Precio"></x-input>
+            <x-input name="product.owner" label="Propietario"></x-input>
+            <x-input name="product.note" label="Nota"></x-input>
+            <x-input name="image" label="Imagen" :realtime="true"></x-input>
+{{ $image }}
+            @if ($image)
+                <img src="{{ $product->image }}" alt="Vista previa">
+            @endif
+
+        </x-form>
+    @endif
 </div>

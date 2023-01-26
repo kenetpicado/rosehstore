@@ -1,143 +1,182 @@
-<!doctype html>
-<html lang="es">
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- CSRF Token -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ config('app.name') }}</title>
 
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+    <!-- Custom fonts for this template-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+        integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-    <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    <link href="{{ asset('css/sb-admin-2.min.css') }}" rel="stylesheet">
     @livewireStyles
 
     <style>
-        @media screen and (max-width: 800px) {
+        .table td,
+        th {
+            vertical-align: middle !important;
+        }
 
-            tbody, tr, td {
+        .table th {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+        }
+
+        @media only screen and (max-width: 800px) {
+
+            #no-more-tables tbody,
+            #no-more-tables tr,
+            #no-more-tables td {
                 display: block;
             }
 
-            thead {
-                display: none;
+            #no-more-tables thead th {
+                position: absolute;
+                top: -9999px;
+                left: -9999px;
             }
 
-            tbody {
-                float: left;
+            #no-more-tables td {
+                /* position: relative; */
+                /* padding-left: 25%; */
+                border: none;
             }
 
-            td:before {
+            #no-more-tables td:before {
                 content: attr(data-title);
-                margin-right: 0.5em;
+                /* position: absolute; */
+                /* left: 4px; */
                 font-weight: bold;
             }
 
-            tr {
-                border-top: 1px solid #aaaa;
+            #no-more-tables tr {
+                border-bottom: 1px solid #aaaa;
             }
         }
     </style>
+
 </head>
 
-<body>
-    <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
-            <div class="container">
-                <a class="navbar-brand fw-bolder" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
-                </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+<body id="page-top">
 
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav me-auto">
-                        <li class="nav-item mx-2">
-                            <a class="nav-link" href="{{ route('shop') }}">{{ __('Tienda') }}</a>
-                        </li>
+    <!-- Page Wrapper -->
+    <div id="wrapper">
 
-                        <li class="nav-item dropdown mx-2">
-                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                                aria-expanded="false">
-                                Inventario
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="{{ route('products') }}">Productos</a></li>
-                                <li>
-                                    <hr class="dropdown-divider">
-                                </li>
-                                <li><a class="dropdown-item" href="{{ route('hires') }}">Mobiliario</a></li>
-                            </ul>
-                        </li>
+        <!-- Sidebar -->
+        @include('layouts.sidebar')
 
-                        <li class="nav-item mx-2">
-                            <a class="nav-link" href="{{ route('books') }}">{{ __('Contabilidad') }}</a>
-                        </li>
-                    </ul>
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Topbar -->
+                @include('layouts.topbar')
+
+                <!-- Begin Page Content -->
+                <div class="container">
+                        {{-- @if(session('success'))
+                            <div class="alert alert-primary alert-dismissible fade show" role="alert">
+                              <strong>Success!</strong> {{ session('success') }}
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        @endif --}}
+                    @yield('content')
+
+                    @isset($slot)
+                        {{ $slot }}
+                     @endisset
                 </div>
             </div>
-        </nav>
 
-        <main class="py-4">
-            <div class="container-fluid">
-                <div class="row justify-content-center">
-                    <div class="col-lg-10">
-                        {{ $slot }}
+            <!-- Footer -->
+            <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>Copyright &copy; {{ config('app.name') }} 2020</span>
                     </div>
                 </div>
+            </footer>
+            <!-- End of Footer -->
+
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+    <!-- Logout Modal-->
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <form action="{{ route('logout') }}" method="POST">
+                    @csrf
+                    <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Logout</button>
+                    </div>
+                </form>
             </div>
-        </main>
+        </div>
     </div>
 
+    <!-- Bootstrap core JavaScript-->
+    <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
+    <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="{{ asset('vendor/jquery-easing/jquery.easing.min.js') }}"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="{{ asset('js/sb-admin-2.min.js') }}"></script>
     @livewireScripts
+
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <x-livewire-alert::scripts />
+
     <script>
-        var amount = document.getElementById("amount");
-        var price = document.getElementById("price");
-        var discount = document.getElementById("discount");
-        var total_price = document.getElementById("total_price");
+        Livewire.on('close-create-modal', function() {
+            $('#createModal').modal('hide')
+        });
 
-        function setNewTotal() {
-            total_price.value = (amount.value * price.value) - discount.value;
+        Livewire.on('open-create-modal', function() {
+            $('#createModal').modal('show')
+        });
+
+        const confirm_delete = () => {
+            confirm('Desea eliminar este registro?') || event.stopImmediatePropagation()
         }
-
-        Livewire.on('closeModal', function() {
-            document.getElementById("closeModal").click();
-        });
-
-        Livewire.on('openModal', function() {
-            document.getElementById("openModal").click();
-        });
-
-        Livewire.on('openModalShop', function() {
-            document.getElementById("openModal").click();
-            setNewTotal();
-        });
-
-        amount.addEventListener("keyup", function() {
-            setNewTotal();
-        });
-
-        amount.addEventListener("change", function() {
-            setNewTotal();
-        });
-
-        price.addEventListener("keyup", function() {
-            setNewTotal();
-        });
-
-        discount.addEventListener("keyup", function() {
-            setNewTotal();
-        });
     </script>
 </body>
 

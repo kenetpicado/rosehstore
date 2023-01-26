@@ -17,13 +17,19 @@ class CreateProductsTable extends Migration
             $table->id();
             $table->string('SKU', 50);
             $table->string('description', 100);
+            $table->integer('quantity');
             $table->string('size', 10);
-            $table->integer('amount');
             $table->float('cost');
             $table->float('price');
-            $table->string('category', 20);
-            $table->string('owner', 20);
             $table->string('note', 50)->nullable();
+            $table->string('image')->nullable();
+
+            $table->unsignedBigInteger('user_id')->nullable();
+            $table->foreign('user_id')
+                ->references('id')
+                ->on('users')
+                ->onDelete('set null');
+
             $table->timestamps();
         });
     }

@@ -17,11 +17,9 @@ class ProductFactory extends Factory
             'SKU' => $this->faker->bothify('???????##########'), 
             'description' => $this->faker->sentence(4), 
             'size' => $this->faker->randomElement(['M', 'S', 'L', 'XS', 'XL']),
-            'amount' =>  $this->faker->numberBetween(10, 50), 
+            'quantity' =>  $this->faker->numberBetween(10, 50),
             'cost' =>  $this->faker->randomFloat(1, 50, 600),
-            'price' => $this->faker->randomFloat(1, 50, 600), 
-            'category' => $this->faker->randomElement(['ROPA', 'ACCESORIOS']),
-            'owner' => $this->faker->randomElement(['JOSIEL', 'ROSA']),
+            'price' => $this->faker->randomFloat(1, 50, 600),
         ];
     }
 }
