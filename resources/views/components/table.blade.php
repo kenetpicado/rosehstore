@@ -6,7 +6,7 @@
     </div>
     <div class="card-body">
         <div class="table-responsive">
-            <table class="table table-striped table-borderless align-middle" width="100%" cellspacing="0" id="no-more-tables">
+            <table class="table table-borderless align-middle" width="100%" cellspacing="0" id="no-more-tables">
                 <thead>
                     <tr>
                         {{ $header }}

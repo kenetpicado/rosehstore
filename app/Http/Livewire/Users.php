@@ -5,23 +5,30 @@ namespace App\Http\Livewire;
 use App\Models\User;
 use App\Traits\AlertsTrait;
 use Livewire\Component;
+use Spatie\Permission\Models\Role;
 
 class Users extends Component
 {
     use AlertsTrait;
 
     public $user = null;
+    public $role = [];
 
     protected $rules = [
         'user.name' => 'required',
         'user.email' => 'required|email',
-        'user.password' => 'required|min:8',
+        'role' => 'required',
     ];
 
     public function render()
     {
         return view('livewire.users', [
-            'users' => User::select(['id', 'name', 'email'])->paginate(10)
+            'users' => User::query()
+                ->select(['id', 'name', 'email'])
+                ->with('roles:id,name')
+                ->role(['administrador', 'vendedor'])
+                ->paginate(10),
+            'roles' => Role::where('name', '!=', 'root')->get(['id', 'name']),
         ]);
     }
 
@@ -34,8 +41,10 @@ class Users extends Component
     {
         $this->validate();
 
-        $this->user->hashPassword();
+        $this->user->setPassword();
         $this->user->save();
+
+        $this->user->syncRoles($this->role);
 
         $this->resetInputFields();
         $this->created();
@@ -51,6 +60,7 @@ class Users extends Component
     public function edit(User $user)
     {
         $this->user = $user;
+        $this->role = $user->roles->pluck('name')->toArray();
         $this->emit('open-create-modal');
     }
 

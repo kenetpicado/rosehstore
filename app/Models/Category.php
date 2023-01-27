@@ -11,7 +11,17 @@ class Category extends Model
 
     public function products()
     {
-        return $this->belongsToMany(Product::class);
+        return $this->hasMany(Product::class);
+    }
+
+    public function parent()
+    {
+        return $this->belongsTo(Category::class, 'parent_id');
+    }
+
+    public function childrens()
+    {
+        return $this->hasMany(Category::class, 'parent_id');
     }
 
     public function setNameAttribute($value)

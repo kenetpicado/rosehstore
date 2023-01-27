@@ -5,20 +5,20 @@ namespace App\Http\Livewire;
 use App\Models\Category;
 use App\Models\Egress;
 use App\Models\Product;
+use App\Models\User;
 use App\Traits\AlertsTrait;
+use App\Traits\PaginationTrait;
 use Illuminate\Validation\Rule;
 use Livewire\Component;
-use Livewire\WithPagination;
 
 class Products extends Component
 {
     use AlertsTrait;
-    use WithPagination;
-    protected $paginationTheme = 'bootstrap';
+    use PaginationTrait;
 
     public $product = null;
     public $search = null;
-    public $categoriesSelected = [];
+    public $product_category = null;
 
     public $show_form = false;
 
@@ -33,7 +33,8 @@ class Products extends Component
 
         return view('livewire.products', [
             'products' => $products,
-            'categories' => Category::all(['id', 'name'])
+            'categories' => Category::whereNull('parent_id')->get(['id', 'name']),
+            'users' => User::role('administrador')->get(['id', 'name']),
         ]);
     }
 
@@ -44,8 +45,8 @@ class Products extends Component
         'product.price' => 'required|numeric',
         'product.user_id' => 'nullable',
         'product.note' => 'nullable|max:50',
-        'product.image' => 'required|max:255|url',
-        'categoriesSelected' => 'required|array'
+        'product.image' => 'nullable|max:255|url',
+        'product.category_id' => 'required'
     ];
 
     public function mount()
@@ -61,12 +62,8 @@ class Products extends Component
 
     public function store()
     {
-        $this->product->user_id = auth()->user()->id;
-
         $this->validate();
         $this->product->save();
-
-        $this->product->categories()->sync($this->categoriesSelected);
 
         $this->resetInputFields();
         $this->created();
@@ -81,14 +78,13 @@ class Products extends Component
     public function edit(Product $product)
     {
         $this->product = $product;
-        $this->categoriesSelected = $product->categories->pluck('id')->toArray();
         $this->show_form = true;
     }
 
     public function details(Product $product)
     {
         $this->product = $product;
-        $this->product->load(['categories:id,name', 'user:id,name']);
+        $this->product->load(['category:id,name', 'user:id,name']);
         $this->emit('open-dialog-details');
     }
 }
