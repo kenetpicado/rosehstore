@@ -174,6 +174,10 @@
             $('#createModal').modal('show')
         });
 
+         Livewire.on('open-dialog-details', function() {
+            $('#dialogDetails').modal('show')
+        });
+
         const confirm_delete = () => {
             confirm('Desea eliminar este registro?') || event.stopImmediatePropagation()
         }

@@ -24,9 +24,11 @@
 
         <x-item-sidebar title="Categorias" icon="tasks" route="categories"></x-item-sidebar>
 
+        <x-item-sidebar title="Usuaros" icon="user" route="users"></x-item-sidebar>
+
         <x-item-sidebar title="Productos" icon="tshirt" route="products"></x-item-sidebar>
 
-         <x-item-sidebar title="Tienda" icon="shopping-cart" route="shop"></x-item-sidebar>
+        <x-item-sidebar title="Tienda" icon="shopping-cart" route="shop"></x-item-sidebar>
 
         <!-- Divider -->
         <hr class="sidebar-divider d-none d-md-block">

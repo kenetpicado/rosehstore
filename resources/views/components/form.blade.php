@@ -13,7 +13,7 @@
                     {{ $slot }}
 
                     <div class="text-right">
-                        <button wirer:click="$toggle('show_form')" class="btn btn-outline-primary mr-2">Cancelar</button>
+                        <button type="button" wire:click="$toggle('show_form')" class="btn btn-outline-primary mr-2">Cancelar</button>
                         <button type="submit" class="btn btn-primary">Guardar</button>
                     </div>
                 </form>

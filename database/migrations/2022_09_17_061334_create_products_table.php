@@ -17,12 +17,15 @@ class CreateProductsTable extends Migration
             $table->id();
             $table->string('SKU', 50);
             $table->string('description', 100);
-            $table->integer('quantity');
-            $table->string('size', 10);
             $table->float('cost');
             $table->float('price');
-            $table->string('note', 50)->nullable();
-            $table->string('image')->nullable();
+
+            $table->string('note', 50)
+                ->nullable();
+            $table->string('image')
+                ->nullable();
+            $table->boolean('status')
+                ->default(true);
 
             $table->unsignedBigInteger('user_id')->nullable();
             $table->foreign('user_id')

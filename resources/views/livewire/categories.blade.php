@@ -19,7 +19,7 @@
         @forelse ($categories as $category)
             <tr>
                 <td data-title="Nombre">
-                   <div class="mb-1 text-dark">{{ $category->name }}</div>
+                   <div class="text-dark">{{ $category->name }}</div>
                 </td>
                 <td data-title="Editar">
                     <button type="button" class="btn btn-primary rounded-lg btn-sm" wire:click="edit({{ $category->id }})">Editar</button>
@@ -30,7 +30,7 @@
             </tr>
         @empty
             <tr>
-                <td>No hay registros</td>
+                <td colspan="3" class="text-center">No hay registros</td>
             </tr>
         @endforelse
         @slot('links')

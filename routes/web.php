@@ -12,6 +12,8 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('categories', Categories::class)->name('categories');
 
+    Route::get('users', Users::class)->name('users');
+
     Route::get('shop', Shop::class)->name('shop');
     Route::get('books', Books::class)->name('books');
     Route::get('hires', Hires::class)->name('hires');

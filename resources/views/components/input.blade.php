@@ -1,13 +1,9 @@
-@props(['name', 'label' => '', 'type' => 'text', 'value' => '', 'realtime' => false])
+@props(['name', 'label' => '', 'type' => 'text', 'value' => ''])
 
 <div class="form-group">
     <label class="form-label">{{ $label }}</label>
 
-   @if ($realtime)
-        <input name="{{ $name }}" type="{{ $type }}" class="form-control @error($name) is-invalid @enderror" autofocus wire:model.defer="{{ $name }}">
-    @else
-        <input name="{{ $name }}" type="{{ $type }}" class="form-control @error($name) is-invalid @enderror" autofocus wire:model="{{ $name }}">
-    @endif
+   <input name="{{ $name }}" type="{{ $type }}" class="form-control @error($name) is-invalid @enderror"     autofocus wire:model.defer="{{ $name }}">
 
     @error($name)
         <span class="invalid-feedback" role="alert">

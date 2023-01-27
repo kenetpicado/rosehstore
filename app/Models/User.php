@@ -28,7 +28,6 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $hidden = [
-        'password',
         'remember_token',
     ];
 
@@ -40,4 +39,19 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function hashPassword()
+    {
+        $this->password = bcrypt($this->password);
+    }
+
+    public function setNameAttribute($value)
+    {
+        $this->attributes['name'] = ucwords(trim(strtolower($value)));
+    }
+
+    public function setEmailAttribute($value)
+    {
+        $this->attributes['email'] = trim(strtolower($value));
+    }
 }
