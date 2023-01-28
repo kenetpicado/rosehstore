@@ -1,6 +1,6 @@
 <div>
     <!-- Page Heading -->
-    <x-heading label="Categorias">
+    <x-heading label="Categorías">
         <button type="button" id="open-create-modal" class="btn btn-sm btn-primary ml-2" data-toggle="modal"
             data-target="#createModal">
             Agregar

@@ -11,7 +11,7 @@
         <div class="small mb-2">{{ $product->SKU }}</div>
         <div class="mb-2">Costo: C$ {{ $product->cost }}</div>
         <div class="mb-2">Precio: C$ {{ $product->price }}</div>
-        <div class="mb-3">Propietario: {{ $product->user->name ?? ''}}</div>
+        <div class="mb-3">Propietario: {{ $product->user->name ?? '' }}</div>
         <div style="width:100%;" class="d-flex">
             <img src="{{ $product->image }}" alt="No hay imagen" style="width:40%;border-radius: 1rem;" class="mx-auto">
         </div>
@@ -37,8 +37,7 @@
                         </div>
                     </td>
                     <td>
-                        <button type="button" class="btn btn-sm btn-primary"
-                            wire:click="details({{ $product->id }})">
+                        <button type="button" class="btn btn-sm btn-primary" wire:click="details({{ $product->id }})">
                             Detalles
                         </button>
                     </td>
@@ -48,11 +47,11 @@
                             Opciones
                         </button>
                         <div class="dropdown-menu animated--fade-in" aria-labelledby="dropdownMenuButton">
-                             <button type="button" class="dropdown-item"
-                                wire:click="edit({{ $product->id }})">
+                            <button type="button" class="dropdown-item" wire:click="edit({{ $product->id }})">
                                 Editar
                             </button>
-                            <button type="button" class="dropdown-item" onclick="confirm_delete()" wire:click="destroy({{ $product->id }})">
+                            <button type="button" class="dropdown-item" onclick="confirm_delete()"
+                                wire:click="destroy({{ $product->id }})">
                                 Eliminar
                             </button>
                         </div>
@@ -80,19 +79,19 @@
             <x-select name="product.user_id" label="Propietario">
                 <option value="">Selecccionar</option>
                 @foreach ($users as $user)
-                   <option value="{{ $user->id }}">{{ $user->name }}</option>
+                    <option value="{{ $user->id }}">{{ $user->name }}</option>
                 @endforeach
             </x-select>
-            
+
             <x-select name="product.category_id" label="Categoria">
                 <option value="">Selecccionar</option>
                 @foreach ($categories as $category)
-                   <option value="{{ $category->id }}">{{ $category->name }}</option>
-                   @foreach ($category->childrens as $children)
+                    <option value="{{ $category->id }}">{{ $category->name }}</option>
+                    @foreach ($category->childrens as $children)
                         <option value="{{ $children->id }}">
                             · {{ $children->name }}
                         </option>
-                   @endforeach
+                    @endforeach
                 @endforeach
             </x-select>
         </x-form>

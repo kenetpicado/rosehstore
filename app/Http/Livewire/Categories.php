@@ -73,7 +73,7 @@ class Categories extends Component
     public function edit(Category $category)
     {
         $this->category = $category;
-         $this->emit('open-create-modal');
+        $this->emit('open-create-modal');
     }
 
     public function destroy(Category $category)
