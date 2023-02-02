@@ -23,9 +23,9 @@
                 <x-input name="forniture.price" label="Precio de alquiler"></x-input>
             </div>
             <div class="col">
-                <x-select name="forniture.status" label="Estado">
-                    <option value="1">Disponible</option>
-                    <option value="0">No disponible</option>
+                <x-select name="forniture.status" label="Catalogo">
+                    <option value="1">Mostrar</option>
+                    <option value="0">No mostrar</option>
                 </x-select>
             </div>
         </div>
@@ -36,11 +36,11 @@
         @slot('header')
             <th>Nombre</th>
             <th>Imagen</th>
-            <th>Estado</th>
+            <th>Catalogo</th>
             <th>Costo C/U</th>
             <th>Costo Total</th>
-            <th class="text-center">Alquilar</th>
-            <th class="text-center">Acciones</th>
+            <th>Alquilar</th>
+            <th>Acciones</th>
         @endslot
         @forelse ($fornitures as $forniture)
             <tr>
@@ -58,9 +58,9 @@
                 </td>
                 <td>
                     @if ($forniture->status == 1)
-                        <span class="badge badge-success">Disponible</span>
+                        <span class="badge badge-success">Mostrar</span>
                     @else
-                        <span class="badge badge-danger">No disponible</span>
+                        <span class="badge badge-danger">No mostrar</span>
                     @endif
                 </td>
                 <td>
@@ -76,13 +76,13 @@
                         C$ {{ number_format($forniture->cost * $forniture->quantity, 2) }}
                     </div>
                 </td>
-                <td data-title="Acciones" class="text-center">
+                <td data-title="Alquilar">
                     <button type="button" class="btn btn-primary rounded-lg btn-sm"
                         wire:click="edit({{ $forniture->id }})">
                         Alquilar
                     </button>
                 </td>
-                <td data-title="Acciones" class="text-center">
+                <td data-title="Acciones">
                     <x-dropdown>
                         <button type="button" class="dropdown-item" wire:click="edit({{ $forniture->id }})">
                             <i class="fas fa-fw fa-edit"></i> Editar

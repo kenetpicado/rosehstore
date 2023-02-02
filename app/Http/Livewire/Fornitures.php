@@ -60,6 +60,7 @@ class Fornitures extends Component
     public function resetInputFields()
     {
         $this->reset();
+        $this->resetErrorBag();
         $this->mount();
     }
 }

@@ -33,11 +33,15 @@
                 </td>
                 <td data-title="Editar">
                     <button type="button" class="btn btn-primary rounded-lg btn-sm"
-                        wire:click="edit({{ $category->id }})">Editar</button>
+                        wire:click="edit({{ $category->id }})">
+                        <i class="fas fa-fw fa-edit"></i>
+                    </button>
                 </td>
                 <td data-title="Eliminar">
                     <button type="button" class="btn btn-danger rounded-lg btn-sm" onclick="confirm_delete()"
-                        wire:click="destroy({{ $category->id }})">Eliminar</button>
+                        wire:click="destroy({{ $category->id }})">
+                        <i class="fas fa-fw fa-trash"></i>
+                    </button>
                 </td>
             </tr>
             @foreach ($category->childrens as $children)
@@ -49,11 +53,15 @@
                     </td>
                     <td data-title="Editar">
                         <button type="button" class="btn btn-primary rounded-lg btn-sm"
-                            wire:click="edit({{ $children->id }})">Editar</button>
+                            wire:click="edit({{ $children->id }})">
+                            <i class="fas fa-fw fa-edit"></i>
+                        </button>
                     </td>
                     <td data-title="Eliminar">
                         <button type="button" class="btn btn-danger rounded-lg btn-sm" onclick="confirm_delete()"
-                            wire:click="destroy({{ $children->id }})">Eliminar</button>
+                            wire:click="destroy({{ $children->id }})">
+                            <i class="fas fa-fw fa-trash"></i>
+                        </button>
                     </td>
                 </tr>
             @endforeach

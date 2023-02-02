@@ -7,28 +7,29 @@
     </x-heading>
 
     <x-dialog>
-        <h5>{{ $product->description }}</h5>
-        <div class="small mb-2">{{ $product->SKU }}</div>
-        <div class="mb-2">Costo: C$ {{ $product->cost }}</div>
-        <div class="mb-2">Precio: C$ {{ $product->price }}</div>
-        <div class="mb-3">Propietario: {{ $product->user->name ?? '' }}</div>
+        <h5 class="font-weight-bold">{{ $product->description }}</h5>
+        <div class="mb-2">SKU: {{ $product->SKU }}</div>
+        <div class="mb-2">Costo: C$ {{ $product->default_cost }}</div>
+        <div class="mb-2">Precio: C$ {{ $product->default_price }}</div>
+        <div class="mb-2">Propietario: {{ $product->user->name ?? '' }}</div>
+        <div class="mb-3">Categoria: {{ $product->category->name ?? '' }}</div>
         <div style="width:100%;" class="d-flex">
             <img src="{{ $product->image }}" alt="No hay imagen" style="width:40%;border-radius: 1rem;" class="mx-auto">
         </div>
-        <hr>
-        <small>#{{ $product->category->name ?? '' }} </small>
     </x-dialog>
 
     @if (!$show_form)
         <x-table title="Todos los productos">
             @slot('header')
                 <th>Descripción</th>
-                <th>Detalles</th>
+                <th>Catalogo</th>
+                <th>Costo C/U</th>
+                <th>Costo Total</th>
                 <th>Opciones</th>
             @endslot
             @forelse ($products as $product)
                 <tr>
-                    <td data-title="Descripción">
+                    <td>
                         <div>
                             <div class="mb-1 text-dark">{{ $product->description }}</div>
                             <span class="text-muted small">
@@ -37,16 +38,34 @@
                         </div>
                     </td>
                     <td>
-                        <button type="button" class="btn btn-sm btn-primary" wire:click="details({{ $product->id }})">
-                            Detalles
-                        </button>
+                        @if ($product->status == 1)
+                            <span class="badge badge-success">Mostrar</span>
+                        @else
+                            <span class="badge badge-danger">No mostrar</span>
+                        @endif
+                    </td>
+                    <td>
+                        <div class="text-dark font-weight-bold">
+                            C$ {{ number_format($product->default_cost, 1) }}
+                        </div>
+                        <small>
+                            {{ $product->stocks->sum('original_quantity') }} existencias
+                        </small>
+                    </td>
+                    <td>
+                        <div class="text-dark font-weight-bold">
+                            nose
+                            {{-- C$ {{ number_format($product->cost * $forniture->quantity, 2) }} --}}
+                        </div>
                     </td>
                     <td data-title="Opciones">
-                        <button class="btn btn-primary btn-sm dropdown-toggle" type="button" id="dropdownMenuButton"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Opciones
-                        </button>
-                        <div class="dropdown-menu animated--fade-in" aria-labelledby="dropdownMenuButton">
+                        <x-dropdown>
+                            <a href="{{ route('stock', $product->id) }}" type="button" class="dropdown-item" >
+                                Existencias
+                            </a>
+                            <button type="button" class="dropdown-item" wire:click="details({{ $product->id }})">
+                                Vista previa
+                            </button>
                             <button type="button" class="dropdown-item" wire:click="edit({{ $product->id }})">
                                 Editar
                             </button>
@@ -54,7 +73,7 @@
                                 wire:click="destroy({{ $product->id }})">
                                 Eliminar
                             </button>
-                        </div>
+                        </x-dropdown>
                     </td>
                 </tr>
             @empty
@@ -69,11 +88,11 @@
     @endif
 
     @if ($show_form)
-        <x-form title="Agregar producto">
+        <x-form title="Agregar Producto">
             <x-input name="product.description" label="Descripcion"></x-input>
             <x-input name="product.SKU" label="SKU"></x-input>
-            <x-input name="product.cost" label="Costo"></x-input>
-            <x-input name="product.price" label="Precio"></x-input>
+            <x-input name="product.default_cost" label="Costo"></x-input>
+            <x-input name="product.default_price" label="Precio al cliente"></x-input>
             <x-input name="product.image" label="Imagen"></x-input>
             <x-input name="product.note" label="Nota"></x-input>
             <x-select name="product.user_id" label="Propietario">
@@ -93,6 +112,11 @@
                         </option>
                     @endforeach
                 @endforeach
+            </x-select>
+
+            <x-select name="product.status" label="Catalogo">
+                <option value="1">Mostrar</option>
+                <option value="0">No mostrar</option>
             </x-select>
         </x-form>
     @endif

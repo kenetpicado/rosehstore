@@ -27,8 +27,9 @@ class Products extends Component
         $products = Product::query()
             ->orWhere('SKU', 'like', '%' . $this->search . '%')
             ->orWhere('description', 'like', '%' . $this->search . '%')
-            ->latest('id')
-            ->select('id', 'SKU', 'description')
+            ->orderByDesc('id')
+            ->with('stocks')
+            ->select('id', 'SKU', 'description', 'status', 'default_cost')
             ->paginate(20);
 
         return view('livewire.products', [
@@ -41,23 +42,26 @@ class Products extends Component
     protected $rules = [
         'product.SKU' => 'required|alpha_dash|max:50',
         'product.description' => 'required|max:100',
-        'product.cost' => 'required|numeric',
-        'product.price' => 'required|numeric',
+        'product.default_cost' => 'required|numeric',
+        'product.default_price' => 'required|numeric',
         'product.user_id' => 'nullable',
         'product.note' => 'nullable|max:50',
         'product.image' => 'nullable|max:255|url',
-        'product.category_id' => 'required'
+        'product.category_id' => 'required',
+        'product.status' => 'required',
     ];
 
     public function mount()
     {
         $this->product = new Product();
+        $this->product->status = true;
     }
 
     public function resetInputFields()
     {
         $this->reset();
-        $this->product = new Product();
+        $this->resetErrorBag();
+        $this->mount();
     }
 
     public function store()

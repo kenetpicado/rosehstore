@@ -12,8 +12,8 @@ class Product extends Model
     protected $fillable = [
         'SKU',
         'description',
-        'cost',
-        'price',
+        'default_cost',
+        'default_price',
         'user_id',
         'note',
         'image'
@@ -27,6 +27,11 @@ class Product extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function stocks()
+    {
+        return $this->hasMany(Stock::class);
     }
 
     public function setDescriptionAttribute($value)

@@ -23,7 +23,6 @@
     <x-table title="Todos los usuarios">
         @slot('header')
             <th>Nombre</th>
-            <th>Email</th>
             <th>Rol</th>
             <th>Editar</th>
             <th>Eliminar</th>
@@ -31,10 +30,8 @@
         @forelse ($users as $user)
             <tr>
                 <td data-title="Nombre">
-                   <div class="text-dark">{{ $user->name }}</div>
-                </td>
-                 <td data-title="Email">
-                   <div>{{ $user->email }}</div>
+                   <div class="text-dark mb-2">{{ $user->name }}</div>
+                   <span class="text-primary">{{ $user->email }}</span>
                 </td>
                  <td data-title="Rol" class="text-muted">
                     @foreach ($user->roles->pluck('name') as $role)
@@ -42,10 +39,14 @@
                     @endforeach
                 </td>
                 <td data-title="Editar">
-                    <button type="button" class="btn btn-primary rounded-lg btn-sm" wire:click="edit({{ $user->id }})">Editar</button>
+                    <button type="button" class="btn btn-primary rounded-lg btn-sm" wire:click="edit({{ $user->id }})">
+                        <i class="fas fa-fw fa-edit"></i>
+                    </button>
                 </td>
                 <td data-title="Eliminar">
-                    <button type="button" class="btn btn-danger rounded-lg btn-sm" onclick="confirm_delete()" wire:click="destroy({{ $user->id }})">Eliminar</button>
+                    <button type="button" class="btn btn-danger rounded-lg btn-sm" onclick="confirm_delete()" wire:click="destroy({{ $user->id }})">
+                        <i class="fas fa-fw fa-trash"></i>
+                    </button>
                 </td>
             </tr>
         @empty
