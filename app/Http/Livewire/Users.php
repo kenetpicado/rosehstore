@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Traits\AlertsTrait;
 use Livewire\Component;
 use Spatie\Permission\Models\Role;
+use Illuminate\Validation\Rule;
 
 class Users extends Component
 {
@@ -15,11 +16,17 @@ class Users extends Component
     public $role = [];
     public $isNew = true;
 
-    protected $rules = [
-        'user.name' => 'required',
-        'user.email' => 'required|email',
-        'role' => 'required',
-    ];
+    public function rules()
+    {
+        return [
+            'user.name' => ['required', 'max:100'],
+            'user.email' => [
+                'required',
+                Rule::unique('users', 'email')->ignore($this->user->id),
+            ],
+            'role' => 'required',
+        ];
+    }
 
     public function render()
     {
@@ -42,7 +49,7 @@ class Users extends Component
     {
         $this->validate();
 
-        if ($isNew) {
+        if ($this->isNew) {
             $this->user->setPassword();
         }
 
