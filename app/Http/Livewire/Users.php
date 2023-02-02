@@ -13,6 +13,7 @@ class Users extends Component
 
     public $user = null;
     public $role = [];
+    public $isNew = true;
 
     protected $rules = [
         'user.name' => 'required',
@@ -41,7 +42,10 @@ class Users extends Component
     {
         $this->validate();
 
-        $this->user->setPassword();
+        if ($isNew) {
+            $this->user->setPassword();
+        }
+
         $this->user->save();
 
         $this->user->syncRoles($this->role);
@@ -59,6 +63,7 @@ class Users extends Component
 
     public function edit(User $user)
     {
+        $this->isNew = false;
         $this->user = $user;
         $this->role = $user->roles->pluck('name')->toArray();
         $this->emit('open-create-modal');

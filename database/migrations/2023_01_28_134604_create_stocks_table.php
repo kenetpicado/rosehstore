@@ -15,7 +15,7 @@ class CreateStocksTable extends Migration
     {
         Schema::create('stocks', function (Blueprint $table) {
             $table->id();
-            $table->string('size');
+            $table->string('size', 50);
             $table->integer('current_quantity');
             $table->integer('original_quantity');
             $table->float('cost');

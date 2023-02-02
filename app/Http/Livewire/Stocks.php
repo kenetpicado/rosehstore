@@ -18,12 +18,12 @@ class Stocks extends Component
     public $isNew = true;
 
     protected $rules = [
-        'stock.size' => 'required',
+        'stock.size' => 'required|max:50',
         'stock.product_id' => 'required',
         'stock.price' => 'required|numeric',
         'stock.cost' => 'required|numeric',
-        'stock.current_quantity' => 'required|numeric',
         'stock.original_quantity' => 'required|numeric',
+        'stock.current_quantity' => 'required|numeric',
     ];
 
     public function render()
@@ -50,7 +50,7 @@ class Stocks extends Component
     public function store()
     {
         if ($this->isNew) {
-            $this->stock->original_quantity = $this->stock->current_quantity;
+            $this->stock->current_quantity = $this->stock->original_quantity;
         }
 
         $this->validate();
@@ -59,6 +59,13 @@ class Stocks extends Component
         $this->resetInputFields();
         $this->created();
         $this->emit('close-create-modal');
+    }
+
+    public function edit(Stock $stock)
+    {
+        $this->stock = $stock;
+        $this->isNew = false;
+        $this->emit('open-create-modal');
     }
 
     public function resetInputFields()
@@ -74,5 +81,11 @@ class Stocks extends Component
         $this->stock->product_id = $this->product->id;
         $this->stock->cost = $this->product->default_cost;
         $this->stock->price = $this->product->default_price;
+    }
+
+    public function destroy(Stock $stock)
+    {
+        $stock->delete();
+        $this->deleted();
     }
 }

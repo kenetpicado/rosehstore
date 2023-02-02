@@ -10,6 +10,7 @@ use App\Traits\AlertsTrait;
 use App\Traits\PaginationTrait;
 use Illuminate\Validation\Rule;
 use Livewire\Component;
+use Illuminate\Support\Facades\DB;
 
 class Products extends Component
 {
@@ -22,23 +23,6 @@ class Products extends Component
 
     public $show_form = false;
 
-    public function render()
-    {
-        $products = Product::query()
-            ->orWhere('SKU', 'like', '%' . $this->search . '%')
-            ->orWhere('description', 'like', '%' . $this->search . '%')
-            ->orderByDesc('id')
-            ->with('stocks')
-            ->select('id', 'SKU', 'description', 'status', 'default_cost')
-            ->paginate(20);
-
-        return view('livewire.products', [
-            'products' => $products,
-            'categories' => Category::whereNull('parent_id')->get(['id', 'name']),
-            'users' => User::role('administrador')->get(['id', 'name']),
-        ]);
-    }
-
     protected $rules = [
         'product.SKU' => 'required|alpha_dash|max:50',
         'product.description' => 'required|max:100',
@@ -50,6 +34,30 @@ class Products extends Component
         'product.category_id' => 'required',
         'product.status' => 'required',
     ];
+
+    public function render()
+    {
+        $products = Product::query()
+            ->orWhere('SKU', 'like', '%' . $this->search . '%')
+            ->orWhere('description', 'like', '%' . $this->search . '%')
+            ->orderByDesc('id')
+            ->with(['stocks' => function ($q) {
+                $q->select(
+                    'id',
+                    'original_quantity',
+                    'product_id',
+                    DB::raw('original_quantity * cost as total_cost'),
+                );
+            }])
+            ->select('id', 'SKU', 'description', 'status', 'default_cost')
+            ->paginate(20);
+
+        return view('livewire.products', [
+            'products' => $products,
+            'categories' => Category::whereNull('parent_id')->get(['id', 'name']),
+            'users' => User::role('administrador')->get(['id', 'name']),
+        ]);
+    }
 
     public function mount()
     {

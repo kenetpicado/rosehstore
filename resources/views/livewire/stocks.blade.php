@@ -8,14 +8,24 @@
     </x-heading>
 
     <x-modal label="Agregar">
-        <x-input name="stock.cost" label="Costo"></x-input>
-        <x-input name="stock.price" label="Precio al cliente"></x-input>
+        <div class="row">
+            <div class="col">
+                <x-input name="stock.cost" label="Costo"></x-input>
+            </div>
+            <div class="col">
+                <x-input name="stock.price" label="Precio al cliente"></x-input>
+            </div>
+        </div>
         <x-input name="stock.size" label="Talla"></x-input>
-        <x-input name="stock.current_quantity" label="Cantidad" type="number"></x-input>
+        <x-input name="stock.original_quantity" label="Cantidad" type="number"></x-input>
+        @if (!$isNew)
+            <x-input name="stock.current_quantity" label="Quedan" type="number"></x-input>
+        @endif
     </x-modal>
 
     <x-table :title="$product->description">
         @slot('header')
+            <th>Registrado</th>
             <th>Talla</th>
             <th>Cantidad</th>
             <th>Quedan</th>
@@ -25,7 +35,10 @@
         @endslot
         @forelse ($stocks as $stock)
             <tr>
-                <td>
+                 <td>
+                    {{ $stock->created_at->diffForHumans() }}
+                </td>
+                <td class="text-dark font-weight-bold">
                     {{ $stock->size }}
                 </td>
                 <td>
@@ -46,7 +59,12 @@
                 </td>
                 <td>
                     <x-dropdown>
-
+                        <button type="button" class="dropdown-item" wire:click="edit({{ $stock->id }})">
+                            Editar
+                        </button>
+                        <button type="button" class="dropdown-item" onclick="confirm_delete()"  wire:click="destroy({{ $stock->id }})">
+                            Eliminar
+                        </button>
                     </x-dropdown>
                 </td>
             </tr>

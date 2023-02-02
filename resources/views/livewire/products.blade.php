@@ -49,13 +49,12 @@
                             C$ {{ number_format($product->default_cost, 1) }}
                         </div>
                         <small>
-                            {{ $product->stocks->sum('original_quantity') }} existencias
+                            {{ $product->stocks->sum('original_quantity') }} items
                         </small>
                     </td>
                     <td>
                         <div class="text-dark font-weight-bold">
-                            nose
-                            {{-- C$ {{ number_format($product->cost * $forniture->quantity, 2) }} --}}
+                            C$ {{ number_format($product->stocks->sum('total_cost'), 1) }}
                         </div>
                     </td>
                     <td data-title="Opciones">
