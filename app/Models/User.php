@@ -55,5 +55,6 @@ class User extends Authenticatable
     public function setEmailAttribute($value)
     {
         $this->attributes['email'] = trim(strtolower($value));
+        $this->attributes['email'] = str_replace(' ', '', $value);
     }
 }
