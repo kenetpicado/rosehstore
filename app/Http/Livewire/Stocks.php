@@ -39,9 +39,7 @@ class Stocks extends Component
     public function mount($product)
     {
         $this->product = Product::query()
-            ->select([
-                'id', 'description', 'default_cost', 'default_price'
-            ])
+            ->select('id', 'description', 'default_cost', 'default_price')
             ->find($product);
 
         $this->createStockInstance();

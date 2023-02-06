@@ -1,60 +1,72 @@
-<div class="card">
-    <x-header label="Tienda"></x-header>
+<div>
+    <!-- Page Heading -->
+    <x-heading label="Productos"></x-heading>
+    <p class="mb-4">
+        Se muestran todos los productos que tienen existencias disponibles para su venta.
+    </p>
 
-    <button id="openModal" class="d-none" data-bs-toggle="modal" data-bs-target="#createModal"></button>
+    <x-modal label="Vender">
+        <h6>{{ $product->description }}</h6>
+        <small>SKU: {{ $product->SKU }}</small>
+        <x-input name="sell.price"></x-input>
+        {{ $stock }}
+    </x-modal>
 
-    <x-create-modal label="Venta">
-        <x-input name="description" label="Descripcion"></x-input>
-        <div class="row">
-            <div class="col">
-                <x-input name="amount" label="Cantidad" type="number"></x-input>
-            </div>
-            <div class="col">
-                <x-input name="price" label="Precio (Unidad)"></x-input>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col">
-                <x-input name="discount" label="Descuento"></x-input>
-            </div>
-            <div class="col">
-                <x-input name="total_price" label="Total" disabled></x-input>
-            </div>
-        </div>
-        <x-input name="client" label="Cliente"></x-input>
-        <x-input name="note" label="Nota"></x-input>
-    </x-create-modal>
-
-    <div class="card-body">
-        <x-message></x-message>
-        <div class="d-flex">
-            <x-search.text></x-search.text>
-            <x-search.category></x-search.category>
-        </div>
-        <x-table>
-            @slot('header')
-                <th>Precio</th>
-                <th>SKU</th>
-                <th>Descripcion</th>
-                <th>Nota</th>
-                <th>Opciones</th>
-            @endslot
-            @forelse ($products as $product)
-                <tr>
-                    <td data-title="Precio" class="fw-bolder text-primary">C$ {{ $product->price }}</td>
-                    <td data-title="SKU">{{ $product->SKU }}</td>
-                    <td data-title="Descripción">{{ $product->description }} ({{ $product->size }})</td>
-                    <td data-title="Nota">{{ $product->note }}</td>
-                    <td>
-                        <button class="btn btn-sm btn-secondary" wire:click="sell({{ $product->id }})">Vender</button>
-                    </td>
-                </tr>
-            @empty
-                <tr>
-                    <td>No hay registros</td>
-                </tr>
-            @endforelse
-        </x-table>
-        {{ $products->links() }}
-    </div>
+    <x-table title="Todos los Productos">
+        @slot('header')
+            <th>Imagen</th>
+            <th>Descripcion</th>
+        @endslot
+        @forelse ($products as $product)
+            <tr>
+                <td>
+                    <img style="object-fit: scale-down; width:10rem;" class="rounded-lg" src="{{ $product->image }}"
+                        alt="Sin imagen">
+                </td>
+                <td>
+                    <div>
+                        <div class="mb-1 text-primary font-weight-bold ">{{ $product->description }}</div>
+                        <span class="text-muted small">
+                            SKU: {{ $product->SKU }}
+                        </span>
+                        <table class="table mt-2">
+                            <thead>
+                                <tr>
+                                    <th>TALLA</th>
+                                    <th>DISPONIBLE</th>
+                                    <th>PRECIO</th>
+                                    <th>VENDER</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($product->stocks as $stock)
+                                    <tr>
+                                        <td><span class="badge badge-secondary">{{ $stock->size }}</span></td>
+                                        <td>{{ $stock->current_quantity }}</td>
+                                        <td class="text-dark font-weight-bold">
+                                            {{ config('app.currency') }}
+                                            {{ $stock->price }}
+                                        </td>
+                                        <td>
+                                            <button class="btn btn-primary btn-sm"
+                                                wire:click="sell({{ $stock->product_id }}, {{ $stock->id }})">
+                                                <i class="fas fa-shopping-cart"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </td>
+            </tr>
+        @empty
+            <tr>
+                <td colspan="2" class="text-center">No hay registros</td>
+            </tr>
+        @endforelse
+        @slot('links')
+            {!! $products->links() !!}
+        @endslot
+    </x-table>
 </div>

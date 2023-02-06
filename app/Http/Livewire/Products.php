@@ -38,17 +38,8 @@ class Products extends Component
     public function render()
     {
         $products = Product::query()
-            ->orWhere('SKU', 'like', '%' . $this->search . '%')
-            ->orWhere('description', 'like', '%' . $this->search . '%')
             ->orderByDesc('id')
-            ->with(['stocks' => function ($q) {
-                $q->select(
-                    'id',
-                    'original_quantity',
-                    'product_id',
-                    DB::raw('original_quantity * cost as total_cost'),
-                );
-            }])
+            ->originalQuantity()
             ->select('id', 'SKU', 'description', 'status', 'default_cost')
             ->paginate(20);
 

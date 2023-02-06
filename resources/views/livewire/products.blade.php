@@ -31,7 +31,7 @@
                 <tr>
                     <td>
                         <div>
-                            <div class="mb-1 text-dark">{{ $product->description }}</div>
+                            <div class="mb-1 text-dark" style=" word-wrap: break-word; max-width: 45ch;">{{ $product->description }}</div>
                             <span class="text-muted small">
                                 {{ $product->SKU }}
                             </span>
@@ -46,7 +46,7 @@
                     </td>
                     <td>
                         <div class="text-dark font-weight-bold">
-                            C$ {{ number_format($product->default_cost, 1) }}
+                            {{ config('app.currency') }} {{ number_format($product->default_cost, 1) }}
                         </div>
                         <small>
                             {{ $product->stocks->sum('original_quantity') }} items
@@ -54,7 +54,7 @@
                     </td>
                     <td>
                         <div class="text-dark font-weight-bold">
-                            C$ {{ number_format($product->stocks->sum('total_cost'), 1) }}
+                            {{ config('app.currency') }} {{ number_format($product->stocks->sum('total_cost'), 1) }}
                         </div>
                     </td>
                     <td data-title="Opciones">

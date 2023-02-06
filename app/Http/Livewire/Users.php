@@ -22,6 +22,7 @@ class Users extends Component
             'user.name' => ['required', 'max:100'],
             'user.email' => [
                 'required',
+                'email',
                 Rule::unique('users', 'email')->ignore($this->user->id),
             ],
             'role' => 'required',
@@ -32,7 +33,7 @@ class Users extends Component
     {
         return view('livewire.users', [
             'users' => User::query()
-                ->select(['id', 'name', 'email'])
+                ->select('id', 'name', 'email')
                 ->with('roles:id,name')
                 ->role(['administrador', 'vendedor'])
                 ->paginate(10),

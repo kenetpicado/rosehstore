@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Product extends Model
 {
@@ -42,5 +43,24 @@ class Product extends Model
     public function setNoteAttribute($value)
     {
         $this->attributes['note'] = trim(strtoupper($value));
+    }
+
+    public function scopeOriginalQuantity($query)
+    {
+        return $query->with(['stocks' => function ($q) {
+            $q->select(
+                'id',
+                'original_quantity',
+                'product_id',
+                DB::raw('original_quantity * cost as total_cost'),
+            );
+        }]);
+    }
+
+    public function scopeHasStock($query)
+    {
+        return $query->whereHas('stocks', function ($q) {
+            $q->where('current_quantity', '>', 0);
+        });
     }
 }

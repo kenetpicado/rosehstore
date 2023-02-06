@@ -8,7 +8,7 @@
 
     <x-modal label="Agregar Usuario">
         <x-input name="user.name" label="Nombre"></x-input>
-        <x-input name="user.email" label="Email"></x-input>
+        <x-input name="user.email" label="Email" type="email"></x-input>
         <x-select name="role" label="Rol">
             <option value="">Seleccionar</option>
             @foreach ($roles as $role)

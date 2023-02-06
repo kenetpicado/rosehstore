@@ -49,12 +49,12 @@
                 </td>
                 <td>
                     <div class="text-dark font-weight-bold">
-                        C$ {{ number_format($stock->cost, 1) }}
+                        {{ config('app.currency') }} {{ number_format($stock->cost, 1) }}
                     </div>
                 </td>
                 <td>
                     <div class="text-dark font-weight-bold">
-                        C$ {{ number_format($stock->cost * $stock->original_quantity, 1) }}
+                        {{ config('app.currency') }} {{ number_format($stock->cost * $stock->original_quantity, 1) }}
                     </div>
                 </td>
                 <td>
@@ -70,7 +70,7 @@
             </tr>
         @empty
             <tr>
-                <td colspan="3" class="text-center">No hay registros</td>
+                <td colspan="7" class="text-center">No hay registros</td>
             </tr>
         @endforelse
         @slot('links')
