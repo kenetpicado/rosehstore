@@ -28,4 +28,10 @@ class Category extends Model
     {
         $this->attributes['name'] = ucwords(trim(strtolower($value)));
     }
+
+    public function isSameParent()
+    {
+        return $this->parent_id == $this->id && $this->id != null;
+           
+    }
 }

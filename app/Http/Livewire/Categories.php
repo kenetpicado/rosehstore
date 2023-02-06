@@ -56,7 +56,7 @@ class Categories extends Component
 
     public function store()
     {
-        if ($this->category->parent_id == $this->category->id) {
+        if ($this->category->isSameParent()) {
             throw ValidationException::withMessages([
                 'category.parent_id' => 'La categoría padre no puede ser la misma que la categoría hija.',
             ]);
