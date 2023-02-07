@@ -32,7 +32,7 @@ class Shop extends Component
             ->with(['stocks' => function ($query) {
                 $query->where('current_quantity', '>', 0);
             }])
-            ->paginate(20);
+            ->paginate(10);
 
         return view('livewire.shop', [
             'products' => $products
@@ -59,7 +59,7 @@ class Shop extends Component
     {
         $this->validate();
         $this->sale->save();
-        $this->stock->decrement('current_quantity');
+        $this->stock->decrement('current_quantity', $this->sale->quantity);
 
         $this->emit('close-create-modal');
         $this->created();

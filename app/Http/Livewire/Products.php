@@ -41,7 +41,7 @@ class Products extends Component
             ->orderByDesc('id')
             ->originalQuantity()
             ->select('id', 'SKU', 'description', 'status', 'default_cost')
-            ->paginate(20);
+            ->paginate(10);
 
         return view('livewire.products', [
             'products' => $products,

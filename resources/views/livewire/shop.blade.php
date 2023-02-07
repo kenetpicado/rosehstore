@@ -70,7 +70,7 @@
             </tr>
         @empty
             <tr>
-                <td colspan="2" class="text-center">No hay registros</td>
+                <td colspan="2" class="text-center">No hay productos</td>
             </tr>
         @endforelse
         @slot('links')
