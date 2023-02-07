@@ -17,4 +17,9 @@ trait AlertsTrait
     {
         $this->alert('info', "Registro eliminado correctamente");
     }
+
+    public function hasError($msj = "Ha ocurrido un error")
+    {
+        $this->alert('error', $msj);
+    }
 }

@@ -8,6 +8,7 @@ use App\Models\Stock;
 use App\Traits\AlertsTrait;
 use App\Traits\PaginationTrait;
 use Livewire\Component;
+use Illuminate\Validation\ValidationException;
 
 class Shop extends Component
 {
@@ -28,7 +29,9 @@ class Shop extends Component
     public function render()
     {
         $products = Product::query()
+            ->where('status', true)
             ->hasStock()
+            ->orderBy('description')
             ->with(['stocks' => function ($query) {
                 $query->where('current_quantity', '>', 0);
             }])
@@ -57,6 +60,11 @@ class Shop extends Component
 
     public function store()
     {
+        if ($this->sale->quantity > $this->stock->current_quantity) {
+            $this->hasError("La cantidad solicitada no está disponible");
+            return;
+        }
+
         $this->validate();
         $this->sale->save();
         $this->stock->decrement('current_quantity', $this->sale->quantity);

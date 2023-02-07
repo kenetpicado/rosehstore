@@ -181,6 +181,10 @@
         const confirm_delete = () => {
             confirm('Desea eliminar este registro?') || event.stopImmediatePropagation()
         }
+
+        const confirm_submit = () => {
+            confirm('Seguro que desea agregar este registro?') || event.preventDefault()
+        }
     </script>
 </body>
 

@@ -2,10 +2,10 @@
     <!-- Page Heading -->
     <x-heading label="Productos"></x-heading>
     <p class="mb-4">
-        Se muestran todos los productos que tienen existencias disponibles para su venta.
+        Se muestran solo los productos del catalogo y los que tienen existencias disponibles para su venta.
     </p>
 
-    <x-modal label="Vender">
+    <x-modal label="Vender" :confirm="true">
         <h6 class="text-primary">{{ $product->description }}</h6>
         <small>SKU: {{ $product->SKU }}</small>
         <hr>
