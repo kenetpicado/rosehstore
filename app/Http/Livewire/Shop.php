@@ -3,16 +3,27 @@
 namespace App\Http\Livewire;
 
 use App\Models\Product;
+use App\Models\Sale;
 use App\Models\Stock;
+use App\Traits\AlertsTrait;
 use App\Traits\PaginationTrait;
 use Livewire\Component;
 
 class Shop extends Component
 {
     use PaginationTrait;
+    use AlertsTrait;
 
     public $product;
     public $stock;
+    public $sale;
+
+    protected $rules = [
+        'sale.price' => 'required|numeric',
+        'sale.quantity' => 'required|numeric',
+        'sale.description' => 'required|string',
+        'sale.product_id' => 'required'
+    ];
 
     public function render()
     {
@@ -31,14 +42,28 @@ class Shop extends Component
     public function mount()
     {
         $this->product = new Product();
+        $this->sale = new Sale();
+        $this->stock = new Stock();
     }
 
-    public function sell(Product $product, Stock $stock)
+    public function sell($product_id, $stock_id)
     {
-        $this->product = $product;
-        $this->stock = $stock;
+        $this->stock = Stock::findForSale($stock_id);
+        $this->sale->prepareForSale($this->stock);
+        $this->product = Product::findForSale($product_id);
 
         $this->emit('open-create-modal');
+    }
+
+    public function store()
+    {
+        $this->validate();
+        $this->sale->save();
+        $this->stock->decrement('current_quantity');
+
+        $this->emit('close-create-modal');
+        $this->created();
+        $this->resetInputFields();
     }
 
     public function resetInputFields()

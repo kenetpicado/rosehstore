@@ -13,4 +13,10 @@ class Stock extends Model
     {
         $this->attributes['size'] = trim(strtoupper($value));
     }
+
+    public function scopeFindForSale($query, $id)
+    {
+        return $query->select('id', 'size', 'product_id', 'price', 'current_quantity')
+            ->find($id);
+    }
 }

@@ -6,10 +6,18 @@
     </p>
 
     <x-modal label="Vender">
-        <h6>{{ $product->description }}</h6>
+        <h6 class="text-primary">{{ $product->description }}</h6>
         <small>SKU: {{ $product->SKU }}</small>
-        <x-input name="sell.price"></x-input>
-        {{ $stock }}
+        <hr>
+        <x-input name="sale.description" label="Descripcion"></x-input>
+        <div class="row">
+            <div class="col">
+                <x-input name="sale.quantity" label="Cantidad" type="number"></x-input>
+            </div>
+            <div class="col">
+                <x-input name="sale.price" label="Precio (Unidad)"></x-input>
+            </div>
+        </div>
     </x-modal>
 
     <x-table title="Todos los Productos">

@@ -63,4 +63,9 @@ class Product extends Model
             $q->where('current_quantity', '>', 0);
         });
     }
+
+    public function scopeFindForSale($query, $id)
+    {
+        return $query->select('id', 'description', 'SKU')->find($id);
+    }
 }
