@@ -45,9 +45,4 @@ class Category extends Model
     {
         return $this->whereNull('parent_id');
     }
-
-    public function scopeWithChildrens()
-    {
-        return $this->with('childrens:id,name,parent_id');
-    }
 }

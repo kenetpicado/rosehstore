@@ -30,7 +30,7 @@ class ProductRegister extends Component
     {
         return view('livewire.product-register', [
             'users' => User::admins()->get(['id', 'name']),
-            'categories' => Category::parents()->withChildrens()->get(['id', 'name'])
+            'categories' => Category::parents()->with('childrens:id,name,parent_id')->get()
         ]);
     }
 

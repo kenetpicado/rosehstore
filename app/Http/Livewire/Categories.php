@@ -34,8 +34,7 @@ class Categories extends Component
     public function render()
     {
         $categories = Category::parents()
-            ->withChildrens()
-            ->select(['id', 'name', 'parent_id'])
+            ->with('childrens:id,name,parent_id')
             ->paginate(15);
 
         return view('livewire.categories', [
