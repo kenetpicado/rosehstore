@@ -32,6 +32,11 @@
         {{-- <x-item-sidebar title="Muebles y decoracion" icon="baby-carriage" route="fornitures"></x-item-sidebar> --}}
 
         <hr class="sidebar-divider d-none d-md-block">
+        <div class="sidebar-heading">Contabilidad</div>
+
+         <x-item-sidebar title="Ventas" icon="dollar-sign" route="sales"></x-item-sidebar>
+
+        <hr class="sidebar-divider d-none d-md-block">
         <div class="sidebar-heading">Configuracion</div>
 
         <x-item-sidebar title="Categorias" icon="tasks" route="categories"></x-item-sidebar>

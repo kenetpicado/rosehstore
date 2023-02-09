@@ -22,6 +22,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('stock/{product}', Stocks::class)->name('stock');
 
     Route::get('shop', Shop::class)->name('shop');
+
+    Route::get('sales', Sales::class)->name('sales');
 });
 
 Auth::routes();
