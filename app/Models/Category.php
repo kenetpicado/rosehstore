@@ -34,6 +34,13 @@ class Category extends Model
         return $this->parent_id == $this->id && $this->id != null;
     }
 
+    public function formatParentId()
+    {
+        if ($this->parent_id == '') {
+            $this->parent_id = null;
+        }
+    }
+
     public function scopeParents()
     {
         return $this->whereNull('parent_id');

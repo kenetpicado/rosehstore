@@ -57,6 +57,7 @@ class Categories extends Component
         }
         
         $this->validate();
+        $this->category->formatParentId();
         $this->category->save();
 
         $this->resetInputFields();
