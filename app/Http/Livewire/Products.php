@@ -3,7 +3,6 @@
 namespace App\Http\Livewire;
 
 use App\Models\Category;
-use App\Models\Egress;
 use App\Models\Product;
 use App\Models\User;
 use App\Traits\AlertsTrait;
@@ -19,21 +18,6 @@ class Products extends Component
 
     public $product = null;
     public $search = null;
-    public $product_category = null;
-
-    public $show_form = false;
-
-    protected $rules = [
-        'product.SKU' => 'required|alpha_dash|max:50',
-        'product.description' => 'required|max:100',
-        'product.default_cost' => 'required|numeric',
-        'product.default_price' => 'required|numeric',
-        'product.user_id' => 'nullable',
-        'product.note' => 'nullable|max:50',
-        'product.image' => 'nullable|max:255|url',
-        'product.category_id' => 'required',
-        'product.status' => 'required',
-    ];
 
     public function render()
     {
@@ -44,32 +28,13 @@ class Products extends Component
             ->paginate(10);
 
         return view('livewire.products', [
-            'products' => $products,
-            'categories' => Category::whereNull('parent_id')->get(['id', 'name']),
-            'users' => User::role('administrador')->get(['id', 'name']),
+            'products' => $products
         ]);
     }
 
     public function mount()
     {
         $this->product = new Product();
-        $this->product->status = true;
-    }
-
-    public function resetInputFields()
-    {
-        $this->reset();
-        $this->resetErrorBag();
-        $this->mount();
-    }
-
-    public function store()
-    {
-        $this->validate();
-        $this->product->save();
-
-        $this->resetInputFields();
-        $this->created();
     }
 
     public function destroy(Product $product)
@@ -78,16 +43,28 @@ class Products extends Component
         $this->deleted();
     }
 
-    public function edit(Product $product)
-    {
-        $this->product = $product;
-        $this->show_form = true;
-    }
-
     public function details(Product $product)
     {
         $this->product = $product;
-        $this->product->load(['category:id,name', 'user:id,name']);
+        $this->product->load([
+            'category:id,name',
+            'user:id,name',
+            'stocks' => function ($q) {
+                $q->select(
+                    'id',
+                    'product_id',
+                    'current_quantity',
+                    'original_quantity',
+                    DB::raw('original_quantity * cost as total_cost'),
+                );
+            }
+        ]);
         $this->emit('open-dialog-details');
+    }
+
+    public function resetInputFields()
+    {
+        $this->reset();
+        $this->product = new Product();
     }
 }

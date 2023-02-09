@@ -1,5 +1,5 @@
 @auth()
-    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar" >
+    <ul class="navbar-nav bg-primary sidebar sidebar-dark accordion" id="accordionSidebar" >
 
         <!-- Sidebar - Brand -->
         <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route('home') }}">
@@ -22,15 +22,21 @@
         <!-- Divider -->
         <hr class="sidebar-divider">
 
-        <x-item-sidebar title="Categorias" icon="tasks" route="categories"></x-item-sidebar>
+        <x-item-sidebar title="Tienda" icon="shopping-cart" route="shop"></x-item-sidebar>
 
-        <x-item-sidebar title="Usuaros" icon="user" route="users"></x-item-sidebar>
-
-        {{-- <x-item-sidebar title="Muebles y decoracion" icon="baby-carriage" route="fornitures"></x-item-sidebar> --}}
+        <hr class="sidebar-divider d-none d-md-block">
+        <div class="sidebar-heading">Inventario</div>
 
         <x-item-sidebar title="Productos" icon="tshirt" route="products"></x-item-sidebar>
 
-        <x-item-sidebar title="Tienda" icon="shopping-cart" route="shop"></x-item-sidebar>
+        {{-- <x-item-sidebar title="Muebles y decoracion" icon="baby-carriage" route="fornitures"></x-item-sidebar> --}}
+
+        <hr class="sidebar-divider d-none d-md-block">
+        <div class="sidebar-heading">Configuracion</div>
+
+        <x-item-sidebar title="Categorias" icon="tasks" route="categories"></x-item-sidebar>
+
+        <x-item-sidebar title="Usuaros" icon="user" route="users"></x-item-sidebar>
 
         <!-- Divider -->
         <hr class="sidebar-divider d-none d-md-block">

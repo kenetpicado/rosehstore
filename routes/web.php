@@ -17,6 +17,8 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('products', Products::class)->name('products');
 
+    Route::get('products/create/{product?}', ProductRegister::class)->name('products.register');
+
     Route::get('stock/{product}', Stocks::class)->name('stock');
 
     Route::get('shop', Shop::class)->name('shop');

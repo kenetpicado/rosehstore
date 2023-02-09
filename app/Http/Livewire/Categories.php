@@ -39,13 +39,8 @@ class Categories extends Component
             ->select(['id', 'name', 'parent_id'])
             ->paginate(15);
 
-        $categoriesParents = Category::query()
-            ->whereNull('parent_id')
-            ->get(['id', 'name']);
-
         return view('livewire.categories', [
-            'categories' => $categories,
-            'categoriesParents' => $categoriesParents,
+            'categories' => $categories
         ]);
     }
 

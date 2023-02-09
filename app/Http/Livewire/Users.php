@@ -34,8 +34,8 @@ class Users extends Component
         return view('livewire.users', [
             'users' => User::query()
                 ->select('id', 'name', 'email')
+                ->noRootUsers()
                 ->with('roles:id,name')
-                ->role(['administrador', 'vendedor'])
                 ->paginate(10),
             'roles' => Role::where('name', '!=', 'root')->get(['id', 'name']),
         ]);

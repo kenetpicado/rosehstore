@@ -14,7 +14,7 @@
         </div>
         <x-select name="category.parent_id" label="Categoria Padre">
             <option value="">Ninguna</option>
-            @foreach ($categoriesParents as $category)
+            @foreach ($categories as $category)
                 <option value="{{ $category->id }}">{{ $category->name }}</option>
             @endforeach
         </x-select>

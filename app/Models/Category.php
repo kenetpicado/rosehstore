@@ -32,6 +32,15 @@ class Category extends Model
     public function isSameParent()
     {
         return $this->parent_id == $this->id && $this->id != null;
-           
+    }
+
+    public function scopeParents()
+    {
+        return $this->whereNull('parent_id');
+    }
+
+    public function scopeWithChildrens()
+    {
+        return $this->with('childrens:id,name,parent_id');
     }
 }

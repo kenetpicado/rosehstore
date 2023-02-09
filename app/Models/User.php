@@ -56,4 +56,14 @@ class User extends Authenticatable
     {
         $this->attributes['email'] = trim(strtolower($value));
     }
+
+    public function scopeNoRootUsers($query)
+    {
+        return $query->whereHas('roles', fn($q) => $q->where('name', '!=', 'root'));
+    }
+
+    public function scopeAdmins($query)
+    {
+        return $query->whereHas('roles', fn($q) => $q->where('name', 'administrador'));
+    }
 }
