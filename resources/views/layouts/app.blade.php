@@ -13,62 +13,17 @@
     <title>{{ config('app.name') }}</title>
 
     <!-- Custom fonts for this template-->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
-        integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-    <link
-        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
     <!-- Custom styles for this template-->
     <link href="{{ asset('css/sb-admin-2.min.css') }}" rel="stylesheet">
+
+    <!-- styles for this page -->
+    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+
     @livewireStyles
-
-    <style>
-        .table td,
-        th {
-            vertical-align: middle !important;
-        }
-
-        .table th {
-            font-size: 0.8rem;
-            text-transform: uppercase;
-        }
-
-        @media only screen and (max-width: 800px) {
-
-            #no-more-tables tbody,
-            #no-more-tables tr,
-            #no-more-tables td {
-                display: block;
-            }
-
-            #no-more-tables thead th {
-                position: absolute;
-                top: -9999px;
-                left: -9999px;
-            }
-
-            #no-more-tables td {
-                /* position: relative; */
-                /* padding-left: 25%; */
-                border: none;
-            }
-
-            #no-more-tables td:before {
-                content: attr(data-title);
-                /* position: absolute; */
-                /* left: 4px; */
-                font-weight: bold;
-            }
-
-            #no-more-tables tr {
-                border-bottom: 1px solid #aaaa;
-            }
-        }
-    </style>
-
 </head>
 
 <body id="page-top">
@@ -94,8 +49,8 @@
                     @yield('content')
 
                     @isset($slot)
-                        {{ $slot }}
-                     @endisset
+                    {{ $slot }}
+                    @endisset
                 </div>
             </div>
 
@@ -121,8 +76,7 @@
     </a>
 
     <!-- Logout Modal-->
-    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -167,7 +121,7 @@
             $('#createModal').modal('show')
         });
 
-         Livewire.on('open-dialog-details', function() {
+        Livewire.on('open-dialog-details', function() {
             $('#dialogDetails').modal('show')
         });
 

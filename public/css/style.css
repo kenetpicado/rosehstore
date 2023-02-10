@@ -1,0 +1,51 @@
+.table td,
+th {
+    vertical-align: middle !important;
+}
+
+.table th {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+}
+
+@media only screen and (max-width: 800px) {
+
+    #no-more-tables tbody,
+    #no-more-tables tr,
+    #no-more-tables td {
+        display: block;
+    }
+
+    #no-more-tables thead th {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+    }
+
+    #no-more-tables td {
+        /* position: relative; */
+        /* padding-left: 25%; */
+        border: none;
+    }
+
+    #no-more-tables td:before {
+        content: attr(data-title);
+        /* position: absolute; */
+        /* left: 4px; */
+        font-weight: bold;
+    }
+
+    #no-more-tables tr {
+        border-bottom: 1px solid #aaaa;
+    }
+}
+
+input::-webkit-inner-spin-button,
+input::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type=number] {
+    -moz-appearance: textfield;
+}
