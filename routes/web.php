@@ -12,11 +12,17 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('fornitures', Fornitures::class)->name('fornitures');
 
+    Route::get('decorations', Decorations::class)->name('decorations');
+
+    Route::get('decorations/create/{decoration?}', DecorationsRegister::class)
+        ->name('decorations.register');
+
     Route::get('users', Users::class)->name('users');
 
     Route::get('products', Products::class)->name('products');
 
-    Route::get('products/create/{product?}', ProductRegister::class)->name('products.register');
+    Route::get('products/create/{product?}', ProductRegister::class)
+        ->name('products.register');
 
     Route::get('stock/{product}', Stocks::class)->name('stock');
 

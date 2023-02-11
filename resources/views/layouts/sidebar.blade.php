@@ -24,15 +24,11 @@
 
         <x-item-sidebar title="Tienda" icon="shopping-cart" route="shop"></x-item-sidebar>
 
-        <hr class="sidebar-divider d-none d-md-block">
-        <div class="sidebar-heading">Inventario</div>
-
         <x-item-sidebar title="Productos" icon="tshirt" route="products"></x-item-sidebar>
 
         <x-item-sidebar title="Mobiliario" icon="baby-carriage" route="fornitures"></x-item-sidebar>
 
-        <hr class="sidebar-divider d-none d-md-block">
-        <div class="sidebar-heading">Contabilidad</div>
+        <x-item-sidebar title="Decoraciones" icon="gift" route="decorations"></x-item-sidebar>
 
          <x-item-sidebar title="Ventas" icon="dollar-sign" route="sales"></x-item-sidebar>
 

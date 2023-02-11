@@ -50,11 +50,11 @@
                 <td>
                     <x-dropdown>
                         <button type="button" class="dropdown-item" wire:click="edit({{ $forniture->id }})">
-                            <i class="fas fa-fw fa-edit"></i> Editar
+                            Editar
                         </button>
                         <button type="button" class="dropdown-item" onclick="confirm_delete()"
                             wire:click="destroy({{ $forniture->id }})">
-                            <i class="fas fa-fw fa-trash"></i> Eliminar
+                            Eliminar
                         </button>
                     </x-dropdown>
                 </td>
