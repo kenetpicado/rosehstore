@@ -16,9 +16,6 @@ class CreateFornituresTable extends Migration
         Schema::create('fornitures', function (Blueprint $table) {
             $table->id();
             $table->string('name', 100);
-            $table->string('description', 50)->nullable();
-            $table->float('cost');
-            $table->integer('quantity');
             $table->float('price')->nullable();
             $table->string('image')->nullable();
             $table->boolean('status')->default(true);

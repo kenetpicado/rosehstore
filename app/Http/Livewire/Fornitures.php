@@ -11,21 +11,23 @@ class Fornitures extends Component
     use AlertsTrait;
 
     public $forniture;
+    public $search = null;
 
     protected $rules = [
         'forniture.name' => 'required|max:100',
-        'forniture.description' => 'required|max:50',
-        'forniture.cost' => 'required|numeric',
-        'forniture.quantity' => 'required|numeric',
         'forniture.price' => 'required|numeric',
-        'forniture.image' => 'nullable|url|max:255',
+        'forniture.image' => 'required|url|max:255',
         'forniture.status' => 'required',
     ];
 
     public function render()
     {
         return view('livewire.fornitures', [
-            'fornitures' => Forniture::orderByDesc('status')->paginate(20)
+            'fornitures' => Forniture::orderBy('name')
+                ->when($this->search, function ($query) {
+                    $query->where('name', 'like', '%' . $this->search . '%');
+                })
+                ->paginate(20)
         ]);
     }
 

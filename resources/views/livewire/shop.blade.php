@@ -5,7 +5,7 @@
         Se muestran solo los productos del catalogo y los que tienen existencias disponibles para su venta.
     </p>
 
-    <x-modal label="Vender" :confirm="true">
+    <x-modal label="Vender" :confirm="true" btn="Vender">
         <h6 class="text-primary">{{ $product->description }}</h6>
         <small>SKU: {{ $product->SKU }}</small>
         <hr>
@@ -21,6 +21,13 @@
     </x-modal>
 
     <x-table title="Todos los Productos">
+        @slot('search')
+            <div class="row">
+                <div class="col-12 col-lg-3">
+                    <input type="search" class="form-control " wire:model.debounce.500ms="search" placeholder="Buscar">
+                </div>
+            </div>
+        @endslot
         @slot('header')
             <th>Imagen</th>
             <th>Descripcion</th>

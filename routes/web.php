@@ -10,8 +10,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('categories', Categories::class)->name('categories');
 
-    //TODO: Change this
-    Route::get('muebles-y-decoracion', Fornitures::class)->name('fornitures');
+    Route::get('fornitures', Fornitures::class)->name('fornitures');
 
     Route::get('users', Users::class)->name('users');
 

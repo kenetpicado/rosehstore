@@ -16,13 +16,20 @@
                 <div class="mb-2">Propietario: {{ $product->user->name ?? '' }}</div>
                 <div class="mb-2">Categoria: {{ $product->category->name ?? '' }}</div>
                 <div class="mb-2">
-                    Total comprado: {{ $product->stocks->sum('original_quantity') ?? '' }}
+                    Total Comprado: {{ $product->stocks->sum('original_quantity') ?? '' }}
                 </div>
                 <div class="mb-2">
-                    Total disponible: {{ $product->stocks->sum('current_quantity') ?? '' }}
+                    Total Costo:
+                    {{ config('app.currency') }}
+                    {{ $product->stocks->sum('total_cost') ?? '' }}
                 </div>
                 <div class="mb-2">
-                    Total costo: {{ config('app.currency') }} {{ $product->stocks->sum('total_cost') ?? '' }}
+                    Disponible: {{ $product->stocks->sum('current_quantity') ?? '' }}
+                </div>
+                <div class="mb-2">
+                    Costo Disponible:
+                    {{ config('app.currency') }}
+                    {{ $product->stocks->sum('current_cost') ?? '' }}
                 </div>
             </div>
             <div class="col">
@@ -32,10 +39,18 @@
     </x-dialog>
 
     <x-table title="Todos los productos">
+        @slot('search')
+            <div class="row">
+                <div class="col-12 col-lg-3">
+                    <input type="search" class="form-control " wire:model.debounce.500ms="search" placeholder="Buscar">
+                </div>
+            </div>
+        @endslot
         @slot('header')
             <th>Descripción</th>
             <th>Catalogo</th>
             <th>Costo C/U</th>
+            <th>Disponible</th>
             <th>Costo Total</th>
             <th>Opciones</th>
         @endslot
@@ -60,13 +75,12 @@
                     <div class="text-dark font-weight-bold">
                         {{ config('app.currency') }} {{ number_format($product->default_cost, 1) }}
                     </div>
-                    <small>
-                        {{ $product->stocks->sum('original_quantity') }} items
-                    </small>
                 </td>
+                <td>{{ $product->stocks->sum('current_quantity') }}</td>
                 <td>
                     <div class="text-dark font-weight-bold">
-                        {{ config('app.currency') }} {{ number_format($product->stocks->sum('total_cost'), 1) }}
+                        {{ config('app.currency') }}
+                        {{ number_format($product->stocks->sum('total_cost'), 1) }}
                     </div>
                 </td>
                 <td data-title="Opciones">

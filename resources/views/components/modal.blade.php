@@ -1,4 +1,4 @@
-@props(['label', 'id' => 'createModal', 'fn' => 'store()', 'confirm' => false])
+@props(['label', 'id' => 'createModal', 'fn' => 'store()', 'confirm' => false, 'btn' => 'Guardar'])
 
 <div wire:ignore.self class="modal" id="{{ $id }}" tabindex="-1" aria-labelledby="ModalLabel{{ $id }}"
     aria-hidden="true">
@@ -19,9 +19,11 @@
                 <div class="modal-footer">
                     <button type="button" class="d-none" id="close-create-modal" data-dismiss="modal"></button>
                     @if ($confirm)
-                        <button type="submit" onclick="confirm_submit()" wire:loading.attr="disabled" class="btn btn-primary">Guardar</button>
+                        <button type="submit" onclick="confirm_submit()" wire:loading.attr="disabled" class="btn btn-primary">{{ $btn }}</button>
                     @else
-                        <button type="submit" wire:loading.attr="disabled" class="btn btn-primary">Guardar</button>
+                        <button type="submit" wire:loading.attr="disabled" class="btn btn-primary">
+                            {{ $btn }}
+                        </button>
                     @endif
                 </div>
             </form>

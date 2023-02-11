@@ -18,6 +18,7 @@ class Shop extends Component
     public $product;
     public $stock;
     public $sale;
+    public $search = null;
 
     protected $rules = [
         'sale.price' => 'required|numeric',
@@ -35,6 +36,7 @@ class Shop extends Component
             ->with(['stocks' => function ($query) {
                 $query->where('current_quantity', '>', 0);
             }])
+            ->searching($this->search)
             ->paginate(10);
 
         return view('livewire.shop', [

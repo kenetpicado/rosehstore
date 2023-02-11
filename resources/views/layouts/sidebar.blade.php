@@ -29,7 +29,7 @@
 
         <x-item-sidebar title="Productos" icon="tshirt" route="products"></x-item-sidebar>
 
-        {{-- <x-item-sidebar title="Muebles y decoracion" icon="baby-carriage" route="fornitures"></x-item-sidebar> --}}
+        <x-item-sidebar title="Mobiliario" icon="baby-carriage" route="fornitures"></x-item-sidebar>
 
         <hr class="sidebar-divider d-none d-md-block">
         <div class="sidebar-heading">Contabilidad</div>

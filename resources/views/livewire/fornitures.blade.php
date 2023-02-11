@@ -1,6 +1,6 @@
 <div>
     <!-- Page Heading -->
-    <x-heading label="Muebles y Decoración">
+    <x-heading label="Mobiliario">
         <button type="button" id="open-create-modal" class="btn btn-sm btn-primary ml-2" data-toggle="modal"
             data-target="#createModal">
             Agregar
@@ -9,53 +9,36 @@
 
     <x-modal label="Agregar">
         <x-input name="forniture.name" label="Nombre"></x-input>
-        <x-input name="forniture.description" label="Descripción"></x-input>
-        <div class="row">
-            <div class="col">
-                <x-input name="forniture.cost" label="Costo"></x-input>
-            </div>
-            <div class="col">
-                <x-input name="forniture.quantity" label="Cantidad"></x-input>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col">
-                <x-input name="forniture.price" label="Precio de alquiler"></x-input>
-            </div>
-            <div class="col">
-                <x-select name="forniture.status" label="Catalogo">
-                    <option value="1">Mostrar</option>
-                    <option value="0">No mostrar</option>
-                </x-select>
-            </div>
-        </div>
+        <x-input name="forniture.price" label="Precio de alquiler"></x-input>
         <x-input name="forniture.image" label="Imagen"></x-input>
+        <x-select name="forniture.status" label="Catalogo">
+            <option value="1">Mostrar</option>
+            <option value="0">No mostrar</option>
+        </x-select>
     </x-modal>
 
     <x-table title="Todos los artículos">
+        @slot('search')
+            <div class="row">
+                <div class="col-12 col-lg-3">
+                    <input type="search" class="form-control " wire:model.debounce.500ms="search" placeholder="Buscar">
+                </div>
+            </div>
+        @endslot
         @slot('header')
-            <th>Nombre</th>
             <th>Imagen</th>
+            <th>Nombre</th>
             <th>Catalogo</th>
-            <th>Costo C/U</th>
-            <th>Costo Total</th>
-            <th>Alquilar</th>
+            <th>Precio alquiler</th>
             <th>Acciones</th>
         @endslot
         @forelse ($fornitures as $forniture)
             <tr>
-                <td data-title="Nombre">
-                    <div class="text-dark font-weight-bold">
-                        {{ $forniture->name }}
-                    </div>
-                    <small>
-                        {{ $forniture->description }}
-                    </small>
-                </td>
                 <td>
                     <img style="object-fit: scale-down; width:8rem;" class="rounded-lg" src="{{ $forniture->image }}"
                         alt="Sin imagen">
                 </td>
+                <td>{{ $forniture->name }}</td>
                 <td>
                     @if ($forniture->status == 1)
                         <span class="badge badge-success">Mostrar</span>
@@ -63,26 +46,8 @@
                         <span class="badge badge-danger">No mostrar</span>
                     @endif
                 </td>
+                <td>C$ {{ number_format($forniture->price, 2) }}</td>
                 <td>
-                    <div class="text-dark font-weight-bold">
-                        C$ {{ number_format($forniture->cost, 2) }}
-                    </div>
-                    <small>
-                        {{ $forniture->quantity }} existencias
-                    </small>
-                </td>
-                <td>
-                    <div class="text-dark font-weight-bold">
-                        C$ {{ number_format($forniture->cost * $forniture->quantity, 2) }}
-                    </div>
-                </td>
-                <td data-title="Alquilar">
-                    <button type="button" class="btn btn-primary rounded-lg btn-sm"
-                        wire:click="edit({{ $forniture->id }})">
-                        Alquilar
-                    </button>
-                </td>
-                <td data-title="Acciones">
                     <x-dropdown>
                         <button type="button" class="dropdown-item" wire:click="edit({{ $forniture->id }})">
                             <i class="fas fa-fw fa-edit"></i> Editar
@@ -96,7 +61,7 @@
             </tr>
         @empty
             <tr>
-                <td colspan="3" class="text-center">No hay registros</td>
+                <td colspan="5" class="text-center">No hay registros</td>
             </tr>
         @endforelse
         @slot('links')

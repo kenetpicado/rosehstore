@@ -5,6 +5,11 @@
         <h6 class="m-0 font-weight-bold text-primary">{{ $title }}</h6>
     </div>
     <div class="card-body">
+        @isset ($search)
+            <div class="mb-2">
+                {{ $search }}
+            </div>
+        @endisset
         <div class="table-responsive">
             <table class="table table-borderless align-middle" width="100%" cellspacing="0" id="no-more-tables">
                 <thead>

@@ -23,7 +23,8 @@ class Products extends Component
     {
         $products = Product::query()
             ->orderByDesc('id')
-            ->originalQuantity()
+            ->currentQuantity()
+            ->searching($this->search)
             ->select('id', 'SKU', 'description', 'status', 'default_cost')
             ->paginate(10);
 
@@ -56,6 +57,7 @@ class Products extends Component
                     'current_quantity',
                     'original_quantity',
                     DB::raw('original_quantity * cost as total_cost'),
+                    DB::raw('current_quantity * cost as current_cost'),
                 );
             }
         ]);

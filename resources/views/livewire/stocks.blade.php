@@ -27,10 +27,11 @@
         @slot('header')
             <th>Registrado</th>
             <th>Talla</th>
-            <th>Cantidad</th>
-            <th>Quedan</th>
             <th>Costo C/U</th>
+            <th>Cantidad</th>
             <th>Costo Total</th>
+            <th>Disponible</th>
+            <th>Costo Disponible</th>
             <th>Opciones</th>
         @endslot
         @forelse ($stocks as $stock)
@@ -41,20 +42,26 @@
                 <td class="text-dark font-weight-bold">
                     {{ $stock->size }}
                 </td>
-                <td>
-                    {{ $stock->original_quantity }}
-                </td>
-                <td>
-                    {{ $stock->current_quantity }}
-                </td>
-                <td>
+                 <td>
                     <div class="text-dark font-weight-bold">
                         {{ config('app.currency') }} {{ number_format($stock->cost, 1) }}
                     </div>
                 </td>
                 <td>
+                    {{ $stock->original_quantity }}
+                </td>
+                <td>
                     <div class="text-dark font-weight-bold">
                         {{ config('app.currency') }} {{ number_format($stock->cost * $stock->original_quantity, 1) }}
+                    </div>
+                </td>
+                <td>
+                    {{ $stock->current_quantity }}
+                </td>
+               <td>
+                    <div class="text-dark font-weight-bold">
+                        {{ config('app.currency') }}
+                        {{ number_format($stock->cost * $stock->current_quantity, 1) }}
                     </div>
                 </td>
                 <td>

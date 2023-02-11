@@ -50,9 +50,21 @@ class Product extends Model
         return $query->with(['stocks' => function ($q) {
             $q->select(
                 'id',
-                'original_quantity',
+                'current_quantity',
                 'product_id',
-                DB::raw('original_quantity * cost as total_cost'),
+                DB::raw('current_quantity * cost as total_cost'),
+            );
+        }]);
+    }
+
+    public function scopeCurrentQuantity($query)
+    {
+        return $query->with(['stocks' => function ($q) {
+            $q->select(
+                'id',
+                'current_quantity',
+                'product_id',
+                DB::raw('current_quantity * cost as total_cost'),
             );
         }]);
     }
@@ -67,5 +79,13 @@ class Product extends Model
     public function scopeFindForSale($query, $id)
     {
         return $query->select('id', 'description', 'SKU')->find($id);
+    }
+
+    public function scopeSearching($query, $search)
+    {
+        return $query->when($search, function ($q) use ($search) {
+            $q->where('SKU', 'like', '%' . $search . '%')
+                ->orWhere('description', 'like', '%' . $search . '%');
+        });
     }
 }

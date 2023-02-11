@@ -20,6 +20,7 @@ class CreateStocksTable extends Migration
             $table->integer('original_quantity');
             $table->float('cost');
             $table->float('price');
+            $table->string('colors')->nullable();
 
             $table->unsignedBigInteger('product_id');
             $table->foreign('product_id')
