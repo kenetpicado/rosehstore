@@ -13,4 +13,9 @@ class Decoration extends Model
     {
         return $this->belongsToMany(Forniture::class);
     }
+
+    public function getTotalPriceAttribute()
+    {
+        return $this->fornitures->sum('price') + $this->manpower + $this->extra;
+    }
 }

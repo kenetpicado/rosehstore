@@ -38,7 +38,7 @@
                     <img style="object-fit: scale-down; width:8rem;" class="rounded-lg" src="{{ $forniture->image }}"
                         alt="Sin imagen">
                 </td>
-                <td>{{ $forniture->name }}</td>
+                <td class="text-dark font-weight-bold">{{ $forniture->name }}</td>
                 <td>
                     @if ($forniture->status == 1)
                         <span class="badge badge-success">Mostrar</span>

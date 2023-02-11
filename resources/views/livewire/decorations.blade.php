@@ -10,6 +10,7 @@
         @slot('header')
             <th>Imagen</th>
             <th>Nombre</th>
+            <th>Catalogo</th>
             <th>Precio</th>
             <th>Acciones</th>
         @endslot
@@ -19,8 +20,17 @@
                     <img style="object-fit: scale-down; width:8rem;" class="rounded-lg" src="{{ $decoration->image }}"
                         alt="Sin imagen">
                 </td>
-                <td>{{ $decoration->name }}</td>
-                <td>C$ {{ number_format(5000, 2) }}</td>
+                <td class="text-dark font-weight-bold">{{ $decoration->name }}</td>
+                <td>
+                    @if ($decoration->status == 1)
+                        <span class="badge badge-success">Mostrar</span>
+                    @else
+                        <span class="badge badge-danger">No mostrar</span>
+                    @endif
+                </td>
+                <td>
+                    C$ {{ number_format($decoration->total_price, 2) }}
+                </td>
                 <td>
                     <x-dropdown>
                         <a href="{{ route('decorations.register', $decoration->id) }}" class="dropdown-item">
