@@ -65,7 +65,7 @@ class Product extends Model
                 'id',
                 'current_quantity',
                 'product_id',
-                DB::raw('current_quantity * cost as total_cost'),
+                DB::raw('current_quantity * cost as current_quantity_cost'),
             );
         }]);
     }
@@ -93,5 +93,20 @@ class Product extends Model
     public function getFormatDefaultCostAttribute()
     {
         return (new CurrencyService)->format($this->default_cost);
+    }
+
+    public function getFormatDefaultPriceAttribute()
+    {
+        return (new CurrencyService)->format($this->default_price);
+    }
+
+    public function getFormatTotalCurrentCostAttribute()
+    {
+        return (new CurrencyService)->format($this->stocks->sum('current_cost') ?? 0);
+    }
+
+    public function getAvailableQuantityAttribute()
+    {
+        return $this->stocks->sum('current_quantity');
     }
 }

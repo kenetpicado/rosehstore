@@ -12,7 +12,7 @@
         <div class="row">
             <div class="col">
                 <div class="mb-2">Costo: {{ $product->format_default_cost }}</div>
-                <div class="mb-2">Precio: C$ {{ $product->default_price }}</div>
+                <div class="mb-2">Precio: {{ $product->format_default_price }}</div>
                 <div class="mb-2">Propietario: {{ $product->user->name ?? '' }}</div>
                 <div class="mb-2">Categoria: {{ $product->category->name ?? '' }}</div>
                 <div class="mb-2">
@@ -29,7 +29,7 @@
                 <div class="mb-2">
                     Costo Disponible:
                     {{ config('app.currency') }}
-                    {{ $product->stocks->sum('current_cost') ?? '' }}
+                    {{ $product->format_total_current_cost }}
                 </div>
             </div>
             <div class="col">
@@ -78,11 +78,11 @@
                         {{ $product->format_default_cost }}
                     </div>
                 </td>
-                <td>{{ $product->stocks->sum('current_quantity') }}</td>
+                <td>{{ $product->available_quantity }}</td>
                 <td>
                     <div class="text-dark font-weight-bold">
                         {{ config('app.currency') }}
-                        {{ number_format($product->stocks->sum('total_cost'), 1) }}
+                        {{ number_format($product->stocks->sum('current_quantity_cost'), 1) }}
                     </div>
                 </td>
                 <td data-title="Opciones">
