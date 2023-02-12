@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Services\CurrencyService;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
@@ -87,5 +88,10 @@ class Product extends Model
             $q->where('SKU', 'like', '%' . $search . '%')
                 ->orWhere('description', 'like', '%' . $search . '%');
         });
+    }
+
+    public function getFormatDefaultCostAttribute()
+    {
+        return (new CurrencyService)->format($this->default_cost);
     }
 }

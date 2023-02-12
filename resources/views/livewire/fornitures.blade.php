@@ -35,7 +35,7 @@
         @forelse ($fornitures as $forniture)
             <tr>
                 <td>
-                    <img style="object-fit: scale-down; width:8rem;" class="rounded-lg" src="{{ $forniture->image }}"
+                    <img class="rounded-lg img-table" src="{{ $forniture->image }}"
                         alt="Sin imagen">
                 </td>
                 <td class="text-dark font-weight-bold">{{ $forniture->name }}</td>

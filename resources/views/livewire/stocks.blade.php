@@ -44,7 +44,7 @@
                 </td>
                  <td>
                     <div class="text-dark font-weight-bold">
-                        {{ config('app.currency') }} {{ number_format($stock->cost, 1) }}
+                        {{ $stock->format_cost }}
                     </div>
                 </td>
                 <td>
@@ -52,7 +52,7 @@
                 </td>
                 <td>
                     <div class="text-dark font-weight-bold">
-                        {{ config('app.currency') }} {{ number_format($stock->cost * $stock->original_quantity, 1) }}
+                        {{ $stock->format_total_cost }}
                     </div>
                 </td>
                 <td>
@@ -60,8 +60,7 @@
                 </td>
                <td>
                     <div class="text-dark font-weight-bold">
-                        {{ config('app.currency') }}
-                        {{ number_format($stock->cost * $stock->current_quantity, 1) }}
+                        {{ $stock->format_current_cost }}
                     </div>
                 </td>
                 <td>

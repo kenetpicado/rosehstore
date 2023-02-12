@@ -17,7 +17,7 @@
         @forelse ($decorations as $decoration)
             <tr>
                 <td>
-                    <img style="object-fit: scale-down; width:8rem;" class="rounded-lg" src="{{ $decoration->image }}"
+                    <img class="rounded-lg img-table" src="{{ $decoration->image }}"
                         alt="Sin imagen">
                 </td>
                 <td class="text-dark font-weight-bold">{{ $decoration->name }}</td>

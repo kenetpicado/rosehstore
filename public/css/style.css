@@ -54,3 +54,8 @@ input[type=number] {
     word-wrap: break-word;
     max-width: 45ch;
 }
+
+.img-table {
+    object-fit: scale-down;
+    width:8rem;
+}

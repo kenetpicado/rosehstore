@@ -11,7 +11,7 @@
         <div class="mb-2">SKU: {{ $product->SKU }}</div>
         <div class="row">
             <div class="col">
-                <div class="mb-2">Costo: C$ {{ $product->default_cost }}</div>
+                <div class="mb-2">Costo: {{ $product->format_default_cost }}</div>
                 <div class="mb-2">Precio: C$ {{ $product->default_price }}</div>
                 <div class="mb-2">Propietario: {{ $product->user->name ?? '' }}</div>
                 <div class="mb-2">Categoria: {{ $product->category->name ?? '' }}</div>
@@ -58,7 +58,9 @@
             <tr>
                 <td>
                     <div>
-                        <div class="mb-1 text-dark" style=" word-wrap: break-word; max-width: 45ch;">{{ $product->description }}</div>
+                        <div class="mb-1 text-dark break-45-ch">
+                            {{ $product->description }}
+                        </div>
                         <span class="text-primary small">
                             {{ $product->SKU }}
                         </span>
@@ -73,7 +75,7 @@
                 </td>
                 <td>
                     <div class="text-dark font-weight-bold">
-                        {{ config('app.currency') }} {{ number_format($product->default_cost, 1) }}
+                        {{ $product->format_default_cost }}
                     </div>
                 </td>
                 <td>{{ $product->stocks->sum('current_quantity') }}</td>
