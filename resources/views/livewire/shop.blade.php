@@ -1,6 +1,6 @@
 <div>
     <!-- Page Heading -->
-    <x-heading label="Productos"></x-heading>
+    <x-heading label="Tienda"></x-heading>
     <p class="mb-4">
         Se muestran solo los productos del catalogo y los que tienen existencias disponibles para su venta.
     </p>
@@ -35,7 +35,7 @@
         @forelse ($products as $product)
             <tr>
                 <td>
-                    <img style="object-fit: scale-down; width:10rem;" class="rounded-lg" src="{{ $product->image }}"
+                    <img class="rounded-lg img-shop" src="{{ $product->image }}"
                         alt="Sin imagen">
                 </td>
                 <td>
@@ -59,8 +59,7 @@
                                         <td><span class="badge badge-secondary">{{ $stock->size }}</span></td>
                                         <td>{{ $stock->current_quantity }}</td>
                                         <td class="text-dark font-weight-bold">
-                                            {{ config('app.currency') }}
-                                            {{ $stock->price }}
+                                            {{ $stock->format_price }}
                                         </td>
                                         <td>
                                             <button class="btn btn-primary btn-sm"

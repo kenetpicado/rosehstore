@@ -45,4 +45,9 @@ class Stock extends Model
     {
         return (new CurrencyService)->format($this->current_cost);
     }
+
+    public function getFormatPriceAttribute()
+    {
+        return (new CurrencyService)->format($this->price);
+    }
 }

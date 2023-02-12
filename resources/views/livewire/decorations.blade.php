@@ -29,7 +29,7 @@
                     @endif
                 </td>
                 <td>
-                    C$ {{ number_format($decoration->total_price, 2) }}
+                    {{ $decoration->format_total_price}}
                 </td>
                 <td>
                     <x-dropdown>

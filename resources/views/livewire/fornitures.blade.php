@@ -46,7 +46,7 @@
                         <span class="badge badge-danger">No mostrar</span>
                     @endif
                 </td>
-                <td>C$ {{ number_format($forniture->price, 2) }}</td>
+                <td>{{ $forniture->format_price }}</td>
                 <td>
                     <x-dropdown>
                         <button type="button" class="dropdown-item" wire:click="edit({{ $forniture->id }})">
