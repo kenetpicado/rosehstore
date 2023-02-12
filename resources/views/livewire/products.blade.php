@@ -59,7 +59,7 @@
                 <td>
                     <div>
                         <div class="mb-1 text-dark" style=" word-wrap: break-word; max-width: 45ch;">{{ $product->description }}</div>
-                        <span class="text-muted small">
+                        <span class="text-primary small">
                             {{ $product->SKU }}
                         </span>
                     </div>

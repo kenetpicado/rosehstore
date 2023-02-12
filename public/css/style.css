@@ -49,3 +49,8 @@ input::-webkit-outer-spin-button {
 input[type=number] {
     -moz-appearance: textfield;
 }
+
+.break-45-ch {
+    word-wrap: break-word;
+    max-width: 45ch;
+}
