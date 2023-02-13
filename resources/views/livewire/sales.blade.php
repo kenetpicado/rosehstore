@@ -10,7 +10,7 @@
         Se muestran todas las ventas registradas en el sistema.
     </p>
 
-    <x-modal label="Agregar Venta">
+    <x-modal label="Agregar">
         @if ($sale->product)
             <h6 class="font-weight-bold">{{ $sale->product->description }}</h6>
             <div class="mb-2">SKU: {{ $sale->product->SKU }}</div>
@@ -20,7 +20,7 @@
         <x-input name="sale.price" label="Precio (Unidad)"></x-input>
     </x-modal>
 
-    <x-table title="Todas las Ventas">
+    <x-table title="Ventas">
         @slot('search')
             <div class="row">
                 <div class="col-12 col-lg-3">

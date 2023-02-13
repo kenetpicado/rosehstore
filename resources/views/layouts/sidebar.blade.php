@@ -1,5 +1,5 @@
 @auth()
-    <ul class="navbar-nav bg-primary sidebar sidebar-dark accordion" id="accordionSidebar" >
+    <ul class="navbar-nav bg-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
         <!-- Sidebar - Brand -->
         <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route('home') }}">
@@ -19,18 +19,15 @@
                 <span>Dashboard</span></a>
         </li>
 
-        <!-- Divider -->
-        <hr class="sidebar-divider">
-
         <x-item-sidebar title="Tienda" icon="shopping-cart" route="shop"></x-item-sidebar>
 
         <x-item-sidebar title="Productos" icon="tshirt" route="products"></x-item-sidebar>
 
+        <x-item-sidebar title="Ventas" icon="dollar-sign" route="sales"></x-item-sidebar>
+
         <x-item-sidebar title="Mobiliario" icon="baby-carriage" route="fornitures"></x-item-sidebar>
 
         <x-item-sidebar title="Decoraciones" icon="gift" route="decorations"></x-item-sidebar>
-
-         <x-item-sidebar title="Ventas" icon="dollar-sign" route="sales"></x-item-sidebar>
 
         <hr class="sidebar-divider d-none d-md-block">
         <div class="sidebar-heading">Configuracion</div>

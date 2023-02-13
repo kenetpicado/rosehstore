@@ -16,6 +16,7 @@ class Product extends Model
         'description' => TrimCast::class,
         'note' => TrimCast::class,
         'image' => TrimCast::class,
+        'SKU' => TrimCast::class,
     ];
 
     public function category()

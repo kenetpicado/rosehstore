@@ -6,7 +6,7 @@
         </button>
     </x-heading>
 
-    <x-modal label="Agregar Usuario">
+    <x-modal label="Agregar">
         <x-input name="user.name" label="Nombre"></x-input>
         <x-input name="user.email" label="Email" type="email"></x-input>
         <x-select name="role" label="Rol">
@@ -20,7 +20,7 @@
         </small>
     </x-modal>
 
-    <x-table title="Todos los usuarios">
+    <x-table title="Usuarios">
         @slot('header')
             <th>Nombre</th>
             <th>Rol</th>

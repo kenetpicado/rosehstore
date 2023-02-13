@@ -15,12 +15,9 @@ class CreateDecorationsTable extends Migration
     {
         Schema::create('decorations', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 50);
             $table->string('description', 100)->nullable();
             $table->float('manpower')->default(0);
             $table->float('extra')->default(0);
-            $table->string('image')->nullable();
-            $table->boolean('status')->default(true);
             $table->timestamps();
         });
     }

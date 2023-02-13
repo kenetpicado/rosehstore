@@ -3,7 +3,7 @@
 <div class="form-group">
     <label class="form-label">{{ $label }}</label>
 
-   <input name="{{ $name }}" type="{{ $type }}" class="form-control @error($name) is-invalid @enderror"     autofocus wire:model.defer="{{ $name }}">
+   <input id="{{ $name }}" name="{{ $name }}" type="{{ $type }}" class="form-control @error($name) is-invalid @enderror" autofocus wire:model.defer="{{ $name }}" {{$attributes}}>
 
     @error($name)
         <span class="invalid-feedback" role="alert">

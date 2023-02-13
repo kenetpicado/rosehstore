@@ -17,7 +17,7 @@
         </x-select>
     </x-modal>
 
-    <x-table title="Todos los artículos">
+    <x-table title="Articulos para renta">
         @slot('search')
             <div class="row">
                 <div class="col-12 col-lg-3">

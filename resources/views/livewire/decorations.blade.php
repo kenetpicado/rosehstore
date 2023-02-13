@@ -6,7 +6,7 @@
         </a>
     </x-heading>
 
-    <x-table title="Todas las decoraciones">
+    <x-table title="Decoraciones">
         @slot('header')
             <th>Imagen</th>
             <th>Nombre</th>

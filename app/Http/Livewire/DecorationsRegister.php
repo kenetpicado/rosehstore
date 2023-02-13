@@ -15,21 +15,28 @@ class DecorationsRegister extends Component
 
     public $decoration;
     public $materials = [];
+    public $total = 0;
 
     protected $rules = [
-        'decoration.name' => 'required|max:50',
         'decoration.description' => 'nullable|max:100',
         'decoration.manpower' => 'required|numeric',
         'decoration.extra' => 'nullable|numeric',
-        'decoration.image' => 'nullable|max:255|url',
-        'decoration.status' => 'required',
         'materials' => 'required|array'
     ];
+
+    //sumar todos los precios de los materiales
+    public function updatedMaterials()
+    {
+        // $this->total = 0;
+        // foreach ($this->materials as $material) {
+        //     $this->total += Forniture::find($material)->price;
+        // }
+    }
 
     public function render()
     {
         return view('livewire.decorations-register', [
-            'fornitures' => Forniture::all(['id', 'name']),
+            'fornitures' => Forniture::all(['id', 'name', 'price']),
         ]);
     }
 
