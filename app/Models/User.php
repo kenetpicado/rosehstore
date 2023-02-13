@@ -2,11 +2,13 @@
 
 namespace App\Models;
 
+use App\Casts\LowerCaseCast;
+use App\Casts\UcwordsCast;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
@@ -40,21 +42,13 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'email' => LowerCaseCast::class,
+        'name' => UcwordsCast::class,
     ];
 
     public function setPassword()
     {
         $this->password = bcrypt('12345678');
-    }
-
-    public function setNameAttribute($value)
-    {
-        $this->attributes['name'] = ucwords(trim(strtolower($value)));
-    }
-
-    public function setEmailAttribute($value)
-    {
-        $this->attributes['email'] = trim(strtolower($value));
     }
 
     public function scopeNoRootUsers($query)

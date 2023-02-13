@@ -1,10 +1,10 @@
 <div>
     <!-- Page Heading -->
     <x-heading label="Ventas">
-        <button type="button" id="open-create-modal" class="btn btn-sm btn-primary ml-2" data-toggle="modal"
+       {{--  <button type="button" id="open-create-modal" class="btn btn-sm btn-primary ml-2" data-toggle="modal"
             data-target="#createModal">
             Agregar
-        </button>
+        </button> --}}
     </x-heading>
     <p>
         Se muestran todas las ventas registradas en el sistema.

@@ -33,8 +33,8 @@ class ProductSeeder extends Seeder
                     'size' => $sizes->random(),
                     'original_quantity' => 10,
                     'current_quantity' => 10,
-                    'cost' => $cost,
-                    'price' => $cost * 2
+                    'cost' => $product->default_cost,
+                    'price' => $product->default_price
                 ]);
             }
         }

@@ -16,24 +16,22 @@
                 <div class="mb-2">Propietario: {{ $product->user->name ?? '' }}</div>
                 <div class="mb-2">Categoria: {{ $product->category->name ?? '' }}</div>
                 <div class="mb-2">
-                    Total Comprado: {{ $product->stocks->sum('original_quantity') ?? '' }}
+                    Total Comprado: {{ $product->total_purchased }}
                 </div>
                 <div class="mb-2">
                     Total Costo:
-                    {{ config('app.currency') }}
-                    {{ $product->stocks->sum('total_cost') ?? '' }}
+                    {{ $product->format_total_quantity_cost }}
                 </div>
                 <div class="mb-2">
-                    Disponible: {{ $product->stocks->sum('current_quantity') ?? '' }}
+                    Disponible: {{ $product->available_quantity }}
                 </div>
                 <div class="mb-2">
                     Costo Disponible:
-                    {{ config('app.currency') }}
-                    {{ $product->format_total_current_cost }}
+                    {{ $product->format_current_quantity_cost }}
                 </div>
             </div>
             <div class="col">
-               <img src="{{ $product->image }}" alt="No hay imagen" style="width:100%;border-radius: 1rem;" class="mx-auto">
+               <img src="{{ $product->image }}" alt="No hay imagen" class="mx-auto img-preview">
             </div>
         </div>
     </x-dialog>
@@ -81,8 +79,7 @@
                 <td>{{ $product->available_quantity }}</td>
                 <td>
                     <div class="text-dark font-weight-bold">
-                        {{ config('app.currency') }}
-                        {{ number_format($product->stocks->sum('current_quantity_cost'), 1) }}
+                        {{ $product->format_current_quantity_cost }}
                     </div>
                 </td>
                 <td data-title="Opciones">

@@ -2,12 +2,17 @@
 
 namespace App\Models;
 
+use App\Casts\UcwordsCast;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Category extends Model
 {
     use HasFactory;
+
+    protected $casts = [
+        'name' => UcwordsCast::class,
+    ];
 
     public function products()
     {
@@ -22,11 +27,6 @@ class Category extends Model
     public function childrens()
     {
         return $this->hasMany(Category::class, 'parent_id');
-    }
-
-    public function setNameAttribute($value)
-    {
-        $this->attributes['name'] = ucwords(trim(strtolower($value)));
     }
 
     public function isSameParent()

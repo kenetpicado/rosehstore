@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Casts\TrimCast;
 use App\Services\CurrencyService;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -11,14 +12,10 @@ class Product extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'SKU',
-        'description',
-        'default_cost',
-        'default_price',
-        'user_id',
-        'note',
-        'image'
+    protected $casts = [
+        'description' => TrimCast::class,
+        'note' => TrimCast::class,
+        'image' => TrimCast::class,
     ];
 
     public function category()
@@ -34,28 +31,6 @@ class Product extends Model
     public function stocks()
     {
         return $this->hasMany(Stock::class);
-    }
-
-    public function setDescriptionAttribute($value)
-    {
-        $this->attributes['description'] = trim(strtoupper($value));
-    }
-
-    public function setNoteAttribute($value)
-    {
-        $this->attributes['note'] = trim(strtoupper($value));
-    }
-
-    public function scopeOriginalQuantity($query)
-    {
-        return $query->with(['stocks' => function ($q) {
-            $q->select(
-                'id',
-                'current_quantity',
-                'product_id',
-                DB::raw('current_quantity * cost as total_cost'),
-            );
-        }]);
     }
 
     public function scopeCurrentQuantity($query)
@@ -100,13 +75,28 @@ class Product extends Model
         return (new CurrencyService)->format($this->default_price);
     }
 
-    public function getFormatTotalCurrentCostAttribute()
-    {
-        return (new CurrencyService)->format($this->stocks->sum('current_cost') ?? 0);
-    }
-
     public function getAvailableQuantityAttribute()
     {
         return $this->stocks->sum('current_quantity');
+    }
+
+    public function getFormatCurrentQuantityCostAttribute()
+    {
+        return (new CurrencyService)->format($this->stocks->sum('current_quantity_cost'));
+    }
+
+    public function getFormatTotalQuantityCostAttribute()
+    {
+        return (new CurrencyService)->format($this->stocks->sum('total_quantity_cost'));
+    }
+
+    public function getTotalPurchasedAttribute()
+    {
+        return $this->stocks->sum('original_quantity');
+    }
+
+    public function getStockTotalCostAttribute()
+    {
+        return $this->stocks->sum('total_cost');
     }
 }

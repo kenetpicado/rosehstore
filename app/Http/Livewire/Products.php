@@ -56,8 +56,8 @@ class Products extends Component
                     'product_id',
                     'current_quantity',
                     'original_quantity',
-                    DB::raw('original_quantity * cost as total_cost'),
-                    DB::raw('current_quantity * cost as current_cost'),
+                    DB::raw('original_quantity * cost as total_quantity_cost'),
+                    DB::raw('current_quantity * cost as current_quantity_cost'),
                 );
             }
         ]);

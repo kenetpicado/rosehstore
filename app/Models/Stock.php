@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Casts\UpperCast;
 use App\Services\CurrencyService;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -10,10 +11,9 @@ class Stock extends Model
 {
     use HasFactory;
 
-    public function setSizeAttribute($value)
-    {
-        $this->attributes['size'] = trim(strtoupper($value));
-    }
+    protected $casts = [
+        'size' => UpperCast::class,
+    ];
 
     public function scopeFindForSale($query, $id)
     {

@@ -64,3 +64,8 @@ input[type=number] {
     object-fit: scale-down;
     width:10rem;
 }
+
+.img-preview {
+    width:100%;
+    border-radius: 1rem;
+}
