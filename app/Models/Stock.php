@@ -11,9 +11,16 @@ class Stock extends Model
 {
     use HasFactory;
 
+    public $timestamps = false;
+
     protected $casts = [
         'size' => UpperCast::class,
     ];
+
+    public function product()
+    {
+        return $this->belongsTo(Product::class);
+    }
 
     public function scopeFindForSale($query, $id)
     {
@@ -49,5 +56,17 @@ class Stock extends Model
     public function getFormatPriceAttribute()
     {
         return (new CurrencyService)->format($this->price);
+    }
+
+    public function getFormatCreatedAtAttribute()
+    {
+        return date('d/m/Y', strtotime($this->created_at));
+    }
+
+    public function setDate()
+    {
+        if (!$this->id) {
+            $this->created_at = now()->format('Y-m-d');
+        }
     }
 }

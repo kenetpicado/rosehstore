@@ -34,7 +34,8 @@ class ProductSeeder extends Seeder
                     'original_quantity' => 10,
                     'current_quantity' => 10,
                     'cost' => $product->default_cost,
-                    'price' => $product->default_price
+                    'price' => $product->default_price,
+                    'created_at' => now()->subDays(rand(1, 30))->format('Y-m-d'),
                 ]);
             }
         }

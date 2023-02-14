@@ -38,7 +38,10 @@
         @forelse ($sales as $sale)
             <tr>
                 <td>
-                    <div class="mb-1 text-dark break-45-ch">
+                    <span class="text-muted small">
+                        {{ $sale->format_created_at }}
+                    </span>
+                    <div class="my-1 text-dark break-45-ch">
                         {{ $sale->product?->description }}
                         {{ $sale->description }}
                     </div>

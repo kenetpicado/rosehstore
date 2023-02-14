@@ -11,6 +11,8 @@ class Sale extends Model
 {
     use HasFactory;
 
+    public $timestamps = false;
+
     protected $casts = [
         'description' => TrimCast::class,
     ];
@@ -52,5 +54,17 @@ class Sale extends Model
                         ->orWhere('SKU', 'like', '%' . $search . '%');
                 });
         });
+    }
+
+    public function getFormatCreatedAtAttribute()
+    {
+        return date('d/m/Y', strtotime($this->created_at));
+    }
+
+    public function setDate()
+    {
+        if (!$this->id) {
+            $this->created_at = now()->format('Y-m-d');
+        }
     }
 }

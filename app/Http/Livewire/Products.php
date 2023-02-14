@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\Stock;
 use App\Models\User;
 use App\Traits\AlertsTrait;
 use App\Traits\PaginationTrait;
@@ -18,6 +19,7 @@ class Products extends Component
 
     public $product = null;
     public $search = null;
+    public $filter_user = null;
 
     public function render()
     {
@@ -25,11 +27,21 @@ class Products extends Component
             ->orderByDesc('id')
             ->currentQuantity()
             ->searching($this->search)
+            ->filterUser($this->filter_user)
             ->select('id', 'SKU', 'description', 'status', 'default_cost')
             ->paginate(10);
 
+        $total_cost = Stock::with('product:id,SKU,description')
+            ->whereHas('product', function ($q) {
+                $q->searching($this->search)
+                    ->filterUser($this->filter_user);
+            })
+            ->select(DB::raw('current_quantity * cost as current_quantity_cost'))
+            ->get();
+
         return view('livewire.products', [
-            'products' => $products
+            'products' => $products,
+            'total_cost' => $total_cost->sum('current_quantity_cost'),
         ]);
     }
 

@@ -1,10 +1,31 @@
 <div>
     <!-- Page Heading -->
-    <x-heading label="Productos">
+    <x-heading label="Inventario">
         <a href="{{ route('products.register') }}" type="button" class="btn btn-sm btn-primary shadow-sm">
             Agregar
         </a>
     </x-heading>
+
+    <div class="row">
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-success shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                Costo Total</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                C$ {{ $total_cost }}
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <x-dialog>
         <h5 class="font-weight-bold">{{ $product->description }}</h5>
@@ -31,16 +52,23 @@
                 </div>
             </div>
             <div class="col">
-               <img src="{{ $product->image }}" alt="No hay imagen" class="mx-auto img-preview">
+                <img src="{{ $product->image }}" alt="No hay imagen" class="mx-auto img-preview">
             </div>
         </div>
     </x-dialog>
 
-    <x-table title="Productos">
+    <x-table title="Todos los Productos">
         @slot('search')
             <div class="row">
                 <div class="col-12 col-lg-3">
                     <input type="search" class="form-control " wire:model.debounce.500ms="search" placeholder="Buscar">
+                </div>
+                <div class="col-12 col-lg-3">
+                    <select class="form-control" wire:model.debounce.500ms="filter_user">
+                        <option value="" selected>Todos</option>
+                        <option value="2" selected>Josiel Alonso</option>
+                        <option value="3" selected>Rosa Gevara</option>
+                    </select>
                 </div>
             </div>
         @endslot
@@ -84,7 +112,7 @@
                 </td>
                 <td data-title="Opciones">
                     <x-dropdown>
-                        <a href="{{ route('stock', $product->id) }}" type="button" class="dropdown-item" >
+                        <a href="{{ route('stock', $product->id) }}" type="button" class="dropdown-item">
                             Existencias
                         </a>
                         <button type="button" class="dropdown-item" wire:click="details({{ $product->id }})">

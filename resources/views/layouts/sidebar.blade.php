@@ -21,7 +21,7 @@
 
         <x-item-sidebar title="Tienda" icon="shopping-cart" route="shop"></x-item-sidebar>
 
-        <x-item-sidebar title="Productos" icon="tshirt" route="products"></x-item-sidebar>
+        <x-item-sidebar title="Inventario" icon="tshirt" route="products"></x-item-sidebar>
 
         <x-item-sidebar title="Ventas" icon="dollar-sign" route="sales"></x-item-sidebar>
 

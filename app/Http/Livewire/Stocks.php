@@ -31,8 +31,8 @@ class Stocks extends Component
         return view('livewire.stocks', [
             'stocks' => $this->product
                 ->stocks()
-                ->orderByDesc('id')
-                ->paginate(),
+                ->latest('id')
+                ->get(),
         ]);
     }
 
@@ -52,6 +52,7 @@ class Stocks extends Component
         }
 
         $this->validate();
+        $this->stock->setDate();
         $this->stock->save();
 
         $this->resetInputFields();

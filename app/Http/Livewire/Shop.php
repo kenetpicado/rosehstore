@@ -68,6 +68,7 @@ class Shop extends Component
         }
 
         $this->validate();
+        $this->sale->setDate();
         $this->sale->save();
         $this->stock->decrement('current_quantity', $this->sale->quantity);
 

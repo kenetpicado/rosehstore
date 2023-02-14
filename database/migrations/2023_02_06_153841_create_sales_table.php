@@ -23,7 +23,7 @@ class CreateSalesTable extends Migration
             $table->string('description', 100);
             $table->integer('quantity');
             $table->float('price');
-            $table->timestamps();
+            $table->date('created_at');
         });
     }
 

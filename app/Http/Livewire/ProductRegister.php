@@ -55,9 +55,10 @@ class ProductRegister extends Component
         $this->validate();
         $this->product->save();
 
-        $this->resetInputFields();
+        //$this->resetInputFields();
         $this->created();
-        return redirect()->route('products');
+
+        return redirect("/stock/{$this->product->id}");
     }
 
     public function createProductInstance()
