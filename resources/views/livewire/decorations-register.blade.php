@@ -6,7 +6,7 @@
         </a>
     </x-heading>
 
-    <x-form title="Registrar nueva">
+    <x-form title="Agregar">
         <x-input name="decoration.description" label="Descripcion"></x-input>
         <x-input name="decoration.manpower" label="Mano de obra"></x-input>
         <x-input name="decoration.extra" label="Gastos extra"></x-input>

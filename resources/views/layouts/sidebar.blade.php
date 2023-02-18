@@ -25,6 +25,8 @@
 
         <x-item-sidebar title="Ventas" icon="dollar-sign" route="sales"></x-item-sidebar>
 
+        <x-item-sidebar title="Compras" icon="dollar-sign" route="purchases"></x-item-sidebar>
+
         <x-item-sidebar title="Mobiliario" icon="baby-carriage" route="fornitures"></x-item-sidebar>
 
         <x-item-sidebar title="Decoraciones" icon="gift" route="decorations"></x-item-sidebar>

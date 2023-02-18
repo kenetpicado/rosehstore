@@ -5,15 +5,20 @@ namespace App\Http\Livewire;
 use App\Models\Sale;
 use App\Traits\AlertsTrait;
 use App\Traits\PaginationTrait;
+use App\Traits\PropertiesTrait;
 use Livewire\Component;
 
 class Sales extends Component
 {
     use PaginationTrait;
     use AlertsTrait;
+    use PropertiesTrait;
 
     public $sale = null;
     public $search = null;
+    public $startDate = null;
+    public $endDate = null;
+    public $filter_user = null;
 
     protected $rules = [
         'sale.price' => 'required|numeric|gt:0',
@@ -26,14 +31,18 @@ class Sales extends Component
         return view('livewire.sales', [
             'sales' => Sale::with(['product:id,description,SKU'])
                 ->searching($this->search)
+                ->filterDate($this->startDate, $this->endDate)
+                ->filterUser($this->filter_user)
                 ->latest('id')
-                ->paginate(20)
+                ->get()
         ]);
     }
 
     public function mount()
     {
         $this->createSaleInstance();
+        $this->startDate = now()->format('Y-m-d');
+        $this->endDate = now()->format('Y-m-d');
     }
 
     public function store()
@@ -60,7 +69,7 @@ class Sales extends Component
 
     public function resetInputFields()
     {
-        $this->reset();
+        $this->resetExcept(['startDate', 'endDate']);
         $this->resetErrorBag();
         $this->createSaleInstance();
     }

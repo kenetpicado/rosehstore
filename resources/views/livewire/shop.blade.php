@@ -2,7 +2,7 @@
     <!-- Page Heading -->
     <x-heading label="Tienda"></x-heading>
     <p class="mb-4">
-        Se muestran solo los productos del catalogo y los que tienen existencias disponibles para su venta.
+        Se muestran los productos del catálogo y los que tienen existencias disponibles para su venta.
     </p>
 
     <x-modal label="Vender" :confirm="true" btn="Vender">
@@ -24,6 +24,7 @@
         @slot('search')
             <div class="row">
                 <div class="col-12 col-lg-3">
+                    <label class="form-label">Buscar producto</label>
                     <input type="search" class="form-control " wire:model.debounce.500ms="search" placeholder="Buscar">
                 </div>
             </div>

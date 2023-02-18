@@ -1,13 +1,8 @@
 <div>
     <!-- Page Heading -->
-    <x-heading label="Ventas">
-       {{--  <button type="button" id="open-create-modal" class="btn btn-sm btn-primary ml-2" data-toggle="modal"
-            data-target="#createModal">
-            Agregar
-        </button> --}}
-    </x-heading>
+    <x-heading label="Ventas"></x-heading>
     <p>
-        Se muestran todas las ventas <span class="font-weight-bold">{{$this->text_state}}</span> registradas en el sistema.
+        Se muestran todas las compras <span class="font-weight-bold">{{$this->text_state}}</span> que se han realizado.
     </p>
     <div class="row">
         <div class="col-xl-3 col-md-6 mb-4">
@@ -18,7 +13,7 @@
                             <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                                 Total</div>
                             <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                C$ {{ $sales->sum('total') }}
+                                {{ $total }}
                             </div>
                         </div>
                         <div class="col-auto">
@@ -30,21 +25,11 @@
         </div>
     </div>
 
-    <x-modal label="Agregar">
-        @if ($sale->product)
-            <h6 class="font-weight-bold">{{ $sale->product->description }}</h6>
-            <div class="mb-2">SKU: {{ $sale->product->SKU }}</div>
-        @endif
-        <x-input name="sale.description" label="Descripcion"></x-input>
-        <x-input name="sale.quantity" label="Cantidad"></x-input>
-        <x-input name="sale.price" label="Precio (Unidad)"></x-input>
-    </x-modal>
-
-    <x-table title="Ventas">
+    <x-table title="Compras">
         @slot('search')
             <div class="row">
                 <div class="col-12 col-lg-3">
-                    <label class="form-label">Buscar venta</label>
+                    <label class="form-label">Buscar compra</label>
                     <input type="search" class="form-control " wire:model.debounce.500ms="search" placeholder="SKU">
                 </div>
                 <div class="col-12 col-lg-3">
@@ -67,39 +52,26 @@
         @endslot
         @slot('header')
             <th>Descripción</th>
-            <th>Precio</th>
+            <th>Costo C/U</th>
             <th>Cantidad</th>
             <th>Total</th>
-            {{-- <th>Opciones</th> --}}
         @endslot
-        @forelse ($sales as $sale)
+        @forelse ($purchases as $purchase)
             <tr>
                 <td>
                     <span class="text-muted small">
-                        {{ $sale->format_created_at }}
+                        {{ $purchase->format_created_at }}
                     </span>
                     <div class="my-1 text-dark break-45-ch">
-                        {{ $sale->product?->description }}
-                        {{ $sale->description }}
+                        {{ $purchase->product?->description }}
                     </div>
                     <span class="text-primary small">
-                        {{ $sale->product?->SKU }}
+                        {{ $purchase->product?->SKU }}
                     </span>
                 </td>
-                <td>{{ $sale->format_price }}</td>
-                <td>{{ $sale->quantity }}</td>
-                <td class="text-dark font-weight-bold">{{ $sale->format_total }}</td>
-                {{-- <td data-title="Opciones">
-                    <x-dropdown>
-                       <button class="dropdown-item" wire:click="edit({{ $sale->id }})">
-                            Editar
-                        </button>
-                        <button type="button" class="dropdown-item" onclick="confirm_delete()"
-                            wire:click="destroy({{ $sale->id }})">
-                            Eliminar
-                        </button>
-                    </x-dropdown>
-                </td> --}}
+                <td>{{ $purchase->format_price }}</td>
+                <td>{{ $purchase->original_quantity }}</td>
+                <td class="text-dark font-weight-bold">{{ $purchase->format_total_cost }}</td>
             </tr>
         @empty
             <tr>

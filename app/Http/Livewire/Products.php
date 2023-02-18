@@ -2,13 +2,11 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\Category;
 use App\Models\Product;
 use App\Models\Stock;
-use App\Models\User;
+use App\Services\CurrencyService;
 use App\Traits\AlertsTrait;
 use App\Traits\PaginationTrait;
-use Illuminate\Validation\Rule;
 use Livewire\Component;
 use Illuminate\Support\Facades\DB;
 
@@ -41,7 +39,7 @@ class Products extends Component
 
         return view('livewire.products', [
             'products' => $products,
-            'total_cost' => $total_cost->sum('current_quantity_cost'),
+            'total_cost' => (new CurrencyService)->format($total_cost->sum('current_quantity_cost')),
         ]);
     }
 

@@ -4,12 +4,16 @@ namespace App\Models;
 
 use App\Casts\UpperCast;
 use App\Services\CurrencyService;
+use App\Traits\CommonFormatsTrait;
+use App\Traits\ScopesTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Stock extends Model
 {
     use HasFactory;
+    use ScopesTrait;
+    use CommonFormatsTrait;
 
     public $timestamps = false;
 
@@ -58,15 +62,13 @@ class Stock extends Model
         return (new CurrencyService)->format($this->price);
     }
 
-    public function getFormatCreatedAtAttribute()
+    public function scopeSearching($query, $search)
     {
-        return date('d/m/Y', strtotime($this->created_at));
-    }
-
-    public function setDate()
-    {
-        if (!$this->id) {
-            $this->created_at = now()->format('Y-m-d');
+        if ($search) {
+            return $query->whereHas('product', function ($q) use ($search) {
+                $q->where('description', 'like', '%' . $search . '%')
+                    ->orWhere('SKU', 'like', '%' . $search . '%');
+            });
         }
     }
 }

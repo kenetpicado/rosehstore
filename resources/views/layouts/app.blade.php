@@ -112,6 +112,8 @@
 
     <x-livewire-alert::scripts />
 
+    @stack('scripts')
+
     <script>
         Livewire.on('close-create-modal', function() {
             $('#createModal').modal('hide')

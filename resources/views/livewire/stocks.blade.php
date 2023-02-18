@@ -80,7 +80,7 @@
                     {{ $stock->current_quantity }}
                 </td>
                <td>
-                    <div class="text-dark font-weight-bold">
+                    <div class="text-primary font-weight-bold">
                         {{ $stock->format_current_cost }}
                     </div>
                 </td>

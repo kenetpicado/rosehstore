@@ -16,7 +16,7 @@ class ProductSeeder extends Seeder
     {
         $sizes = collect(['XS', 'S', 'M', 'L', 'XL']);
 
-        for ($i=0; $i<15; $i++) {
+        for ($i=1; $i<15; $i++) {
             $product = Product::create([
                 'SKU' => "sw220709399294441" . $i,
                 'description' => $i . ": SHEIN SXY Jeans con bolsillo oblicuo de pierna ancha",
@@ -28,7 +28,6 @@ class ProductSeeder extends Seeder
                 ]);
 
             for ($j=0; $j<5; $j++) {
-                $cost = rand(200, 600);
                 $product->stocks()->create([
                     'size' => $sizes->random(),
                     'original_quantity' => 10,

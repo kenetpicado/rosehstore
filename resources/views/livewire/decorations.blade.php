@@ -5,6 +5,9 @@
             Agregar
         </a>
     </x-heading>
+    <p>
+        Se muestran las decoraciones registradas en el sistema.
+    </p>
 
     <x-table title="Decoraciones">
         @slot('header')

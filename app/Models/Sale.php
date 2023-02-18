@@ -4,12 +4,16 @@ namespace App\Models;
 
 use App\Casts\TrimCast;
 use App\Services\CurrencyService;
+use App\Traits\CommonFormatsTrait;
+use App\Traits\ScopesTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Sale extends Model
 {
     use HasFactory;
+    use ScopesTrait;
+    use CommonFormatsTrait;
 
     public $timestamps = false;
 
@@ -54,17 +58,5 @@ class Sale extends Model
                         ->orWhere('SKU', 'like', '%' . $search . '%');
                 });
         });
-    }
-
-    public function getFormatCreatedAtAttribute()
-    {
-        return date('d/m/Y', strtotime($this->created_at));
-    }
-
-    public function setDate()
-    {
-        if (!$this->id) {
-            $this->created_at = now()->format('Y-m-d');
-        }
     }
 }

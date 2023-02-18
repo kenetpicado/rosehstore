@@ -15,7 +15,7 @@
                             <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                                 Costo Total</div>
                             <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                C$ {{ $total_cost }}
+                                {{ $total_cost }}
                             </div>
                         </div>
                         <div class="col-auto">
@@ -61,9 +61,11 @@
         @slot('search')
             <div class="row">
                 <div class="col-12 col-lg-3">
+                    <label class="form-label">Buscar producto</label>
                     <input type="search" class="form-control " wire:model.debounce.500ms="search" placeholder="Buscar">
                 </div>
                 <div class="col-12 col-lg-3">
+                    <label class="form-label">Filtrar usuario</label>
                     <select class="form-control" wire:model.debounce.500ms="filter_user">
                         <option value="" selected>Todos</option>
                         <option value="2" selected>Josiel Alonso</option>

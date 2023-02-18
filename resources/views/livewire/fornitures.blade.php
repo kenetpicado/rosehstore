@@ -6,6 +6,9 @@
             Agregar
         </button>
     </x-heading>
+    <p>
+        Se muestran todos los artículos disponibles para renta.
+    </p>
 
     <x-modal label="Agregar">
         <x-input name="forniture.name" label="Nombre"></x-input>
