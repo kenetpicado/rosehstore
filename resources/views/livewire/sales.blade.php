@@ -1,11 +1,6 @@
 <div>
     <!-- Page Heading -->
-    <x-heading label="Ventas">
-       {{--  <button type="button" id="open-create-modal" class="btn btn-sm btn-primary ml-2" data-toggle="modal"
-            data-target="#createModal">
-            Agregar
-        </button> --}}
-    </x-heading>
+    <x-heading label="Ventas"></x-heading>
     <p>
         Se muestran todas las ventas <span class="font-weight-bold">{{$this->text_state}}</span> registradas en el sistema.
     </p>
@@ -67,7 +62,7 @@
         @endslot
         @slot('header')
             <th>Descripción</th>
-            <th>Precio</th>
+            <th>C$ UNIDAD</th>
             <th>Cantidad</th>
             <th>Total</th>
             {{-- <th>Opciones</th> --}}
@@ -79,11 +74,11 @@
                         {{ $sale->format_created_at }}
                     </span>
                     <div class="my-1 text-dark break-45-ch">
-                        {{ $sale->product?->description }}
+                        {{ $sale->product_description }}
                         {{ $sale->description }}
                     </div>
                     <span class="text-primary small">
-                        {{ $sale->product?->SKU }}
+                        {{ $sale->product_SKU }}
                     </span>
                 </td>
                 <td>{{ $sale->format_price }}</td>

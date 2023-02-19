@@ -41,8 +41,8 @@ class Category extends Model
         }
     }
 
-    public function scopeParents()
+    public function scopeParents($query)
     {
-        return $this->whereNull('parent_id');
+        $query->whereNull('parent_id');
     }
 }

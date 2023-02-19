@@ -1,6 +1,6 @@
 <div>
     <!-- Page Heading -->
-    <x-heading label="Ventas"></x-heading>
+    <x-heading label="Compras"></x-heading>
     <p>
         Se muestran todas las compras <span class="font-weight-bold">{{$this->text_state}}</span> que se han realizado.
     </p>
@@ -52,7 +52,7 @@
         @endslot
         @slot('header')
             <th>Descripción</th>
-            <th>Costo C/U</th>
+            <th>C$ UNIDAD</th>
             <th>Cantidad</th>
             <th>Total</th>
         @endslot
@@ -63,10 +63,10 @@
                         {{ $purchase->format_created_at }}
                     </span>
                     <div class="my-1 text-dark break-45-ch">
-                        {{ $purchase->product?->description }}
+                        {{ $purchase->product_description }}
                     </div>
                     <span class="text-primary small">
-                        {{ $purchase->product?->SKU }}
+                        {{ $purchase->product_SKU }}
                     </span>
                 </td>
                 <td>{{ $purchase->format_price }}</td>

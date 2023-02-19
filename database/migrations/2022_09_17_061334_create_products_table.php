@@ -15,8 +15,8 @@ class CreateProductsTable extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
-            $table->string('SKU', 50);
-            $table->string('description', 100);
+            $table->string('SKU', 50)->fulltext();
+            $table->string('description', 100)->fulltext();
             $table->float('default_cost');
             $table->float('default_price');
 

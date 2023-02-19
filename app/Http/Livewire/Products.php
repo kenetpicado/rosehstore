@@ -23,24 +23,13 @@ class Products extends Component
     {
         $products = Product::query()
             ->orderByDesc('id')
-            ->currentQuantity()
             ->searching($this->search)
             ->filterUser($this->filter_user)
             ->select('id', 'SKU', 'description', 'status', 'default_cost')
+            ->withCurrentQuantity()
             ->paginate(10);
 
-        $total_cost = Stock::with('product:id,SKU,description')
-            ->whereHas('product', function ($q) {
-                $q->searching($this->search)
-                    ->filterUser($this->filter_user);
-            })
-            ->select(DB::raw('current_quantity * cost as current_quantity_cost'))
-            ->get();
-
-        return view('livewire.products', [
-            'products' => $products,
-            'total_cost' => (new CurrencyService)->format($total_cost->sum('current_quantity_cost')),
-        ]);
+        return view('livewire.products', ['products' => $products]);
     }
 
     public function mount()
@@ -48,29 +37,19 @@ class Products extends Component
         $this->product = new Product();
     }
 
-    public function destroy(Product $product)
+    public function destroy($product)
     {
-        $product->delete();
+        Product::find($product)->delete();
         $this->deleted();
     }
 
-    public function details(Product $product)
+    public function details($product)
     {
-        $this->product = $product;
-        $this->product->load([
-            'category:id,name',
-            'user:id,name',
-            'stocks' => function ($q) {
-                $q->select(
-                    'id',
-                    'product_id',
-                    'current_quantity',
-                    'original_quantity',
-                    DB::raw('original_quantity * cost as total_quantity_cost'),
-                    DB::raw('current_quantity * cost as current_quantity_cost'),
-                );
-            }
-        ]);
+        $this->product = Product::query()
+            ->withUser()
+            ->withCategory()
+            ->find($product);
+
         $this->emit('open-dialog-details');
     }
 

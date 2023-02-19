@@ -15,12 +15,14 @@ class CreateSalesTable extends Migration
     {
         Schema::create('sales', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('product_id')->nullable();
+            $table->unsignedBigInteger('product_id')
+                ->index()
+                ->nullable();
             $table->foreign('product_id')
                 ->references('id')
                 ->on('products')
                 ->onDelete('set null');
-            $table->string('description', 100);
+            $table->string('description', 100)->fulltext();
             $table->integer('quantity');
             $table->float('price');
             $table->date('created_at');

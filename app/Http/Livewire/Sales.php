@@ -29,9 +29,10 @@ class Sales extends Component
     public function render()
     {
         return view('livewire.sales', [
-            'sales' => Sale::with(['product:id,description,SKU'])
+            'sales' => Sale::query()
+                ->withProduct()
                 ->searching($this->search)
-                ->filterDate($this->startDate, $this->endDate)
+                ->filterDate($this->startDate, $this->endDate, 'sales.created_at')
                 ->filterUser($this->filter_user)
                 ->latest('id')
                 ->get()
@@ -61,9 +62,9 @@ class Sales extends Component
         $this->emit('open-create-modal');
     }
 
-    public function destroy(Sale $sale)
+    public function destroy($sale)
     {
-        $sale->delete();
+        Sale::where('id', $sale)->delete();
         $this->deleted();
     }
 

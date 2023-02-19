@@ -41,7 +41,9 @@
                 </td>
                 <td>
                     <div>
-                        <div class="mb-1 text-primary font-weight-bold ">{{ $product->description }}</div>
+                        <div class="mb-1 text-primary font-weight-bold ">
+                            {{ $product->description }}
+                        </div>
                         <span class="text-muted small">
                             SKU: {{ $product->SKU }}
                         </span>

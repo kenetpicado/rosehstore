@@ -16,13 +16,17 @@ class CreateDecorationFornitureTable extends Migration
         Schema::create('decoration_forniture', function (Blueprint $table) {
             $table->id();
 
-            $table->unsignedBigInteger('forniture_id')->nullable();
+            $table->unsignedBigInteger('forniture_id')
+                ->index()
+                ->nullable();
             $table->foreign('forniture_id')
                 ->references('id')
                 ->on('fornitures')
                 ->onDelete('cascade');
 
-            $table->unsignedBigInteger('decoration_id')->nullable();
+            $table->unsignedBigInteger('decoration_id')
+                ->index()
+                ->nullable();
             $table->foreign('decoration_id')
                 ->references('id')
                 ->on('decorations')

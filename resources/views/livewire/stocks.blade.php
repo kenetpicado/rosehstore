@@ -14,9 +14,9 @@
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                Costo Total Disponible</div>
+                                Total</div>
                             <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                C$ {{ $stocks->sum('current_cost') }}
+                                {{ $total }}
                             </div>
                         </div>
                         <div class="col-auto">
@@ -47,39 +47,33 @@
     <x-table :title="$product->description">
         @slot('header')
             <th>Registrado</th>
+            <th>Cantidad</th>
             <th>Talla</th>
             <th>Costo C/U</th>
-            <th>Cantidad</th>
-            <th>Costo Total</th>
             <th>Disponible</th>
-            <th>Costo Disponible</th>
+            <th>Total</th>
             <th>Opciones</th>
         @endslot
         @forelse ($stocks as $stock)
             <tr>
-                 <td>
+                <td>
                     {{ $stock->format_created_at }}
+                </td>
+                <td>
+                    {{ $stock->original_quantity }}
                 </td>
                 <td class="text-dark font-weight-bold">
                     {{ $stock->size }}
                 </td>
-                 <td>
+                <td>
                     <div class="text-dark font-weight-bold">
                         {{ $stock->format_cost }}
                     </div>
                 </td>
                 <td>
-                    {{ $stock->original_quantity }}
-                </td>
-                <td>
-                    <div class="text-dark font-weight-bold">
-                        {{ $stock->format_total_cost }}
-                    </div>
-                </td>
-                <td>
                     {{ $stock->current_quantity }}
                 </td>
-               <td>
+                <td>
                     <div class="text-primary font-weight-bold">
                         {{ $stock->format_current_cost }}
                     </div>
@@ -100,8 +94,5 @@
                 <td colspan="7" class="text-center">No hay registros</td>
             </tr>
         @endforelse
-        {{-- @slot('links')
-            {!! $stocks->links() !!}
-        @endslot --}}
     </x-table>
 </div>

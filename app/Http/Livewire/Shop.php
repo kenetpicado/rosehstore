@@ -32,16 +32,14 @@ class Shop extends Component
         $products = Product::query()
             ->where('status', true)
             ->hasStock()
-            ->orderBy('description')
             ->with(['stocks' => function ($query) {
-                $query->where('current_quantity', '>', 0);
+                $query->select('id', 'current_quantity', 'size', 'price', 'product_id')
+                    ->where('current_quantity', '>', 0);
             }])
             ->searching($this->search)
             ->paginate(10);
 
-        return view('livewire.shop', [
-            'products' => $products
-        ]);
+        return view('livewire.shop', ['products' => $products]);
     }
 
     public function mount()

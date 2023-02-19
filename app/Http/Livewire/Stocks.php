@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use App\Models\Product;
 use App\Models\Stock;
+use App\Services\CurrencyService;
 use App\Traits\AlertsTrait;
 use App\Traits\PaginationTrait;
 use Livewire\Component;
@@ -28,19 +29,17 @@ class Stocks extends Component
 
     public function render()
     {
+        $stock = Stock::where('product_id', $this->product->id)->latest('id')->get();
+
         return view('livewire.stocks', [
-            'stocks' => $this->product
-                ->stocks()
-                ->latest('id')
-                ->get(),
+            'stocks' => $stock,
+            'total' => (new CurrencyService)->format($stock->sum('current_cost'))
         ]);
     }
 
     public function mount($product)
     {
-        $this->product = Product::query()
-            ->select('id', 'description', 'default_cost', 'default_price')
-            ->find($product);
+        $this->product = Product::findForStock($product);
 
         $this->createStockInstance();
     }
@@ -82,9 +81,9 @@ class Stocks extends Component
         $this->stock->price = $this->product->default_price;
     }
 
-    public function destroy(Stock $stock)
+    public function destroy($stock)
     {
-        $stock->delete();
+        Stock::where('id', $stock)->delete();
         $this->deleted();
     }
 }

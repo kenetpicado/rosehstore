@@ -55,7 +55,6 @@ class ProductRegister extends Component
         $this->validate();
         $this->product->save();
 
-        //$this->resetInputFields();
         $this->created();
 
         return redirect("/stock/{$this->product->id}");

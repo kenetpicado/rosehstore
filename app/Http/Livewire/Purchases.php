@@ -18,9 +18,10 @@ class Purchases extends Component
 
     public function render()
     {
-        $purchases = Stock::with(['product:id,description,SKU'])
+        $purchases = Stock::query()
+            ->withProduct('stocks')
             ->searching($this->search)
-            ->filterDate($this->startDate, $this->endDate)
+            ->filterDate($this->startDate, $this->endDate, 'stocks.created_at')
             ->filterUser($this->filter_user)
             ->latest('id')
             ->get();

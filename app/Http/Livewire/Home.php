@@ -9,6 +9,15 @@ class Home extends Component
 {
     public function render()
     {
-        return view('livewire.home');
+        $stock = DB::table('stocks')
+            ->where('current_quantity', '>', 0)
+            ->select(
+                'id',
+                'current_quantity',
+                DB::raw('(current_quantity * cost) as total_cost')
+            )
+            ->get();
+
+        return view('livewire.home', ['stock' => $stock]);
     }
 }

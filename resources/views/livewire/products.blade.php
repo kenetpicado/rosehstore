@@ -6,27 +6,6 @@
         </a>
     </x-heading>
 
-    <div class="row">
-        <div class="col-xl-3 col-md-6 mb-4">
-            <div class="card border-left-success shadow h-100 py-2">
-                <div class="card-body">
-                    <div class="row no-gutters align-items-center">
-                        <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                Costo Total</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                {{ $total_cost }}
-                            </div>
-                        </div>
-                        <div class="col-auto">
-                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <x-dialog>
         <h5 class="font-weight-bold">{{ $product->description }}</h5>
         <div class="mb-2">SKU: {{ $product->SKU }}</div>
@@ -34,22 +13,8 @@
             <div class="col">
                 <div class="mb-2">Costo: {{ $product->format_default_cost }}</div>
                 <div class="mb-2">Precio: {{ $product->format_default_price }}</div>
-                <div class="mb-2">Propietario: {{ $product->user->name ?? '' }}</div>
-                <div class="mb-2">Categoria: {{ $product->category->name ?? '' }}</div>
-                <div class="mb-2">
-                    Total Comprado: {{ $product->total_purchased }}
-                </div>
-                <div class="mb-2">
-                    Total Costo:
-                    {{ $product->format_total_quantity_cost }}
-                </div>
-                <div class="mb-2">
-                    Disponible: {{ $product->available_quantity }}
-                </div>
-                <div class="mb-2">
-                    Costo Disponible:
-                    {{ $product->format_current_quantity_cost }}
-                </div>
+                <div class="mb-2">Propietario: {{ $product->user_name }}</div>
+                <div class="mb-2">Categoria: {{ $product->category_name }}</div>
             </div>
             <div class="col">
                 <img src="{{ $product->image }}" alt="No hay imagen" class="mx-auto img-preview">
@@ -106,7 +71,7 @@
                         {{ $product->format_default_cost }}
                     </div>
                 </td>
-                <td>{{ $product->available_quantity }}</td>
+                <td>{{ $product->current_quantity }}</td>
                 <td>
                     <div class="text-dark font-weight-bold">
                         {{ $product->format_current_quantity_cost }}

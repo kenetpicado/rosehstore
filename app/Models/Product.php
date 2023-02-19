@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Casts\TrimCast;
+use App\Models\User;
 use App\Services\CurrencyService;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -34,22 +35,22 @@ class Product extends Model
         return $this->hasMany(Stock::class);
     }
 
-    public function scopeCurrentQuantity($query)
+    public function scopeWithCurrentQuantity($query)
     {
-        return $query->with(['stocks' => function ($q) {
-            $q->select(
-                'id',
-                'current_quantity',
-                'product_id',
-                DB::raw('current_quantity * cost as current_quantity_cost'),
-            );
-        }]);
+        $query->addSelect([
+            'current_quantity' => Stock::select(DB::raw('SUM(current_quantity)'))
+                ->whereColumn('product_id', 'products.id'),
+            'current_quantity_cost' => Stock::select(DB::raw('SUM(current_quantity * cost)'))
+                ->whereColumn('product_id', 'products.id'),
+        ]);
     }
 
     public function scopeHasStock($query)
     {
-        return $query->whereHas('stocks', function ($q) {
-            $q->where('current_quantity', '>', 0);
+        $query->whereIn('id', function ($q) {
+            $q->select('product_id')
+                ->from('stocks')
+                ->where('current_quantity', '>', 0);
         });
     }
 
@@ -58,19 +59,40 @@ class Product extends Model
         return $query->select('id', 'description', 'SKU')->find($id);
     }
 
+    public function scopeFindForStock($query, $id)
+    {
+        return $query->select('id', 'description', 'default_cost', 'default_price')->find($id);
+    }
+
     public function scopeSearching($query, $search)
     {
-        return $query->when($search, function ($q) use ($search) {
-            $q->where('SKU', 'like', '%' . $search . '%')
+        if ($search) {
+            $query->where('SKU', 'like', '%' . $search . '%')
                 ->orWhere('description', 'like', '%' . $search . '%');
-        });
+        }
     }
 
     public function scopeFilterUser($query, $user_id)
     {
-        return $query->when($user_id, function ($q) use ($user_id) {
-            $q->where('user_id', $user_id);
-        });
+        if ($user_id) {
+            $query->where('user_id', $user_id);
+        }
+    }
+
+    public function scopeWithUser($query)
+    {
+        $query->addSelect([
+            'user_name' => User::select('name')
+                ->whereColumn('user_id', 'users.id'),
+        ]);
+    }
+
+    public function scopeWithCategory($query)
+    {
+        $query->addSelect([
+            'category_name' => Category::select('name')
+                ->whereColumn('category_id', 'categories.id'),
+        ]);
     }
 
     public function getFormatDefaultCostAttribute()
@@ -83,28 +105,8 @@ class Product extends Model
         return (new CurrencyService)->format($this->default_price);
     }
 
-    public function getAvailableQuantityAttribute()
-    {
-        return $this->stocks->sum('current_quantity');
-    }
-
     public function getFormatCurrentQuantityCostAttribute()
     {
-        return (new CurrencyService)->format($this->stocks->sum('current_quantity_cost'));
-    }
-
-    public function getFormatTotalQuantityCostAttribute()
-    {
-        return (new CurrencyService)->format($this->stocks->sum('total_quantity_cost'));
-    }
-
-    public function getTotalPurchasedAttribute()
-    {
-        return $this->stocks->sum('original_quantity');
-    }
-
-    public function getStockTotalCostAttribute()
-    {
-        return $this->stocks->sum('total_cost');
+        return (new CurrencyService)->format($this->current_quantity_cost);
     }
 }
