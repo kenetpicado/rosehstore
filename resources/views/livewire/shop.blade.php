@@ -19,7 +19,7 @@
                 <x-input name="sale.price" label="Precio (Unidad)"></x-input>
             </div>
         </div>
-        <h5 class="my-4 text-right text-primary" id="showTotalSale">Total</h5>
+        <h5 class="my-4 text-right text-primary" id="saleTotal"></h5>
     </x-modal>
 
     <x-table title="Productos">
@@ -90,34 +90,17 @@
     </x-table>
     @push('scripts')
         <script>
-
-            function updateTotalSale()
-            {
-                let quantity = parseInt(document.getElementById('sale.quantity').value);
-                let price = parseInt(document.getElementById('sale.price').value);
-
-                if (isNaN(quantity)) {
-                    quantity = 0;
-                }
-
-                if (isNaN(price)) {
-                    price = 0;
-                }
-
-                let total = quantity * price;
-
-                document.getElementById('showTotalSale').innerHTML = `Total: C$ ${total}`;
-            }
-
             Livewire.on('update-price', function() {
-                updateTotalSale()
+                updateTotal('sale.quantity', 'sale.price', 'saleTotal')
             });
 
-            document.getElementById('sale.quantity')
-                .addEventListener('input', updateTotalSale);
+            document.getElementById('sale.quantity').addEventListener('input', function() {
+                Livewire.emit('update-price');
+            });
 
-            document.getElementById('sale.price')
-                .addEventListener('input', updateTotalSale);
+            document.getElementById('sale.price').addEventListener('input', function() {
+                Livewire.emit('update-price');
+            });
         </script>
     @endpush
 </div>

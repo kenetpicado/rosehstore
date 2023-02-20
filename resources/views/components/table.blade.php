@@ -1,8 +1,11 @@
 @props(['title' => 'All'])
 
 <div class="card shadow mb-4">
-    <div class="card-header py-3">
+    <div class="card-header py-3 d-flex align-items-center justify-content-between">
         <h6 class="m-0 font-weight-bold text-primary text-uppercase">{{ $title }}</h6>
+        <a href="{{ url()->previous() }}" type="button" class="btn btn-sm btn-secondary">
+            Atras
+        </a>
     </div>
     <div class="card-body">
         @isset ($search)

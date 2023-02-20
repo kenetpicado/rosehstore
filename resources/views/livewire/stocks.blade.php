@@ -63,19 +63,17 @@
                 <td>
                     {{ $stock->original_quantity }}
                 </td>
-                <td class="text-dark font-weight-bold">
+                <td>
                     {{ $stock->size }}
                 </td>
                 <td>
-                    <div class="text-dark font-weight-bold">
-                        {{ $stock->format_cost }}
-                    </div>
+                    {{ $stock->format_cost }}
                 </td>
                 <td>
                     {{ $stock->current_quantity }}
                 </td>
                 <td>
-                    <div class="text-primary font-weight-bold">
+                    <div class="text-dark font-weight-bold">
                         {{ $stock->format_current_cost }}
                     </div>
                 </td>

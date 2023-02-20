@@ -90,9 +90,25 @@
 
     <x-livewire-alert::scripts />
 
-    @stack('scripts')
-
     <script>
+        function updateTotal(quantityElement, priceElement, totalElement)
+        {
+            let quantity = parseInt(document.getElementById(quantityElement).value);
+            let price = parseInt(document.getElementById(priceElement).value);
+
+            if (isNaN(quantity)) {
+                quantity = 0;
+            }
+
+            if (isNaN(price)) {
+                price = 0;
+            }
+
+            let total = quantity * price;
+
+            document.getElementById(totalElement).innerHTML = `Total: C$ ${total}`;
+        }
+
         Livewire.on('close-create-modal', function() {
             $('#createModal').modal('hide')
         });
@@ -117,6 +133,7 @@
             confirm('Seguro que desea agregar este registro?') || event.preventDefault()
         }
     </script>
+    @stack('scripts')
 </body>
 
 </html>

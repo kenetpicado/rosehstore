@@ -53,6 +53,9 @@
                 <td>{{ $forniture->format_price }}</td>
                 <td>
                     <x-dropdown>
+                        <a href="{{ route('rents', $forniture->id) }}" type="button" class="dropdown-item">
+                            Rentas
+                        </a>
                         <button type="button" class="dropdown-item" wire:click="edit({{ $forniture->id }})">
                             Editar
                         </button>
