@@ -1,7 +1,8 @@
+@section('title', 'Registrar producto')
 <div>
     <!-- Page Heading -->
     <x-heading label="Agregar Producto">
-        <a href="{{ route('products') }}" type="button" class="btn btn-sm btn-secondary shadow-sm">
+        <a href="{{ url()->previous() }}" type="button" class="btn btn-sm btn-secondary shadow-sm">
             Cancelar
         </a>
     </x-heading>

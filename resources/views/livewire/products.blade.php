@@ -1,8 +1,9 @@
+@section('title', 'Productos')
 <div>
     <!-- Page Heading -->
     <x-heading label="Inventario">
         <a href="{{ route('products.register') }}" type="button" class="btn btn-sm btn-primary shadow-sm">
-            Agregar
+            Registrar
         </a>
     </x-heading>
 
@@ -42,9 +43,9 @@
         @slot('header')
             <th>Descripción</th>
             <th>Catalogo</th>
-            <th>Costo C/U</th>
+            <th>C$ Unidad</th>
             <th>Disponible</th>
-            <th>Costo Total</th>
+            <th>Total</th>
             <th>Opciones</th>
         @endslot
         @forelse ($products as $product)

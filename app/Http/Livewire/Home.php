@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Services\CurrencyService;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 
@@ -14,10 +15,13 @@ class Home extends Component
             ->select(
                 'id',
                 'current_quantity',
-                DB::raw('(current_quantity * cost) as total_cost')
+                DB::raw('(current_quantity * cost) as current_total_cost')
             )
             ->get();
 
-        return view('livewire.home', ['stock' => $stock]);
+        return view('livewire.home', [
+            'stock' => $stock,
+            'current_total_cost' => (new CurrencyService)->format($stock->sum('current_total_cost'))
+        ]);
     }
 }

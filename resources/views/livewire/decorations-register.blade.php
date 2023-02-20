@@ -1,3 +1,5 @@
+@section('title', 'Decoraciones')
+
 <div>
     <!-- Page Heading -->
     <x-heading label="Decoración">

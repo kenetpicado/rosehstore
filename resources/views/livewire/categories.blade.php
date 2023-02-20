@@ -1,3 +1,5 @@
+@section('title', 'Categorias')
+
 <div>
     <!-- Page Heading -->
     <x-heading label="Categorías">

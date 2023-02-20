@@ -1,3 +1,4 @@
+@section('title', 'Tienda')
 <div>
     <!-- Page Heading -->
     <x-heading label="Tienda"></x-heading>

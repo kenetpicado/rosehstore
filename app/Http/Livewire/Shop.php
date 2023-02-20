@@ -36,6 +36,7 @@ class Shop extends Component
                 $query->select('id', 'current_quantity', 'size', 'price', 'product_id')
                     ->where('current_quantity', '>', 0);
             }])
+            ->latest('id')
             ->searching($this->search)
             ->paginate(10);
 

@@ -1,6 +1,11 @@
+@section('title', 'Compras')
 <div>
     <!-- Page Heading -->
-    <x-heading label="Compras"></x-heading>
+    <x-heading label="Compras">
+        <a href="{{ route('products.register') }}" type="button" class="btn btn-sm btn-primary shadow-sm">
+            Registrar
+        </a>
+    </x-heading>
     <p>
         Se muestran todas las compras <span class="font-weight-bold">{{$this->text_state}}</span> que se han realizado.
     </p>
@@ -11,7 +16,7 @@
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                Total</div>
+                            Total</div>
                             <div class="h5 mb-0 font-weight-bold text-gray-800">
                                 {{ $total }}
                             </div>
@@ -24,7 +29,6 @@
             </div>
         </div>
     </div>
-
     <x-table title="Compras">
         @slot('search')
             <div class="row">
@@ -73,10 +77,10 @@
                 <td>{{ $purchase->original_quantity }}</td>
                 <td class="text-dark font-weight-bold">{{ $purchase->format_total_cost }}</td>
             </tr>
-        @empty
-            <tr>
-                <td colspan="6" class="text-center">No hay registros</td>
-            </tr>
-        @endforelse
-    </x-table>
-</div>
+            @empty
+                <tr>
+                    <td colspan="6" class="text-center">No hay registros</td>
+                </tr>
+            @endforelse
+        </x-table>
+    </div>
