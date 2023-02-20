@@ -22,11 +22,7 @@
 
         <x-item-sidebar title="Mobiliario" icon="baby-carriage" route="fornitures"></x-item-sidebar>
 
-        {{-- <x-collapse-item-sidebar title="Mobiliario" icon="baby-carriage"
-            :active="request()->routeIs('fornitures') || request()->routeIs('rents')">
-                <a class="collapse-item" href="{{ route('fornitures') }}">Articulos</a>
-                <a class="collapse-item" href="utilities-border.html">Ingresos</a>
-        </x-collapse-item-sidebar> --}}
+         <x-item-sidebar title="Registro de rentas" icon="book" route="rental-income"></x-item-sidebar>
 
         <x-item-sidebar title="Decoraciones" icon="gift" route="decorations"></x-item-sidebar>
 

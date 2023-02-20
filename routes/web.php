@@ -41,6 +41,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('sales', Sales::class)
         ->name('sales');
 
+    Route::get('rental-income', RentalIncome::class)
+        ->name('rental-income');
+
     Route::get('purchases', Purchases::class)
         ->name('purchases');
 });

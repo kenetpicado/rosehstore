@@ -18,6 +18,7 @@ class CreateDecorationsTable extends Migration
             $table->string('description', 100)->nullable();
             $table->float('manpower')->default(0);
             $table->float('extra')->default(0);
+            $table->float('discount')->default(0);
             $table->timestamps();
         });
     }

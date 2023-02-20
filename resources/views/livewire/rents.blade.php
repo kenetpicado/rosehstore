@@ -39,7 +39,7 @@
                 <td>{{ $rent->format_created_at }}</td>
                 <td>{{ $rent->description }}</td>
                 <td>{{ $rent->quantity }}</td>
-                <td>{{ $rent->price }}</td>
+                <td>{{ $rent->format_price }}</td>
                 <td>
                     <div class="text-dark font-weight-bold">
                         {{ $rent->format_total }}
