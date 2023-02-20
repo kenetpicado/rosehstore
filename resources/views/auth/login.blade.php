@@ -4,7 +4,7 @@
     <div style="display: grid; place-items: center; min-height: 100vh;">
         <form method="POST" action="{{ route('login') }}">
             @csrf
-            <h4 class="text-center mb-2 font-weight-bold">{{ config('app.name') }}</h4>
+            <h4 class="text-center mb-2 text-primary font-weight-bold">{{ config('app.name') }}</h4>
             <h6 class="text-center text-muted mb-4">Dashboard</h6>
 
             <x-input name="email" type="email"></x-input>
