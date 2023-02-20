@@ -27,6 +27,7 @@ class Sale extends Model
         $this->product_id = $stock->product_id;
         $this->quantity = 1;
         $this->description = 'Talla: ' . $stock->size;
+        $this->user_id = auth()->user()->id;
     }
 
     public function product()

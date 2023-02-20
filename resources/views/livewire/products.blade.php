@@ -62,7 +62,7 @@
                 </td>
                 <td>
                     @if ($product->status == 1)
-                        <span class="badge badge-success">Mostrar</span>
+                        <span class="badge badge-primary">Mostrar</span>
                     @else
                         <span class="badge badge-danger">No mostrar</span>
                     @endif

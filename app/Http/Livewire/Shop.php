@@ -24,7 +24,8 @@ class Shop extends Component
         'sale.price' => 'required|numeric',
         'sale.quantity' => 'required|numeric',
         'sale.description' => 'required|string',
-        'sale.product_id' => 'required'
+        'sale.product_id' => 'required',
+        'sale.user_id' => 'required'
     ];
 
     public function render()

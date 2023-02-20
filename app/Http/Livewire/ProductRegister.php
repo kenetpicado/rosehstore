@@ -13,6 +13,7 @@ class ProductRegister extends Component
     use AlertsTrait;
 
     public $product = null;
+    public $isNew = false;
 
     protected $rules = [
         'product.SKU' => 'required|alpha_dash|max:50',
@@ -39,6 +40,7 @@ class ProductRegister extends Component
         if ($product) {
             $this->product = Product::find($product);
         } else {
+            $this->isNew = true;
             $this->createProductInstance();
         }
     }
@@ -57,7 +59,11 @@ class ProductRegister extends Component
 
         $this->created();
 
-        return redirect("/stock/{$this->product->id}");
+        if ($this->isNew) {
+            return redirect("/stock/{$this->product->id}");
+        }
+
+        return redirect()->route('products');
     }
 
     public function createProductInstance()

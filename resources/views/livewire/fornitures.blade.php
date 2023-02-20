@@ -45,7 +45,7 @@
                 <td class="text-dark font-weight-bold">{{ $forniture->name }}</td>
                 <td>
                     @if ($forniture->status == 1)
-                        <span class="badge badge-success">Mostrar</span>
+                        <span class="badge badge-primary">Mostrar</span>
                     @else
                         <span class="badge badge-danger">No mostrar</span>
                     @endif
