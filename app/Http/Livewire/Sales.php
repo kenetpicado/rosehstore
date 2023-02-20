@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Models\Sale;
+use App\Services\CurrencyService;
 use App\Traits\AlertsTrait;
 use App\Traits\PaginationTrait;
 use App\Traits\PropertiesTrait;
@@ -28,14 +29,17 @@ class Sales extends Component
 
     public function render()
     {
-        return view('livewire.sales', [
-            'sales' => Sale::query()
+        $sales = Sale::query()
                 ->withProduct()
                 ->searching($this->search)
                 ->filterDate($this->startDate, $this->endDate, 'sales.created_at')
                 ->filterUser($this->filter_user)
                 ->latest('id')
-                ->get()
+                ->get();
+
+        return view('livewire.sales', [
+            'sales' => $sales,
+            'total' => (new CurrencyService)->format($sales->sum('total'))
         ]);
     }
 
