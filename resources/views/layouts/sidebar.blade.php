@@ -10,11 +10,7 @@
         <hr class="sidebar-divider my-0">
 
         <!-- Nav Item - Dashboard -->
-        <li class="nav-item">
-            <a class="nav-link" href="{{ route('home') }}">
-                <i class="fas fa-fw fa-tachometer-alt"></i>
-                <span>Dashboard</span></a>
-        </li>
+        <x-item-sidebar title="Dashboard" icon="tachometer-alt" route="home"></x-item-sidebar>
 
         <x-item-sidebar title="Tienda" icon="shopping-cart" route="shop"></x-item-sidebar>
 

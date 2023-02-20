@@ -57,6 +57,7 @@ class Shop extends Component
         $this->product = Product::findForSale($product_id);
 
         $this->emit('open-create-modal');
+        $this->emit('update-price');
     }
 
     public function store()

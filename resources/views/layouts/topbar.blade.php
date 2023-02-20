@@ -5,7 +5,7 @@
         <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
             <i class="fa fa-bars"></i>
         </button>
-        <span class="badge badge-danger">Esta es una version beta!</span>
+        <span class="badge badge-primary">Esta es una version beta!</span>
 
         <!-- Topbar Navbar -->
         <ul class="navbar-nav ml-auto">
