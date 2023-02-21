@@ -39,7 +39,12 @@ class Products extends Component
 
     public function destroy($product)
     {
-        Product::find($product)->delete();
+        if (Stock::where('product_id', $product)->exists()) {
+            $this->hasError("No se puede eliminar el producto porque tiene existencias asociadas.");
+            return;
+        }
+
+        Product::where('id', $product)->delete();
         $this->deleted();
     }
 

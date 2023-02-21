@@ -121,6 +121,10 @@
             $('#createModal').modal('show')
         });
 
+        Livewire.on('open-rent-modal', function() {
+            $('#rentModal').modal('show')
+        });
+
         Livewire.on('open-dialog-details', function() {
             $('#dialogDetails').modal('show')
         });

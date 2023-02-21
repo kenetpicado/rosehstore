@@ -36,8 +36,15 @@
         @endslot
         @forelse ($rents as $rent)
             <tr>
-                <td>{{ $rent->format_created_at }}</td>
-                <td>{{ $rent->description }}</td>
+                <td>
+                    <span class="text-muted small">
+                        {{ $rent->format_created_at }}
+                    </span>
+                    <div class="my-1 text-dark break-45-ch">
+                        Se registro la renta del articulo.
+                        {{ $rent->description }}
+                    </div>
+                </td>
                 <td>{{ $rent->quantity }}</td>
                 <td>{{ $rent->format_price }}</td>
                 <td>

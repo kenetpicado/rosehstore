@@ -21,6 +21,19 @@
         </x-select>
     </x-modal>
 
+    <x-modal label="Registrar Renta" id="rentModal" fn="storeRent()">
+        <x-input name="rent_description" label="Descripcion (Opcional)"></x-input>
+        <div class="row">
+            <div class="col">
+                <x-input name="rent_quantity" label="Cantidad"></x-input>
+            </div>
+            <div class="col">
+                <x-input name="rent_price" label="Precio (Unidad)"></x-input>
+            </div>
+        </div>
+        <h5 class="my-4 text-right text-primary" id="rentTotal"></h5>
+    </x-modal>
+
     <x-table title="Articulos para renta">
         @slot('search')
             <div class="row">
@@ -53,8 +66,11 @@
                 <td>{{ $forniture->format_price }}</td>
                 <td>
                     <x-dropdown>
+                        <button type="button" class="dropdown-item" wire:click="showRentModal({{ $forniture->id }})">
+                            Rergistrar renta
+                        </button>
                         <a href="{{ route('rents', $forniture->id) }}" type="button" class="dropdown-item">
-                            Rentas
+                            Ver rentas
                         </a>
                         <button type="button" class="dropdown-item" wire:click="edit({{ $forniture->id }})">
                             Editar
@@ -75,4 +91,23 @@
             {!! $fornitures->links() !!}
         @endslot
     </x-table>
+     @push('scripts')
+        <script>
+            Livewire.on('close-rent-modal', function() {
+                $('#rentModal').modal('hide')
+            });
+
+            Livewire.on('open-rent-modal', function() {
+                updateTotal('rent_quantity', 'rent_price', 'rentTotal')
+            });
+
+            document.getElementById('rent_quantity').addEventListener('input', function() {
+                Livewire.emit('open-rent-modal');
+            });
+
+            document.getElementById('rent_price').addEventListener('input', function() {
+                Livewire.emit('open-rent-modal');
+            });
+        </script>
+    @endpush
 </div>

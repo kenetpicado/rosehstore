@@ -21,6 +21,14 @@ class Rent extends Model
         'description' => TrimCast::class,
     ];
 
+    protected $fillable = [
+        'description',
+        'quantity',
+        'price',
+        'forniture_id',
+        'created_at'
+    ];
+
     public function getTotalAttribute()
     {
         return $this->quantity * $this->price;
