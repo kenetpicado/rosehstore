@@ -6,6 +6,7 @@ use App\Models\Stock;
 use App\Services\CurrencyService;
 use App\Traits\PropertiesTrait;
 use Livewire\Component;
+use Illuminate\Support\Facades\DB;
 
 class Purchases extends Component
 {
@@ -24,6 +25,9 @@ class Purchases extends Component
             ->filterDate($this->startDate, $this->endDate, 'stocks.created_at')
             ->filterUser($this->filter_user)
             ->latest('id')
+            ->addSelect([
+                DB::raw('current_quantity * cost as total')
+            ])
             ->get();
 
         return view('livewire.purchases', [

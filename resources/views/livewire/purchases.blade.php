@@ -73,7 +73,7 @@
                         {{ $purchase->product_SKU }}
                     </span>
                 </td>
-                <td>{{ $purchase->format_price }}</td>
+                <td>{{ $purchase->format_cost }}</td>
                 <td>{{ $purchase->original_quantity }}</td>
                 <td class="text-dark font-weight-bold">{{ $purchase->format_total_cost }}</td>
             </tr>
