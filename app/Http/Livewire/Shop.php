@@ -85,6 +85,8 @@ class Shop extends Component
 
         $this->validate();
         $this->sale->setDate();
+        $this->sale->addColorsToDescription($this->selectedColors);
+
         $this->sale->save();
 
         if (count($this->selectedColors) > 0 && $this->removeColor) {
@@ -102,7 +104,6 @@ class Shop extends Component
     {
         if (!in_array($color, $this->selectedColors)) {
             array_push($this->selectedColors, $color);
-            $this->sale->description = $this->sale->description . " " . $color;
         }
 
         $this->emit('update-price');

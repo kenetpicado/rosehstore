@@ -40,6 +40,11 @@ class Sale extends Model
         return $this->price * $this->quantity;
     }
 
+    public function addColorsToDescription($colors)
+    {
+        $this->description .= ' - Colores: ' . implode(', ', $colors);
+    }
+
     public function getFormatPriceAttribute()
     {
         return (new CurrencyService)->format($this->price);
