@@ -42,7 +42,7 @@ class Sale extends Model
 
     public function addColorsToDescription($colors)
     {
-        $this->description .= ' - Colores: ' . implode(', ', $colors);
+        $this->description .= '. Color(es): ' . implode(', ', $colors);
     }
 
     public function getFormatPriceAttribute()

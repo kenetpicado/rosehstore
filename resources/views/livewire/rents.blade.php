@@ -27,7 +27,6 @@
 
     <x-table :title="$forniture->name">
         @slot('header')
-            <th>Registrado</th>
             <th>Descripcion</th>
             <th>Cantidad</th>
             <th>C$ Unidad</th>
