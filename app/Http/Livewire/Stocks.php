@@ -17,6 +17,7 @@ class Stocks extends Component
     public $product = null;
     public $stock = null;
     public $isNew = true;
+    public $colors = [];
 
     protected $rules = [
         'stock.size' => 'required|max:50',
@@ -52,6 +53,7 @@ class Stocks extends Component
 
         $this->validate();
         $this->stock->setDate();
+        $this->stock->setColors($this->colors);
         $this->stock->save();
 
         $this->resetInputFields();
@@ -63,7 +65,25 @@ class Stocks extends Component
     {
         $this->stock = $stock;
         $this->isNew = false;
+
+        if ($stock->colors) {
+            $this->colors = unserialize($stock->colors);
+        }
+
         $this->emit('open-create-modal');
+        $this->emit('mio');
+    }
+
+    public function sendColor($color)
+    {
+        if (!in_array($color, $this->colors)) {
+            array_push($this->colors, $color);
+        }
+    }
+
+    public function removeColor($color)
+    {
+        $this->colors = array_diff($this->colors, [$color]);
     }
 
     public function resetInputFields()

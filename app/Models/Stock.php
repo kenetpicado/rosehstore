@@ -62,6 +62,11 @@ class Stock extends Model
         return (new CurrencyService)->format($this->price);
     }
 
+    public function setColors($colors)
+    {
+        $this->colors = serialize($colors);
+    }
+
     public function scopeSearching($query, $search)
     {
         if ($search) {

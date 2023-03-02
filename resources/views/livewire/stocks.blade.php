@@ -40,9 +40,23 @@
         </div>
         <x-input name="stock.size" label="Talla"></x-input>
         <x-input name="stock.original_quantity" label="Cantidad" type="number"></x-input>
+
         @if (!$isNew)
             <x-input name="stock.current_quantity" label="Quedan" type="number"></x-input>
         @endif
+
+        <div class="d-flex mb-2" id="colorsContainer">
+            @foreach ($colors as $color)
+                <div class="circle" style="background-color: {{$color}}" wire:click="removeColor('{{ $color }}')"></div>
+            @endforeach
+        </div>
+
+        <label class="form-label">Colores</label>
+        <div class="d-flex">
+            <input type="color" class="form-control form-control-color w-50 mr-2" id="colorSelector" title="Seleccionar colores">
+            <button type="button" class="btn btn-sm btn-outline-secondary" onclick="addCurrentColor()">Agregar</button>
+        </div>
+
     </x-modal>
 
     <x-table :title="$product->description">
@@ -94,4 +108,13 @@
             </tr>
         @endforelse
     </x-table>
+    @push('scripts')
+        <script>
+            function addCurrentColor() {
+                let color = document.getElementById('colorSelector').value
+                @this.sendColor(color);
+            }
+        </script>
+    @endpush
+
 </div>
