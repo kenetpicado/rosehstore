@@ -19,6 +19,8 @@ class Shop extends Component
     public $stock;
     public $sale;
     public $search = null;
+    public $colors = [];
+    public $selectedColors = [];
 
     protected $rules = [
         'sale.price' => 'required|numeric',
@@ -54,6 +56,11 @@ class Shop extends Component
     public function sell($product_id, $stock_id)
     {
         $this->stock = Stock::findForSale($stock_id);
+
+        if ($this->stock->colors) {
+            $this->colors = unserialize($this->stock->colors);
+        }
+
         $this->sale->prepareForSale($this->stock);
         $this->product = Product::findForSale($product_id);
 
@@ -65,6 +72,13 @@ class Shop extends Component
     {
         if ($this->sale->quantity > $this->stock->current_quantity) {
             $this->hasError("La cantidad solicitada no está disponible");
+            $this->emit('update-price');
+            return;
+        }
+
+        if (count($this->selectedColors) > $this->sale->quantity) {
+            $this->hasError("La cantidad y los colores no coinciden");
+            $this->emit('update-price');
             return;
         }
 
@@ -76,6 +90,14 @@ class Shop extends Component
         $this->emit('close-create-modal');
         $this->created();
         $this->resetInputFields();
+    }
+
+    public function addColor($color)
+    {
+        if (!in_array($color, $this->selectedColors)) {
+            array_push($this->selectedColors, $color);
+        }
+        $this->emit('update-price');
     }
 
     public function resetInputFields()

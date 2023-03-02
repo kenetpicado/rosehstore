@@ -19,6 +19,18 @@
                 <x-input name="sale.price" label="Precio (Unidad)"></x-input>
             </div>
         </div>
+        <label class="form-label">Colores disponibles</label>
+        <div class="d-flex mb-2">
+            @foreach ($colors as $color)
+                <div class="circle circle-selected" style="background-color: {{$color}}" onclick="toggleSelect()" wire:click="addColor('{{ $color }}')"></div>
+            @endforeach
+        </div>
+        <label class="form-label mt-2">Colores seleccionados</label>
+        <div class="d-flex mb-2">
+            @foreach ($selectedColors as $color)
+                <div class="circle circle-selected" style="background-color: {{$color}}"></div>
+            @endforeach
+        </div>
         <h5 class="my-4 text-right text-primary" id="saleTotal"></h5>
     </x-modal>
 
@@ -90,6 +102,12 @@
     </x-table>
     @push('scripts')
         <script>
+            function toggleSelect()
+            {
+                let element = event.target;
+                element.classList.toggle('circle-selected');
+            }
+
             Livewire.on('update-price', function() {
                 updateTotal('sale.quantity', 'sale.price', 'saleTotal')
             });

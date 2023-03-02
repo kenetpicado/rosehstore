@@ -77,5 +77,9 @@ input[type=number] {
      -webkit-border-radius: 50%;
      border-radius: 50%;
      margin-right: 0.5rem;
-     background: #555;
+     background: #fff;
+}
+
+.circle-selected {
+    border: 0.3rem solid #fff;
 }

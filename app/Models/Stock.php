@@ -28,7 +28,7 @@ class Stock extends Model
 
     public function scopeFindForSale($query, $id)
     {
-        return $query->select('id', 'size', 'product_id', 'price', 'current_quantity')
+        return $query->select('id', 'size', 'product_id', 'price', 'current_quantity', 'colors')
             ->find($id);
     }
 
