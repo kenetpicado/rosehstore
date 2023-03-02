@@ -21,6 +21,7 @@ class Shop extends Component
     public $search = null;
     public $colors = [];
     public $selectedColors = [];
+    public $removeColor = true;
 
     protected $rules = [
         'sale.price' => 'required|numeric',
@@ -85,7 +86,12 @@ class Shop extends Component
         $this->validate();
         $this->sale->setDate();
         $this->sale->save();
-        $this->stock->decrement('current_quantity', $this->sale->quantity);
+
+        if (count($this->selectedColors) > 0 && $this->removeColor) {
+            $this->stock->colors = serialize(array_diff($this->colors, $this->selectedColors));
+            $this->stock->current_quantity = $this->stock->current_quantity - $this->sale->quantity;
+            $this->stock->save();
+        }
 
         $this->emit('close-create-modal');
         $this->created();
@@ -96,7 +102,15 @@ class Shop extends Component
     {
         if (!in_array($color, $this->selectedColors)) {
             array_push($this->selectedColors, $color);
+            $this->sale->description = $this->sale->description . " " . $color;
         }
+
+        $this->emit('update-price');
+    }
+
+    public function removeColor($color)
+    {
+        $this->selectedColors = array_diff($this->selectedColors, [$color]);
         $this->emit('update-price');
     }
 

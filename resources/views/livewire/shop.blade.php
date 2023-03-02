@@ -22,14 +22,20 @@
         <label class="form-label">Colores disponibles</label>
         <div class="d-flex mb-2">
             @foreach ($colors as $color)
-                <div class="circle circle-selected" style="background-color: {{$color}}" onclick="toggleSelect()" wire:click="addColor('{{ $color }}')"></div>
+                <div class="circle" style="background-color: {{$color}}" onclick="toggleSelect()" wire:click="addColor('{{ $color }}')"></div>
             @endforeach
         </div>
         <label class="form-label mt-2">Colores seleccionados</label>
         <div class="d-flex mb-2">
             @foreach ($selectedColors as $color)
-                <div class="circle circle-selected" style="background-color: {{$color}}"></div>
+                <div class="circle" style="background-color: {{$color}}" wire:click="removeColor('{{ $color }}')"></div>
             @endforeach
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" id="defaultCheck1" wire:model.defer="removeColor">
+          <label class="form-check-label" for="defaultCheck1">
+            Eliminar colores seleccionados
+          </label>
         </div>
         <h5 class="my-4 text-right text-primary" id="saleTotal"></h5>
     </x-modal>
