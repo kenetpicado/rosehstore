@@ -91,9 +91,10 @@ class Shop extends Component
 
         if (count($this->selectedColors) > 0 && $this->removeColor) {
             $this->stock->colors = serialize(array_diff($this->colors, $this->selectedColors));
-            $this->stock->current_quantity = $this->stock->current_quantity - $this->sale->quantity;
-            $this->stock->save();
         }
+
+        $this->stock->current_quantity = $this->stock->current_quantity - $this->sale->quantity;
+        $this->stock->save();
 
         $this->emit('close-create-modal');
         $this->created();
