@@ -17,6 +17,10 @@ class Stock extends Model
 
     public $timestamps = false;
 
+    protected $dates = [
+        'created_at',
+    ];
+
     protected $casts = [
         'size' => UpperCast::class,
     ];
