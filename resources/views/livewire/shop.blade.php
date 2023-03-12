@@ -27,9 +27,11 @@
         </div>
         <label class="form-label mt-2">Colores seleccionados</label>
         <div class="d-flex mb-2">
-            @foreach ($selectedColors as $color)
+            @forelse ($selectedColors as $color)
                 <div class="circle" style="background-color: {{$color}}" wire:click="removeColor('{{ $color }}')"></div>
-            @endforeach
+            @empty
+                <span>No hay color seleccionado</span>
+            @endforelse
         </div>
         <div class="form-check">
           <input class="form-check-input" type="checkbox" id="defaultCheck1" wire:model.defer="removeColor">

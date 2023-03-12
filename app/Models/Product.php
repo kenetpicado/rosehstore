@@ -61,7 +61,7 @@ class Product extends Model
 
     public function scopeFindForStock($query, $id)
     {
-        return $query->select('id', 'description', 'default_cost', 'default_price')->find($id);
+        return $query->select('id', 'description', 'default_cost', 'default_price', 'image')->find($id);
     }
 
     public function scopeSearching($query, $search)

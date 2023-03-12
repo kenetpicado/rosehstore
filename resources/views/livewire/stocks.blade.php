@@ -10,11 +10,11 @@
 
     <div class="row">
         <div class="col-xl-3 col-md-6 mb-4">
-            <div class="card border-left-success shadow h-100 py-2">
+            <div class="card border-left-primary shadow h-100 py-2">
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                 Total</div>
                             <div class="h5 mb-0 font-weight-bold text-gray-800">
                                 {{ $total }}
@@ -33,30 +33,27 @@
         <div class="row">
             <div class="col">
                 <x-input name="stock.cost" label="Costo"></x-input>
+                <x-input name="stock.price" label="Precio al cliente"></x-input>
+                <x-input name="stock.size" label="Talla"></x-input>
+                <x-input name="stock.original_quantity" label="Cantidad" type="number"></x-input>
+                @if (!$isNew)
+                    <x-input name="stock.current_quantity" label="Quedan" type="number"></x-input>
+                @endif
+                <label class="form-label">Colores</label>
+                <div class="d-flex">
+                    <input type="color" class="form-control form-control-color" id="colorSelector" title="Seleccionar colores">
+                    <button type="button" class="btn btn-sm btn-outline-secondary" onclick="addCurrentColor()">Agregar</button>
+                </div>
             </div>
             <div class="col">
-                <x-input name="stock.price" label="Precio al cliente"></x-input>
+                <img src="{{ $product->image }}" alt="No hay imagen" class="mx-auto img-preview">
+                <div class="d-flex mt-2" id="colorsContainer" style="flex-wrap: wrap;">
+                    @foreach ($colors as $color)
+                        <div class="circle mb-2" style="background-color: {{$color}}" wire:click="removeColor('{{ $color }}')"></div>
+                    @endforeach
+                </div>
             </div>
         </div>
-        <x-input name="stock.size" label="Talla"></x-input>
-        <x-input name="stock.original_quantity" label="Cantidad" type="number"></x-input>
-
-        @if (!$isNew)
-            <x-input name="stock.current_quantity" label="Quedan" type="number"></x-input>
-        @endif
-
-        <div class="d-flex mb-2" id="colorsContainer">
-            @foreach ($colors as $color)
-                <div class="circle" style="background-color: {{$color}}" wire:click="removeColor('{{ $color }}')"></div>
-            @endforeach
-        </div>
-
-        <label class="form-label">Colores</label>
-        <div class="d-flex">
-            <input type="color" class="form-control form-control-color w-50 mr-2" id="colorSelector" title="Seleccionar colores">
-            <button type="button" class="btn btn-sm btn-outline-secondary" onclick="addCurrentColor()">Agregar</button>
-        </div>
-
     </x-modal>
 
     <x-table :title="$product->description">
