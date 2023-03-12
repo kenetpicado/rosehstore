@@ -26,7 +26,7 @@ class ProductResource extends JsonResource
             'category_parent_id' => $this->category->parent?->id,
             'is_new' => $this->created_at->gt(now()->subDays(15)),
             'has_new_stock' => $this->stocks->contains('created_at', '>', now()->subDays(15)),
-            'stocks' => $this->stocks
+            'stocks' => StockResource::collection($this->stocks)
         ];
     }
 }

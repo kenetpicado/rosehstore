@@ -25,7 +25,7 @@ class ProductController extends Controller
                 )
                 ->hasStock()
                 ->with(['stocks' => function ($query) {
-                    $query->select('id', 'current_quantity', 'size', 'price', 'product_id', 'created_at')
+                    $query->select('id', 'current_quantity', 'size', 'price', 'product_id', 'created_at', 'colors')
                         ->where('current_quantity', '>', 0);
                 }])
                 ->with(['category' => function ($query) {
