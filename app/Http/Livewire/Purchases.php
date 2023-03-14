@@ -24,7 +24,7 @@ class Purchases extends Component
             ->searching($this->search)
             ->filterDate($this->startDate, $this->endDate, 'stocks.created_at')
             ->filterUser($this->filter_user)
-            ->latest('id')
+            ->latest('stocks.id')
             ->addSelect([
                 DB::raw('current_quantity * cost as total')
             ])

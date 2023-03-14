@@ -34,11 +34,15 @@ class StatsService
     {
         return DB::table('stocks')
             ->where('current_quantity', '>', 0)
+            ->join('products', 'products.id', '=', 'stocks.product_id')
+            ->join('users', 'users.id', '=', 'products.user_id')
             ->select(
-                'id',
-                'current_quantity',
-                DB::raw('(current_quantity * cost) as current_total_cost')
+                DB::raw('SUM(stocks.current_quantity * stocks.cost) as current_total_cost'),
+                DB::raw('SUM(stocks.current_quantity) as current_quantity'),
+                'products.user_id',
+                'users.name',
             )
+            ->groupBy('products.user_id')
             ->get();
     }
 }

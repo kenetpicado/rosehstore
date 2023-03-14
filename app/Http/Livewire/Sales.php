@@ -34,7 +34,7 @@ class Sales extends Component
                 ->searching($this->search)
                 ->filterDate($this->startDate, $this->endDate, 'sales.created_at')
                 ->filterUser($this->filter_user)
-                ->latest('id')
+                ->latest('sales.id')
                 ->get();
 
         return view('livewire.sales', [
