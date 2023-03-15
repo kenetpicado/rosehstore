@@ -14,14 +14,16 @@ class DecorationsRegister extends Component
     use AlertsTrait;
 
     public $decoration;
+
     public $materials = [];
+
     public $total = 0;
 
     protected $rules = [
         'decoration.description' => 'nullable|max:100',
         'decoration.manpower' => 'required|numeric',
         'decoration.extra' => 'nullable|numeric',
-        'materials' => 'required|array'
+        'materials' => 'required|array',
     ];
 
     //sumar todos los precios de los materiales
@@ -59,6 +61,7 @@ class DecorationsRegister extends Component
 
         $this->created();
         $this->resetInputFields();
+
         return redirect()->route('decorations');
     }
 

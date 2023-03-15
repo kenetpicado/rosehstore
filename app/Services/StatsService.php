@@ -2,7 +2,6 @@
 
 namespace App\Services;
 
-use App\Services\CurrencyService;
 use Illuminate\Support\Facades\DB;
 
 class StatsService

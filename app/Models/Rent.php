@@ -26,7 +26,7 @@ class Rent extends Model
         'quantity',
         'price',
         'forniture_id',
-        'created_at'
+        'created_at',
     ];
 
     public function getTotalAttribute()

@@ -6,8 +6,8 @@ use App\Casts\TrimCast;
 use App\Services\CurrencyService;
 use App\Traits\CommonFormatsTrait;
 use App\Traits\ScopesTrait;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
 class Sale extends Model
 {
@@ -26,7 +26,7 @@ class Sale extends Model
         $this->price = $stock->price;
         $this->product_id = $stock->product_id;
         $this->quantity = 1;
-        $this->description = 'Talla: ' . $stock->size;
+        $this->description = 'Talla: '.$stock->size;
         $this->user_id = auth()->user()->id;
     }
 
@@ -42,7 +42,7 @@ class Sale extends Model
 
     public function addColorsToDescription($colors)
     {
-        $this->description .= '. Color(es): ' . implode(', ', $colors);
+        $this->description .= '. Color(es): '.implode(', ', $colors);
     }
 
     public function getFormatPriceAttribute()
@@ -58,10 +58,10 @@ class Sale extends Model
     public function scopeSearching($query, $search)
     {
         return $query->when($search, function ($q) use ($search) {
-            $q->where('description', 'like', '%' . $search . '%')
+            $q->where('description', 'like', '%'.$search.'%')
                 ->orWherehas('product', function ($q) use ($search) {
-                    $q->where('description', 'like', '%' . $search . '%')
-                        ->orWhere('SKU', 'like', '%' . $search . '%');
+                    $q->where('description', 'like', '%'.$search.'%')
+                        ->orWhere('SKU', 'like', '%'.$search.'%');
                 });
         });
     }

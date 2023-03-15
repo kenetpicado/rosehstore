@@ -13,7 +13,7 @@ class Decorations extends Component
     public function render()
     {
         return view('livewire.decorations', [
-            'decorations' => Decoration::with('fornitures')->paginate()
+            'decorations' => Decoration::with('fornitures')->paginate(),
         ]);
     }
 }

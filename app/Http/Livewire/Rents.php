@@ -12,6 +12,7 @@ class Rents extends Component
     use AlertsTrait;
 
     public $forniture = null;
+
     public $rent = null;
 
     protected $rules = [
@@ -24,7 +25,7 @@ class Rents extends Component
     public function render()
     {
         return view('livewire.rents', [
-            'rents' => Rent::getByForniture($this->forniture->id)
+            'rents' => Rent::getByForniture($this->forniture->id),
         ]);
     }
 

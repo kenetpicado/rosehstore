@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'name' => ( 'Roseh Store'),
+    'name' => ('Roseh Store'),
     'currency' => 'C$',
 
     /*

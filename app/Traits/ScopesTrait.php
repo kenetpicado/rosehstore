@@ -22,16 +22,16 @@ trait ScopesTrait
 
     public function setDate()
     {
-        if (!$this->id) {
+        if (! $this->id) {
             $this->created_at = now()->format('Y-m-d');
         }
     }
 
     public function scopeWithProduct($query, $table = 'sales')
     {
-        return $query->leftJoin('products', 'products.id', '=', $table . '.product_id')
+        return $query->leftJoin('products', 'products.id', '=', $table.'.product_id')
                 ->select(
-                    $table . '.*',
+                    $table.'.*',
                     'products.description as product_description',
                     'products.SKU as product_SKU'
                 );

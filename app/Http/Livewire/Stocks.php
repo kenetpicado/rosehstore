@@ -15,8 +15,11 @@ class Stocks extends Component
     use AlertsTrait;
 
     public $product = null;
+
     public $stock = null;
+
     public $isNew = true;
+
     public $colors = [];
 
     protected $rules = [
@@ -34,7 +37,7 @@ class Stocks extends Component
 
         return view('livewire.stocks', [
             'stocks' => $stock,
-            'total' => (new CurrencyService)->format($stock->sum('current_cost'))
+            'total' => (new CurrencyService)->format($stock->sum('current_cost')),
         ]);
     }
 
@@ -76,7 +79,7 @@ class Stocks extends Component
 
     public function sendColor($color)
     {
-        if (!in_array($color, $this->colors)) {
+        if (! in_array($color, $this->colors)) {
             array_push($this->colors, $color);
         }
     }

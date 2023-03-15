@@ -16,9 +16,13 @@ class Sales extends Component
     use PropertiesTrait;
 
     public $sale = null;
+
     public $search = null;
+
     public $startDate = null;
+
     public $endDate = null;
+
     public $filter_user = null;
 
     protected $rules = [
@@ -39,7 +43,7 @@ class Sales extends Component
 
         return view('livewire.sales', [
             'sales' => $sales,
-            'total' => (new CurrencyService)->format($sales->sum('total'))
+            'total' => (new CurrencyService)->format($sales->sum('total')),
         ]);
     }
 

@@ -12,12 +12,17 @@ class Fornitures extends Component
     use AlertsTrait;
 
     public $forniture;
+
     public $search = null;
+
     public $rent = null;
 
     public $rent_quantity = 1;
+
     public $rent_price = 0;
+
     public $rent_description = '';
+
     public $forniture_id = null;
 
     protected $rules = [
@@ -32,9 +37,9 @@ class Fornitures extends Component
         return view('livewire.fornitures', [
             'fornitures' => Forniture::orderBy('name')
                 ->when($this->search, function ($query) {
-                    $query->where('name', 'like', '%' . $this->search . '%');
+                    $query->where('name', 'like', '%'.$this->search.'%');
                 })
-                ->paginate(20)
+                ->paginate(20),
         ]);
     }
 
@@ -75,7 +80,7 @@ class Fornitures extends Component
             'quantity' => $this->rent_quantity,
             'price' => $this->rent_price,
             'forniture_id' => $this->forniture_id,
-            'created_at' => now()->format('Y-m-d')
+            'created_at' => now()->format('Y-m-d'),
         ]);
 
         $this->resetInputFields();
@@ -92,7 +97,8 @@ class Fornitures extends Component
     public function destroy($forniture)
     {
         if (Rent::where('forniture_id', $forniture)->exists()) {
-            $this->hasError("No se puede eliminar el articulo porque tiene rentas asociadas.");
+            $this->hasError('No se puede eliminar el articulo porque tiene rentas asociadas.');
+
             return;
         }
 

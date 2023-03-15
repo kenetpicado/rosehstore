@@ -7,5 +7,6 @@ use Livewire\WithPagination;
 trait PaginationTrait
 {
     use WithPagination;
+
     protected $paginationTheme = 'bootstrap';
 }

@@ -6,8 +6,8 @@ use App\Models\Category;
 use App\Traits\AlertsTrait;
 use App\Traits\PaginationTrait;
 use Illuminate\Validation\Rule;
-use Livewire\Component;
 use Illuminate\Validation\ValidationException;
+use Livewire\Component;
 
 class Categories extends Component
 {
@@ -38,7 +38,7 @@ class Categories extends Component
             ->paginate(15);
 
         return view('livewire.categories', [
-            'categories' => $categories
+            'categories' => $categories,
         ]);
     }
 
@@ -54,7 +54,7 @@ class Categories extends Component
                 'category.parent_id' => 'La categoría padre no puede ser la misma que la categoría hija.',
             ]);
         }
-        
+
         $this->validate();
         $this->category->formatParentId();
         $this->category->save();

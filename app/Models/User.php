@@ -4,7 +4,6 @@ namespace App\Models;
 
 use App\Casts\LowerCaseCast;
 use App\Casts\UcwordsCast;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -53,11 +52,11 @@ class User extends Authenticatable
 
     public function scopeNoRootUsers($query)
     {
-        return $query->whereHas('roles', fn($q) => $q->where('name', '!=', 'root'));
+        return $query->whereHas('roles', fn ($q) => $q->where('name', '!=', 'root'));
     }
 
     public function scopeAdmins($query)
     {
-        return $query->whereHas('roles', fn($q) => $q->where('name', 'administrador'));
+        return $query->whereHas('roles', fn ($q) => $q->where('name', 'administrador'));
     }
 }

@@ -4,16 +4,18 @@ namespace App\Http\Livewire;
 
 use App\Models\User;
 use App\Traits\AlertsTrait;
+use Illuminate\Validation\Rule;
 use Livewire\Component;
 use Spatie\Permission\Models\Role;
-use Illuminate\Validation\Rule;
 
 class Users extends Component
 {
     use AlertsTrait;
 
     public $user = null;
+
     public $role = [];
+
     public $isNew = true;
 
     public function rules()

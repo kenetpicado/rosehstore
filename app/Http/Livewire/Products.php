@@ -4,11 +4,9 @@ namespace App\Http\Livewire;
 
 use App\Models\Product;
 use App\Models\Stock;
-use App\Services\CurrencyService;
 use App\Traits\AlertsTrait;
 use App\Traits\PaginationTrait;
 use Livewire\Component;
-use Illuminate\Support\Facades\DB;
 
 class Products extends Component
 {
@@ -16,7 +14,9 @@ class Products extends Component
     use PaginationTrait;
 
     public $product = null;
+
     public $search = null;
+
     public $filter_user = null;
 
     public function render()
@@ -40,7 +40,8 @@ class Products extends Component
     public function destroy($product)
     {
         if (Stock::where('product_id', $product)->exists()) {
-            $this->hasError("No se puede eliminar el producto porque tiene existencias asociadas.");
+            $this->hasError('No se puede eliminar el producto porque tiene existencias asociadas.');
+
             return;
         }
 

@@ -14,6 +14,7 @@ class RentalIncome extends Component
     use AlertsTrait;
 
     public $startDate = null;
+
     public $endDate = null;
 
     public function render()
@@ -22,7 +23,7 @@ class RentalIncome extends Component
 
         return view('livewire.rental-income', [
             'rents' => $rents,
-            'total' => (new CurrencyService)->format($rents->sum('total'))
+            'total' => (new CurrencyService)->format($rents->sum('total')),
         ]);
     }
 

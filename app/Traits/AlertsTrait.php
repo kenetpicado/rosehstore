@@ -10,15 +10,15 @@ trait AlertsTrait
 
     public function created()
     {
-        $this->alert('success', "Registro guardado correctamente");
+        $this->alert('success', 'Registro guardado correctamente');
     }
 
     public function deleted()
     {
-        $this->alert('info', "Registro eliminado correctamente");
+        $this->alert('info', 'Registro eliminado correctamente');
     }
 
-    public function hasError($msj = "Ha ocurrido un error")
+    public function hasError($msj = 'Ha ocurrido un error')
     {
         $this->alert('error', $msj);
     }

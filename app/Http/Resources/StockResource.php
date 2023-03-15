@@ -15,11 +15,11 @@ class StockResource extends JsonResource
     public function toArray($request)
     {
         return [
-            "id" => $this->id,
-            "current_quantity" => $this->current_quantity,
-            "size" => $this->size,
-            "price" => $this->price,
-            "colors" => unserialize($this->colors),
+            'id' => $this->id,
+            'current_quantity' => $this->current_quantity,
+            'size' => $this->size,
+            'price' => $this->price,
+            'colors' => unserialize($this->colors),
         ];
     }
 }

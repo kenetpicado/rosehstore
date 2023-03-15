@@ -4,8 +4,8 @@ namespace App\Models;
 
 use App\Casts\TrimCast;
 use App\Services\CurrencyService;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
 class Forniture extends Model
 {

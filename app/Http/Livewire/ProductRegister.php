@@ -13,6 +13,7 @@ class ProductRegister extends Component
     use AlertsTrait;
 
     public $product = null;
+
     public $isNew = false;
 
     protected $rules = [
@@ -31,7 +32,7 @@ class ProductRegister extends Component
     {
         return view('livewire.product-register', [
             'users' => User::admins()->get(['id', 'name']),
-            'categories' => Category::parents()->with('childrens:id,name,parent_id')->get()
+            'categories' => Category::parents()->with('childrens:id,name,parent_id')->get(),
         ]);
     }
 

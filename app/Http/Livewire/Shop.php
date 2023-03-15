@@ -8,7 +8,6 @@ use App\Models\Stock;
 use App\Traits\AlertsTrait;
 use App\Traits\PaginationTrait;
 use Livewire\Component;
-use Illuminate\Validation\ValidationException;
 
 class Shop extends Component
 {
@@ -16,11 +15,17 @@ class Shop extends Component
     use AlertsTrait;
 
     public $product;
+
     public $stock;
+
     public $sale;
+
     public $search = null;
+
     public $colors = [];
+
     public $selectedColors = [];
+
     public $removeColor = true;
 
     protected $rules = [
@@ -28,7 +33,7 @@ class Shop extends Component
         'sale.quantity' => 'required|numeric',
         'sale.description' => 'required|string',
         'sale.product_id' => 'required',
-        'sale.user_id' => 'required'
+        'sale.user_id' => 'required',
     ];
 
     public function render()
@@ -72,14 +77,16 @@ class Shop extends Component
     public function store()
     {
         if ($this->sale->quantity > $this->stock->current_quantity) {
-            $this->hasError("La cantidad solicitada no está disponible");
+            $this->hasError('La cantidad solicitada no está disponible');
             $this->emit('update-price');
+
             return;
         }
 
         if (count($this->selectedColors) > $this->sale->quantity) {
-            $this->hasError("La cantidad y los colores no coinciden");
+            $this->hasError('La cantidad y los colores no coinciden');
             $this->emit('update-price');
+
             return;
         }
 
@@ -103,7 +110,7 @@ class Shop extends Component
 
     public function addColor($color)
     {
-        if (!in_array($color, $this->selectedColors)) {
+        if (! in_array($color, $this->selectedColors)) {
             array_push($this->selectedColors, $color);
         }
 

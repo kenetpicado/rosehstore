@@ -75,8 +75,8 @@ class Stock extends Model
     {
         if ($search) {
             return $query->whereHas('product', function ($q) use ($search) {
-                $q->where('description', 'like', '%' . $search . '%')
-                    ->orWhere('SKU', 'like', '%' . $search . '%');
+                $q->where('description', 'like', '%'.$search.'%')
+                    ->orWhere('SKU', 'like', '%'.$search.'%');
             });
         }
     }

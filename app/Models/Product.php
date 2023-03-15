@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use App\Casts\TrimCast;
-use App\Models\User;
 use App\Services\CurrencyService;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -67,8 +66,8 @@ class Product extends Model
     public function scopeSearching($query, $search)
     {
         if ($search) {
-            $query->where('SKU', 'like', '%' . $search . '%')
-                ->orWhere('description', 'like', '%' . $search . '%');
+            $query->where('SKU', 'like', '%'.$search.'%')
+                ->orWhere('description', 'like', '%'.$search.'%');
         }
     }
 
