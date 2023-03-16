@@ -6,6 +6,7 @@ use App\Models\Category;
 use App\Models\Product;
 use App\Models\User;
 use App\Traits\AlertsTrait;
+use Illuminate\Validation\Rule;
 use Livewire\Component;
 
 class ProductRegister extends Component
@@ -16,17 +17,20 @@ class ProductRegister extends Component
 
     public $isNew = false;
 
-    protected $rules = [
-        'product.SKU' => 'required|alpha_dash|max:50|unique:products,SKU',
-        'product.description' => 'required|max:100',
-        'product.default_cost' => 'required|numeric',
-        'product.default_price' => 'required|numeric',
-        'product.user_id' => 'nullable',
-        'product.note' => 'nullable|max:50',
-        'product.image' => 'nullable|max:255|url',
-        'product.category_id' => 'required',
-        'product.status' => 'required',
-    ];
+    public function rules()
+    {
+        return [
+            'product.SKU' => ['required', 'alpha_dash', 'max:50', Rule::unique('products', 'SKU')->ignore($this->product->id)],
+            'product.description' => 'required|max:100',
+            'product.default_cost' => 'required|numeric',
+            'product.default_price' => 'required|numeric',
+            'product.user_id' => 'nullable',
+            'product.note' => 'nullable|max:50',
+            'product.image' => 'nullable|max:255|url',
+            'product.category_id' => 'required',
+            'product.status' => 'required',
+        ];
+    }
 
     public function render()
     {
