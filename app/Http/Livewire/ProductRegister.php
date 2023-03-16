@@ -17,7 +17,7 @@ class ProductRegister extends Component
     public $isNew = false;
 
     protected $rules = [
-        'product.SKU' => 'required|alpha_dash|max:50',
+        'product.SKU' => 'required|alpha_dash|max:50|unique:products,SKU',
         'product.description' => 'required|max:100',
         'product.default_cost' => 'required|numeric',
         'product.default_price' => 'required|numeric',
