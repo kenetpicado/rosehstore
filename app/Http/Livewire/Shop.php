@@ -39,7 +39,6 @@ class Shop extends Component
     public function render()
     {
         $products = Product::query()
-            ->where('status', true)
             ->hasStock()
             ->with(['stocks' => function ($query) {
                 $query->select('id', 'current_quantity', 'size', 'price', 'product_id')

@@ -66,7 +66,7 @@
             <th>C$ UNIDAD</th>
             <th>Cantidad</th>
             <th>Total</th>
-            {{-- <th>Opciones</th> --}}
+            <th>Opciones</th>
         @endslot
         @forelse ($sales as $sale)
             <tr>
@@ -85,7 +85,7 @@
                 <td>{{ $sale->format_price }}</td>
                 <td>{{ $sale->quantity }}</td>
                 <td class="text-dark font-weight-bold">{{ $sale->format_total }}</td>
-                {{-- <td data-title="Opciones">
+                <td>
                     <x-dropdown>
                        <button class="dropdown-item" wire:click="edit({{ $sale->id }})">
                             Editar
@@ -95,7 +95,7 @@
                             Eliminar
                         </button>
                     </x-dropdown>
-                </td> --}}
+                </td>
             </tr>
         @empty
             <tr>

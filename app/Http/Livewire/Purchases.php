@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use App\Models\Stock;
 use App\Services\CurrencyService;
+use App\Traits\AlertsTrait;
 use App\Traits\PropertiesTrait;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
@@ -11,6 +12,7 @@ use Livewire\Component;
 class Purchases extends Component
 {
     use PropertiesTrait;
+    use AlertsTrait;
 
     public $search = null;
 
