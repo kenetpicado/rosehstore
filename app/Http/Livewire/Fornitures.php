@@ -30,6 +30,8 @@ class Fornitures extends Component
         'forniture.price' => 'required|numeric',
         'forniture.image' => 'required|url|max:255',
         'forniture.status' => 'required',
+        'forniture.cost' => 'required|numeric',
+        'forniture.quantity' => 'required|numeric',
     ];
 
     public function render()

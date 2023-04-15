@@ -13,6 +13,8 @@
 
     <x-modal label="Agregar">
         <x-input name="forniture.name" label="Nombre"></x-input>
+        <x-input name="forniture.cost" label="Costo (Unidad)"></x-input>
+        <x-input name="forniture.quantity" label="Cantidad"></x-input>
         <x-input name="forniture.price" label="Precio de alquiler"></x-input>
         <x-input name="forniture.image" label="Imagen"></x-input>
         <x-select name="forniture.status" label="Catalogo">
@@ -46,14 +48,16 @@
             <th>Imagen</th>
             <th>Nombre</th>
             <th>Catalogo</th>
+            <th>Costo (Unidad)</th>
+            <th>Cantidad</th>
+            <th>Total</th>
             <th>Precio alquiler</th>
             <th>Acciones</th>
         @endslot
         @forelse ($fornitures as $forniture)
             <tr>
                 <td>
-                    <img class="rounded-lg img-table" src="{{ $forniture->image }}"
-                        alt="Sin imagen">
+                    <img class="rounded-lg img-table" src="{{ $forniture->image }}" alt="Sin imagen">
                 </td>
                 <td class="text-dark font-weight-bold">{{ $forniture->name }}</td>
                 <td>
@@ -63,6 +67,9 @@
                         <span class="badge badge-danger">No mostrar</span>
                     @endif
                 </td>
+                <td>{{ $forniture->format_cost }}</td>
+                <td>{{ $forniture->quantity ?? 0 }}</td>
+                <td>{{ $forniture->format_total }}</td>
                 <td>{{ $forniture->format_price }}</td>
                 <td>
                     <x-dropdown>
@@ -91,7 +98,7 @@
             {!! $fornitures->links() !!}
         @endslot
     </x-table>
-     @push('scripts')
+    @push('scripts')
         <script>
             Livewire.on('close-rent-modal', function() {
                 $('#rentModal').modal('hide')

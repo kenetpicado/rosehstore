@@ -19,4 +19,14 @@ class Forniture extends Model
     {
         return (new CurrencyService)->format($this->price);
     }
+
+    public function getFormatCostAttribute()
+    {
+        return (new CurrencyService)->format($this->cost);
+    }
+
+    public function getFormatTotalAttribute()
+    {
+        return (new CurrencyService)->format($this->cost * $this->quantity);
+    }
 }

@@ -18,6 +18,7 @@ class Home extends Component
             'stock' => $stock,
             'sales' => $statsService->monthlySales(),
             'purchases' => $statsService->monthlyPurchases(),
+            'fornitures' => (new CurrencyService)->format($statsService->currentInventoryFornitures()),
             'current_total_cost' => (new CurrencyService)->format($stock->sum('current_total_cost')),
         ]);
     }

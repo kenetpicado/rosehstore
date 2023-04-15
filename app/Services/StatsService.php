@@ -44,4 +44,14 @@ class StatsService
             ->groupBy('products.user_id')
             ->get();
     }
+
+    public function currentInventoryFornitures()
+    {
+        return DB::table('fornitures')
+            ->where('quantity', '>', 0)
+            ->select(
+                DB::raw('SUM(quantity * cost) as total_cost'),
+            )
+            ->value('total_cost');
+    }
 }
