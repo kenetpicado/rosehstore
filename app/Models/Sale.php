@@ -58,9 +58,9 @@ class Sale extends Model
     public function scopeSearching($query, $search)
     {
         return $query->when($search, function ($q) use ($search) {
-            $q->where('description', 'like', '%'.$search.'%')
+            $q->where('sales.description', 'like', '%'.$search.'%')
                 ->orWherehas('product', function ($q) use ($search) {
-                    $q->where('description', 'like', '%'.$search.'%')
+                    $q->where('products.description', 'like', '%'.$search.'%')
                         ->orWhere('SKU', 'like', '%'.$search.'%');
                 });
         });
